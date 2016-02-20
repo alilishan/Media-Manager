@@ -1,0 +1,78 @@
+/* BEGIN Light */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/OpenSans/Light/OpenSans-Light.eot');
+  src: url('fonts/OpenSans/Light/OpenSans-Light.eot?#iefix') format('embedded-opentype'), url('fonts/OpenSans/Light/OpenSans-Light.woff') format('woff'), url('fonts/OpenSans/Light/OpenSans-Light.ttf') format('truetype'), url('fonts/OpenSans/Light/OpenSans-Light.svg#OpenSansLight') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+/* BEGIN Regular */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/OpenSans/Regular/OpenSans-Regular.eot');
+  src: url('fonts/OpenSans/Regular/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('fonts/OpenSans/Regular/OpenSans-Regular.woff') format('woff'), url('fonts/OpenSans/Regular/OpenSans-Regular.ttf') format('truetype'), url('fonts/OpenSans/Regular/OpenSans-Regular.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* BEGIN Bold */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/OpenSans/Bold/OpenSans-Bold.eot');
+  src: url('fonts/OpenSans/Bold/OpenSans-Bold.eot?#iefix') format('embedded-opentype'), url('fonts/OpenSans/Bold/OpenSans-Bold.woff') format('woff'), url('fonts/OpenSans/Bold/OpenSans-Bold.ttf') format('truetype'), url('fonts/OpenSans/Bold/OpenSans-Bold.svg#OpenSansBold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+html,
+body { padding: 0; margin: 0; font-family: 'Open Sans', 'Verdana', Helvetica, Arial, sans-serif; font-size: 14px; height: 100%;}
+body { color: #666; background: #FFF;}
+
+/*.page { bottom:0; padding: 0; position:absolute; top:0;  width:100%; height:100%; }
+.page.ng-leave  { z-index:9999; }
+.page.ng-enter  { z-index:8888; }
+.page.ng-leave {
+  -webkit-animation:slideOutLeft 0.5s both ease-in;
+  -moz-animation:slideOutLeft 0.5s both ease-in;
+  animation:slideOutLeft 0.5s both ease-in;   
+}
+.page.ng-enter {  
+  -webkit-animation:slideInRight 0.5s both ease-in;
+  -moz-animation:slideInRight 0.5s both ease-in;
+  animation:slideInRight 0.5s both ease-in;    
+}*/
+
+/* slide in from the right */
+/*@keyframes slideInRight { from  { transform:translateX(100%); } to    { transform: translateX(0); } }
+@-moz-keyframes slideInRight { from  { -moz-transform:translateX(100%); } to    { -moz-transform: translateX(0); } }
+@-webkit-keyframes slideInRight { from  { -webkit-transform:translateX(100%); } to    { -webkit-transform: translateX(0); } }
+*/
+/* slide in from the bottom */
+/*@keyframes slideOutLeft { to    { transform: translateX(-100%); } }
+@-moz-keyframes slideOutLeft {   to    { -moz-transform: translateX(-100%); } }
+@-webkit-keyframes slideOutLeft { to    { -webkit-transform: translateX(-100%); } }*/
+
+body { padding-top: 50px; }
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+    
+}
+.sidebar, .main {margin-bottom: 60px;}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+    background-color: #f5f5f5;
+    border-top: 1px solid #eee;
+}

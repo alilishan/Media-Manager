@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="mm-dependencies/jq-fancybox/jquery.fancybox.css"> 
+	<script src="mm-dependencies/jquery-1.12.0.min.js"></script>
+	<script src="mm-dependencies/q.js"></script>
+	<script src="mm-dependencies/jq-fancybox/jquery.fancybox.pack.js"></script>
+	<script src="MediaManager.js"></script>
+	<script>
+		$(document).ready(function(){
+
+			MediaManager.Initialize({
+				path: 'media-manager/'
+			});
+
+			$('.various').on('click', function(e){
+				e.preventDefault();
+				var data = $(this).data();
+				MediaManager.Open(data).then(function(resp){
+					console.log('various', resp);
+				});
+			});
+
+			$('.other').on('click', function(e){
+				e.preventDefault();
+				var data = $(this).data();
+				MediaManager.Open(data).then(function(resp){
+					console.log('other', resp);
+				});
+			});
+
+		});
+	</script>
+
+</head>
+<body>
+
+<a href="#" class="various" data-fancybox-type="iframe" data-filter-type="images">Open Media Manager</a><br>
+<a href="#" class="other" data-fancybox-type="iframe" data-filter-type="videos">Textsr</a>
+	
+</body>
+</html>
