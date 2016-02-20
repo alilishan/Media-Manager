@@ -12,6 +12,10 @@
 	<script>
 		$(document).ready(function(){
 
+			MediaManager.fancybox.afterClose = function(){
+				console.log('closed')
+			}
+			
 			MediaManager.Initialize({
 				path: 'media-manager/'
 			});

@@ -37,7 +37,7 @@ var MediaManager = {
 			var data = JSON.parse(args[0].data);
 			
 			if(data.action == 'close'){
-				$.fancybox.close();
+				$this.Close();
 			} else {
 				if($this.callbacks.hasOwnProperty(data.id)){
 					$this.callbacks[data.id].resolve(data);
@@ -68,5 +68,12 @@ MediaManager.Open = function(options){
 	$.fancybox.open($this.fancybox);
 
 	//console.log(data, $this.callbacks, $this.fancybox);
+	return response.promise;
+}
+
+MediaManager.Close = function(){
+	var response = Q.defer();
+	$.fancybox.close();
+	response.resolve();
 	return response.promise;
 }
