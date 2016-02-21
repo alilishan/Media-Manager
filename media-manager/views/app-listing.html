@@ -23,13 +23,24 @@
 				</div>
 				<div class="info">
 					<div class="filename row">
-						<div class="col-xs-2 text-center icon icon-{{item.type}}"><i class="glyphicon" ng-class="{ 'glyphicon-picture':item.type == 'image', 'glyphicon-facetime-video':item.type == 'video', 'glyphicon-file':item.type == 'page'}"></i></div>
+						<div class="col-xs-2 text-center icon icon-{{item.type}}"><i class="fa" ng-class="{ 'fa-image':item.type == 'image', 'fa-film':item.type == 'video', 'fa-file-code-o':item.type == 'page'}"></i></div>
 						<div class="col-xs-10 text-left text">{{item.name}}</div>
 						<span></span>
 					</div>
 				</div>
 			</div>
 
+		</div>
+
+		<div class="empty-filters">
+			<h1>No results found</h1>
+			<small>Try adjusting your search or filter to find what you're looking for.</small>
+		</div>
+
+		<div class="drop-support">
+			<div class="icon"><div class="fa fa-cloud-upload"></div></div>
+			<p class="bold">Drag & Drop</p>
+			<p>your media files, or <span class="btn-browse">browse</span></p>
 		</div>
 
 	</div>

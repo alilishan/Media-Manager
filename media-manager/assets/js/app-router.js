@@ -15,7 +15,7 @@ function RouterConfigurations ($stateProvider, $urlRouterProvider){
         })
 
         .state('app.listing', {
-            url: '/listing?id?filter?select',
+            url: '/listing?id?selectMode?filterType',
             views: {
                 'app-content': {
                     templateUrl: 'views/app-listing.html',

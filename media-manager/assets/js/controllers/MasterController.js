@@ -12,6 +12,10 @@ function MasterController($scope, APP_CONST){
 		_this.selected = {
 			text: '',
 			items: []
+		};
+		_this.filter = {
+			show: false,
+			type: 'all'
 		}
 	
 }

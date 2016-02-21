@@ -11,6 +11,13 @@ function ListingController($scope, APP_CONST, $stateParams){
 
 	$scope.params = $stateParams;
 	$scope.consts = APP_CONST;
+	$scope.filterEnabled = false;
+
+	if(!angular.isUndefined($scope.params.filterType)){
+		$scope.masterController.filter.type = $scope.params.filterType;
+	}
+
+	console.log($scope.params, $scope.masterController.filter)
 
 	// $scope.sendMessage = function(){
 	// 	var obj = {

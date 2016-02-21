@@ -63,8 +63,8 @@ MediaManager.Open = function(options){
 	var $this = this;
 	var data = $.extend({
 			id: Math.floor(50*Math.random())+""+(new Date).getTime(),
-			select: 'single',
-			filter: 'all'
+			selectMode: 'single',
+			filterType: 'all'
 		}, options);
 	var response = Q.defer();
 

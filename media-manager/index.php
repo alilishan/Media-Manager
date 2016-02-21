@@ -1,15 +1,10 @@
-<?php /*$data = file_get_contents("data.json");*/ ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="mediaManager">
 <head>
-	<meta charset="UTF-8">
-	<meta charset="utf-8">
+	<meta charset="UTF-8">">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Event Ignite</title>
-	<script>
-		//var kioskData = <?php /*echo $data;*/ ?>;	
-	</script>
+	<title>Media Manager</title>
 	
 	<link rel="stylesheet" href="assets/libs/bootstrap-3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
@@ -22,11 +17,6 @@
 	<script src="assets/libs/angular-1.5.0/angular-ui-router.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-animate.min.js"></script>
 
-	<!-- Less
-	<link rel="stylesheet/less" type="text/css" data-global-vars='{"themeColor": "#26ac25"}' href="assets/css/app-theme.less" />
-	<script data-env="development" src="assets/libs/less/less.min.js"></script>
-	 -->
-
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>
 	<!--<script src="assets/js/factories/DataFactory.js"></script>-->
@@ -36,7 +26,7 @@
 	
 
 </head>
-<body ng-controller="MasterController as masterController" ><!--  onmousedown="return false;" -->
+<body ng-controller="MasterController as masterController" >
 	
 	<div class="mm-wrapper">
 		
@@ -49,11 +39,8 @@
 				</ul>
 			</div>
 			<div class="container-fluid">
-				<ul class="nav navbar-nav" ng-show="masterController.selected.items.length">
-					<li><a href=""><i class="fa fa-trash-o "></i></a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href=""><i class="fa fa-sort-alpha-asc"></i></a></li>
+				<ul class="nav navbar-nav navbar-right nav-pushed-left">
+					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
 					<div class="fancy-filter">
@@ -61,23 +48,28 @@
 						<i class="ff-icon fa fa-search"></i>
 					</div>
 				</form>
+				<a class="btn-add"><span class="btnf-icon"></span></a>
 			</div>
 		</div>
 
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar">
+				<div class="col-xs-2 sidebar">
 					<ul class="nav nav-sidebar">
-						<li class="active"><a href="#">All</a></li>
-						<li><a href="#"><i class="sb-icon glyphicon glyphicon-picture"></i> Images</a></li>
-						<li><a href="#"><i class="sb-icon glyphicon glyphicon-facetime-video"></i> Videos</a></li>
-						<li><a href="#"><i class="sb-icon glyphicon glyphicon-file"></i> Pages</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'all'}"><a href="">All</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'images'}"><a href=""><i class="sb-icon fa fa-image"></i> Images</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'videos'}"><a href=""><i class="sb-icon fa fa-film"></i> Videos</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'pages'}"><a href=""><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
 					</ul>
 				</div>
 
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main mm-maincontent">
+				<div class=" col-xs-offset-2 col-xs-10 main mm-maincontent" ng-class="{ 'col-xs-8': masterController.filter.show }">
 					<div ui-view></div>
+				</div>
+
+				<div class="col-xs-2 filters" ng-class="{'is-open':  masterController.filter.show }">
+					
 				</div>
 			</div>
 		</div>
@@ -89,6 +81,7 @@
 					<div class="col-xs-3 text-left"><a href="" ng-click="masterController.closeMessage(masterController.open_id)" class="btn btn-link">Cancel</a></div>
 					<div class="col-xs-6 text-center">
 						<div class="select-count btn" ng-show="masterController.selected.items.length"><span class="label label-success">{{masterController.selected.items.length}}</span>{{masterController.selected.text}}</div>
+						<a href="" class="btn btn-default"  ng-show="masterController.selected.items.length"><i class="fa fa-trash-o "></i></a>
 					</div>
 					<div class="col-xs-3">
 						<a href="" ng-show="masterController.selected.items.length" ng-click="masterController.makeSelection(masterController.open_id, masterController.selected.items)" class="btn btn-success">Select</a>
