@@ -12,6 +12,7 @@
 	</script>
 	
 	<link rel="stylesheet" href="assets/libs/bootstrap-3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
 	<link rel="stylesheet" href="assets/libs/animate.css">
 
@@ -33,7 +34,7 @@
 	<script src="assets/js/app-router.js"></script>
 	<!--<script src="assets/js/factories/DataFactory.js"></script>-->
 	<script src="assets/js/controllers/MasterController.js"></script>
-	<script src="assets/js/controllers/ImagesController.js"></script>
+	<script src="assets/js/controllers/ListingController.js"></script>
 	<script src="assets/js/directives/MainContentDirective.js"></script>
 	
 
@@ -44,14 +45,39 @@
 		
 		<div class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
-				<button type="button" class="close" ng-click="masterController.closeMessage()" aria-label="Close">&times;</button>
 				<div class="navbar-header"><span class="navbar-brand">Media Manager</span></div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
+					<li><a href="" ng-click="masterController.closeMessage(masterController.open_id)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
+				</ul>
+			</div>
+			<div class="container-fluid">
+				<ul class="nav navbar-nav" ng-show="masterController.selected.items.length">
+					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-trash"></i></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></li>
+				</ul>
+				<form class="navbar-form navbar-right">
+					<div class="fancy-filter">
+						<input type="text" class="form-control" placeholder="">
+						<i class="ff-icon glyphicon glyphicon-search"></i>
+					</div>
+				</form>
 			</div>
 		</div>
 
+
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar"></div>
+				<div class="col-sm-3 col-md-2 sidebar">
+					<ul class="nav nav-sidebar">
+						<li class="active"><a href="#">All</a></li>
+						<li><a href="#"><i class="glyphicon glyphicon-picture"></i> Images</a></li>
+						<li><a href="#"><i class="glyphicon glyphicon-facetime-video"></i> Videos</a></li>
+						<li><a href="#"><i class="glyphicon glyphicon-file"></i> Pages</a></li>
+					</ul>
+				</div>
 
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main mm-maincontent">
 					<div ui-view></div>
@@ -59,9 +85,19 @@
 			</div>
 		</div>
 
+
 		<footer class="footer">
-			<div class="container">
-				<p class="text-muted">Place sticky footer content here.</p>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-3 text-left"><a href="" ng-click="masterController.closeMessage(masterController.open_id)" class="btn btn-link">Cancel</a></div>
+					<div class="col-xs-6 text-center">
+						<div class="select-count btn" ng-show="masterController.selected.items.length"><span class="label label-success">{{masterController.selected.items.length}}</span>{{masterController.selected.text}}</div>
+					</div>
+					<div class="col-xs-3">
+						<a href="" ng-show="masterController.selected.items.length" ng-click="masterController.makeSelection(masterController.open_id, masterController.selected.items)" class="btn btn-success">Select</a>
+					</div>
+				</div>
+				
 			</div>
 		</footer>
 

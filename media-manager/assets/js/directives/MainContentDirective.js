@@ -15,8 +15,10 @@ function MainContentDirective($timeout){
 				$(document).ready(function($) {
 					$(element).css({
 						position: 'absolute',
-						height: ($(window).innerHeight() - 110)+'px', //110 is offset heights for header and footerbars
+						height: ($(window).innerHeight() - 160)+'px', //(100 + 60) is offset heights for header and footerbars
 						overflow: 'auto',
+						left: '0',
+						top: '101px' //Headerbar is 100px
 					});
 				});
 

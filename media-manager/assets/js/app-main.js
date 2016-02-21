@@ -22,7 +22,7 @@ angular
 angular
     .module('mediaManager')
     .constant('APP_CONST',{
-        'postmessageParent': 'http://localhost'
+        'postmessageParent': window.parent.MediaManager.settings.postmessageParent
     });
 
 /*angular

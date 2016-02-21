@@ -14,12 +14,12 @@ function RouterConfigurations ($stateProvider, $urlRouterProvider){
             templateUrl: 'views/app-main.html',
         })
 
-        .state('app.images', {
-            url: '/images?id',
+        .state('app.listing', {
+            url: '/listing?id?filter?select',
             views: {
                 'app-content': {
-                    templateUrl: 'views/app-images.html',
-                    controller: 'ImagesController'
+                    templateUrl: 'views/app-listing.html',
+                    controller: 'ListingController'
                 }
             }
         })

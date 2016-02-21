@@ -4,7 +4,6 @@
 	// $q
 
 var MediaManager = {
-	postmessageParent: 'http://localhost/',
 	fancybox: { 
 		title : null,
 		type: 'iframe',
@@ -24,6 +23,7 @@ var MediaManager = {
 	Initialize: function(options){
 		this.settings = $.extend({
 			path: '',
+			postmessageParent: 'http://localhost/',
 		}, options);
 
 		this.initialized = false;
@@ -38,11 +38,15 @@ var MediaManager = {
 			
 			if(data.action == 'close'){
 				$this.Close();
+				if($this.callbacks.hasOwnProperty(data.id)) delete $this.callbacks[data.id];
+				
 			} else {
 				if($this.callbacks.hasOwnProperty(data.id)){
 					$this.callbacks[data.id].resolve(data);
 
 					delete $this.callbacks[data.id];
+
+					$this.Close();
 				}
 			}	
 		}, false);
@@ -58,12 +62,14 @@ var MediaManager = {
 MediaManager.Open = function(options){
 	var $this = this;
 	var data = $.extend({
-			id: Math.floor(50*Math.random())+""+(new Date).getTime()
+			id: Math.floor(50*Math.random())+""+(new Date).getTime(),
+			select: 'single',
+			filter: 'all'
 		}, options);
 	var response = Q.defer();
 
 	$this.callbacks[data.id] = response;
-	$this.fancybox.href = $this.settings.path+'#/app/images?id='+data.id;
+	$this.fancybox.href = $this.settings.path+'#/app/listing?'+$.param(data);
 
 	$.fancybox.open($this.fancybox);
 
