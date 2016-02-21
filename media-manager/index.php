@@ -13,17 +13,14 @@
 	
 	<link rel="stylesheet" href="assets/libs/bootstrap-3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
+	<link rel="stylesheet" href="assets/libs/font-awesome-4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
-	<link rel="stylesheet" href="assets/libs/animate.css">
 
 	<script src="assets/libs/jquery-1.12.0.min.js"></script>
 	<script src="assets/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-ui-router.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-animate.min.js"></script>
-	<script src="assets/plugin/ng-moment/moment.js"></script>
-	<script src="assets/plugin/ng-moment/angular-moment.min.js"></script>
-	<script src="assets/libs/underscore-min.js"></script>
 
 	<!-- Less
 	<link rel="stylesheet/less" type="text/css" data-global-vars='{"themeColor": "#26ac25"}' href="assets/css/app-theme.less" />
@@ -53,15 +50,15 @@
 			</div>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav" ng-show="masterController.selected.items.length">
-					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-trash"></i></a></li>
+					<li><a href=""><i class="fa fa-trash-o "></i></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></li>
+					<li><a href=""><i class="fa fa-sort-alpha-asc"></i></a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
 					<div class="fancy-filter">
 						<input type="text" class="form-control" placeholder="">
-						<i class="ff-icon glyphicon glyphicon-search"></i>
+						<i class="ff-icon fa fa-search"></i>
 					</div>
 				</form>
 			</div>
@@ -73,9 +70,9 @@
 				<div class="col-sm-3 col-md-2 sidebar">
 					<ul class="nav nav-sidebar">
 						<li class="active"><a href="#">All</a></li>
-						<li><a href="#"><i class="glyphicon glyphicon-picture"></i> Images</a></li>
-						<li><a href="#"><i class="glyphicon glyphicon-facetime-video"></i> Videos</a></li>
-						<li><a href="#"><i class="glyphicon glyphicon-file"></i> Pages</a></li>
+						<li><a href="#"><i class="sb-icon glyphicon glyphicon-picture"></i> Images</a></li>
+						<li><a href="#"><i class="sb-icon glyphicon glyphicon-facetime-video"></i> Videos</a></li>
+						<li><a href="#"><i class="sb-icon glyphicon glyphicon-file"></i> Pages</a></li>
 					</ul>
 				</div>
 
