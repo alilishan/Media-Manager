@@ -5,7 +5,7 @@ angular
 	.controller('ListingController', ListingController);
 
 
-function ListingController($scope, APP_CONST, $stateParams){
+function ListingController($scope, APP_CONST, $stateParams, $timeout){
 	$scope.masterController.pageClass = 'page-images';
 	$scope.masterController.open_id = $stateParams.id;
 
@@ -13,8 +13,14 @@ function ListingController($scope, APP_CONST, $stateParams){
 	$scope.consts = APP_CONST;
 	$scope.filterEnabled = false;
 
+	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
 		$scope.masterController.filter.type = $scope.params.filterType;
+	}
+
+	//Set Fileupload
+	if(!angular.isUndefined($scope.params.selectMode)){
+		$scope.masterController.fileupload.multiple = ($scope.params.selectMode == 'multiple')? true : false;
 	}
 
 	console.log($scope.params, $scope.masterController.filter)

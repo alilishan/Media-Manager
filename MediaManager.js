@@ -24,6 +24,7 @@ var MediaManager = {
 		this.settings = $.extend({
 			path: '',
 			postmessageParent: 'http://localhost/',
+			fileuploadPath: 'http://localhost/mediaManager/ajax_image_upload.php'
 		}, options);
 
 		this.initialized = false;
