@@ -8,11 +8,11 @@
 
 <div class="media-listing">
 	
-	<div class="media-container">
+	<div class="media-container" ng-show="mediaList.length">
 		
 		<div class="row center-xs">
 			
-			<div class="col-xs-3 media-item" ng-repeat="item in mediaList" ng-class="{'item-selected': item.selected}">
+			<div class="col-xs-3 media-item" ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type})" ng-class="{'item-selected': item.selected}">
 				<div class="image"><img ng-src="{{item.url}}" alt=""></div>
 				<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
 				<div class="overlay text-left">
@@ -32,12 +32,20 @@
 
 		</div>
 
-		<div class="empty-filters">
+		<div class="empty-filters" ng-if="!mediaItems.length">
 			<h1>No results found</h1>
 			<small>Try adjusting your search or filter to find what you're looking for.</small>
 		</div>
 
+	</div>
 
+	<div class="empty-filters" ng-if="!mediaList.length && !showLoading">
+		<h1>No Data</h1>
+		<small>Try Adding in a few media items.</small>
+	</div>
+
+	<div class="empty-filters" ng-if="showLoading">
+		<h1>Loading</h1>
 	</div>
 
 </div>

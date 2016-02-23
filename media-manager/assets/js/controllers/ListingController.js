@@ -5,14 +5,16 @@ angular
 	.controller('ListingController', ListingController);
 
 
-function ListingController($scope, APP_CONST, $stateParams, $timeout){
+function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactory){
 	$scope.masterController.pageClass = 'page-images';
 	$scope.masterController.open_id = $stateParams.id;
 
+	$scope.showLoading = true;
 	$scope.params = $stateParams;
 	$scope.consts = APP_CONST;
 	$scope.filterEnabled = false;
 	$scope.addEnaled = false;
+	$scope.mediaList = [];
 
 	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
@@ -26,16 +28,18 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout){
 
 	console.log($scope.params, $scope.masterController.filter)
 
-	// $scope.sendMessage = function(){
-	// 	var obj = {
-	// 		id: $stateParams.id,
-	// 		url: '',
-	// 		action: 'select'
-	// 	}
-	// 	parent.postMessage(JSON.stringify(obj), APP_CONST.postmessageParent);
-	// }
+	$scope.getData = function(){
+		DataFactory.getMediaListing().then(function(resp){
+			console.log(resp.data);
+			$scope.mediaList= resp.data;	
+			$scope.showLoading = false;
+		}, function(error){
+			$scope.masterController.showTaost('Error Getting Data [E1002]', 10000);
+			$scope.showLoading = false;
+		});
+	}
 
-	$scope.mediaList = [
+	/*$scope.mediaList = [
 		{
 			id: '1',
 			name: 'Motorbike', selected: false,
@@ -54,7 +58,9 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout){
 			type: 'page', width: '1080px', height: '1920px', ext: 'png',
 			url: 'http://3.bp.blogspot.com/-G_Vuo5eX5UA/Ut0uoqiNqyI/AAAAAAAAA7Q/yes-azQstJk/s200-c/Cristiano+Ronaldo+HD+Wallpaper+1080p.jpg'
 		}
-	]
+	]*/
+
+	/*console.log(JSON.stringify($scope.mediaList, 2, ' '))*/
 
 	$scope.selectItem = function(item){
 		item.selected = !item.selected;
@@ -74,4 +80,6 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout){
 		console.log('Reload Data')
 	});
 
+	//Initialize
+	$scope.getData();
 }

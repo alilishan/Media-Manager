@@ -19,6 +19,7 @@
 
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>
+	<script src="assets/js/factories/DataFactory.js"></script>
 	<script src="assets/js/factories/FileUploadFactory.js"></script>
 	<script src="assets/js/controllers/MasterController.js"></script>
 	<script src="assets/js/controllers/ListingController.js"></script>
@@ -59,10 +60,10 @@
 			<div class="row">
 				<div class="col-xs-2 sidebar">
 					<ul class="nav nav-sidebar">
-						<li ng-class="{'active': masterController.filter.type == 'all'}"><a href="">All</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'images'}"><a href=""><i class="sb-icon fa fa-image"></i> Images</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'videos'}"><a href=""><i class="sb-icon fa fa-film"></i> Videos</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'pages'}"><a href=""><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
+						<li ng-class="{'active': masterController.filter.type == ''}"><a href="" ng-click="masterController.filter.type = ''">All</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'image'}"><a href="" ng-click="masterController.filter.type = 'image'"><i class="sb-icon fa fa-image"></i> Images</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'video'}"><a href="" ng-click="masterController.filter.type = 'video'"><i class="sb-icon fa fa-film"></i> Videos</a></li>
+						<li ng-class="{'active': masterController.filter.type == 'page'}"><a href="" ng-click="masterController.filter.type = 'page'"><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
 					</ul>
 				</div>
 
@@ -92,6 +93,10 @@
 				
 			</div>
 		</footer>
+
+		<div id="mm-toast-cover" class="row center-xs middle-xs">
+			<div class="col-xs-3"><div class="mm-toast-msg" ng-class="{'is-open': masterController.toast.message !== '' }">{{masterController.toast.message}}</div></div>
+		</div>
 
 	</div>
 

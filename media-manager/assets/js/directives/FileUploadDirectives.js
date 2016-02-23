@@ -28,6 +28,12 @@ function FileinputChangeDirective($timeout){
 						element.attr('multiple', '');
 					}
 				}, true);
+
+				scope.$on('FILEUPLOAD-CLOSED', function(){
+					setTimeout(function() {
+						element.val('');
+					}, 1000);	
+				});
 			}
 
 			$timeout(function(){

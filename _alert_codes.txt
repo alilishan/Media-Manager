@@ -1,1 +1,2 @@
 E1001 - Error Uploading File
+E1002 - Error getting listing 

@@ -23,7 +23,8 @@ angular
     .module('mediaManager')
     .constant('APP_CONST',{
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
-        'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath
+        'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
+        'getMediaListing': window.parent.MediaManager.settings.getMediaListing
     });
 
 /*angular

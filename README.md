@@ -8,6 +8,7 @@ Project Independent Media Manager
 
 ###Used
 * Flexbox Grid - http://flexboxgrid.com/
+* ngThumb - https://github.com/nervgh/angular-file-upload/blob/master/examples/image-preview/directives.js
 
 ###Config
 * like postmessage address 

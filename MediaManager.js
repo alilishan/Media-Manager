@@ -24,7 +24,8 @@ var MediaManager = {
 		this.settings = $.extend({
 			path: '',
 			postmessageParent: 'http://localhost/',
-			fileuploadPath: 'http://localhost/mediaManager/ajax_image_upload.php'
+			fileuploadPath: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
+			getMediaListing: 'http://localhost/mediaManager/example_files/mm-data.json'
 		}, options);
 
 		this.initialized = false;
@@ -65,7 +66,7 @@ MediaManager.Open = function(options){
 	var data = $.extend({
 			id: Math.floor(50*Math.random())+""+(new Date).getTime(),
 			selectMode: 'single',
-			filterType: 'all'
+			filterType: ''
 		}, options);
 	var response = Q.defer();
 

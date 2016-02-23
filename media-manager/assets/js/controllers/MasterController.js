@@ -9,6 +9,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 	var _this = this;
 		_this.APP_CONST = APP_CONST;
 		_this.open_id = '';
+		_this.$timeout = $timeout;
 
 		_this.selected = {
 			text: '',
@@ -17,11 +18,15 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 
 		_this.filter = {
 			show: false,
-			type: 'all'
+			type: ''
 		};
 
 		_this.addItems = {
 			enabled: false
+		}
+
+		_this.toast = {
+			message: ''
 		}
 
 		_this.fileupload = {
@@ -42,6 +47,10 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 				}
 				
 				return false;
+			}, 
+			close: function(){
+				_this.fileupload.enabled = false;
+				$rootScope.$broadcast('FILEUPLOAD-CLOSED');
 			}	
 		}
 
@@ -133,4 +142,14 @@ MasterController.prototype.modifyTheme = function(data){
 	less.modifyVars({
 		'@themeColor': data.color
 	});
+}
+
+MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)
+	var $this = this;
+		$this.toast.message = msg;
+	var duration = angular.isUndefined(duration)? 3000: parseInt(duration);
+	
+	$this.$timeout(function(){
+		$this.toast.message = '';
+	}, duration);	
 }
