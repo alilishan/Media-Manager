@@ -20,15 +20,24 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			type: 'all'
 		};
 
+		_this.addItems = {
+			enabled: false
+		}
+
 		_this.fileupload = {
+			enabled: false,
 			multiple: false,
 			files: [],
-			filesLength: 0,
+			filesCompleted: 0,
 			addFiles: function(files){
 				if(files.length) {
-					$scope.prepUpload(files).then(function(){
+					//Close Add Menu
+					_this.addItems.enabled = false;
+					_this.fileupload.enabled = true;
+
+					_this.prepUpload(files).then(function(){
 						//Broadcaste new files done
-						console.log('DONE')
+						$rootScope.$broadcast('FILEUPLOAD-COMPLETED');
 					});
 				}
 				
@@ -36,17 +45,18 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			}	
 		}
 
-		$scope.prepUpload = function(files){
+		_this.prepUpload = function(files){
 			var deferred = $q.defer();
-			var filesLength = files.length,
-				filesCompleted = 0,
-				callbackCount = 0;
+			var filesLength = files.length;
+
 
 			var checkProgress = function(){
-				if(filesCompleted == filesLength) {
+				if(_this.fileupload.filesCompleted == filesLength) {
 					deferred.resolve();
 				}
 			}	
+
+			_this.fileupload.filesCompleted = 0;
 
 
 			if(filesLength){
@@ -56,7 +66,9 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 					var file = _this.fileupload.files[i];
 						file.progress = 0;
 						file.error = false;
+						file.errorMsg = false;
 						file.success = false;
+						file.sizeMB = (file.size / 1048576).toFixed(1) + ' MB '; // MB = 2^20 = 1,048,576 Bytes
 
 						UploadFactory.upload(APP_CONST.fileuploadPath, file, i).then(function(resp){
 							//console.log('s', resp)
@@ -68,16 +80,18 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 							} else {
 								_this.fileupload.files[resp.id].success = false;
 								_this.fileupload.files[resp.id].error = true;
+								_this.fileupload.files[resp.id].errorMsg = resp.data.message
 							}
 
-							filesCompleted ++;
+							_this.fileupload.filesCompleted ++;
 							checkProgress();
 
 						}, function(id, resp){
 							_this.fileupload.files[resp.id].success = false;
 							_this.fileupload.files[resp.id].error = true;
+							_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]'
 
-							filesCompleted ++;
+							_this.fileupload.filesCompleted ++;
 							checkProgress();
 
 						}, function(resp){
@@ -86,6 +100,8 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 
 				}
 
+			} else {
+				deferred.reject();
 			}	
 
 			return deferred.promise;

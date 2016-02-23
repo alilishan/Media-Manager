@@ -12,6 +12,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout){
 	$scope.params = $stateParams;
 	$scope.consts = APP_CONST;
 	$scope.filterEnabled = false;
+	$scope.addEnaled = false;
 
 	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
@@ -67,5 +68,10 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout){
 			$scope.masterController.selected.text = ($scope.masterController.selected.items.length > 1)? 'Items Selected' : 'Item Selected';
 		}
 	}
+
+
+	$scope.$on('FILEUPLOAD-COMPLETED', function(){
+		console.log('Reload Data')
+	});
 
 }

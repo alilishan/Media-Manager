@@ -1,2 +1,50 @@
 
 <div ui-view="app-content" class="page {{masterController.pageClass}}"></div>
+
+
+<div id="mm-addfiles-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.addItems.enabled}">
+	<div class="col-xs-10">
+		<div class="drop-support">
+			<div class="icon"><div class="fa fa-cloud-upload"></div></div>
+			<p class="bold">Drag & Drop</p>
+			<p>your media files, or <label for="mm-media-upload-input" class="btn-browse">browse</label></p>
+			<div class="input-group input-group-lg">
+				<input type="text" class="form-control" placeholder="or perhaps a Virtual File">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Create</button>
+				</span>
+			</div>
+			<!-- <input type="text" class="form-control input-lg" placeholder="or perhaps a Virtual File"> -->
+		</div>
+	</div>
+</div>
+
+
+
+<div id="mm-fileupload-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.fileupload.enabled }">
+	<div class="col-xs-4 fu-progress">
+
+		<div class="header-bar">Completed {{masterController.fileupload.filesCompleted}} of {{masterController.fileupload.files.length}}</div>
+		<div class="content-sec">
+			
+			<div class="media" ng-repeat="item in masterController.fileupload.files">
+				<div class="media-left">
+					<div mm-thumb class="mm-thumb" ng-model="item"></div>
+					<!-- <img src="https://placeholdit.imgix.net/~text?txtsize=6&txt=50%C3%9750&w=50&h=50" alt=""> -->
+				</div>
+				<div class="media-body">
+					<span class="label label-success pull-right" ng-if="item.progress > 99 && item.success"><i class="fa fa-check"></i></span>
+					<span class="label label-danger pull-right" ng-if="item.progress > 99 && item.error"><i class="fa fa-remove"></i></span>
+					<div class="media-heading">{{item.name}}</div>
+					<div class="text-muted">
+						<span ng-if="item.errorMsg == false">{{item.sizeMB}} - {{item.type}}</span>
+						<span ng-if="item.errorMsg != false" class="text-danger">{{item.errorMsg}}</span>
+					</div>
+				</div>
+				<div class="fu-p-bar" ng-style="{'width': item.progress + '%'}"></div>
+			</div>
+			
+		</div>
+		<div class="footer-bar"> <a href="" ng-click="fileupload.enabled = false"  ng-class="{'disabled': masterController.fileupload.filesCompleted !== masterController.fileupload.files.length}" class="btn btn-link">CLOSE</a> </div>
+	</div>
+</div>	 

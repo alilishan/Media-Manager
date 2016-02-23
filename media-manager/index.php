@@ -49,10 +49,11 @@
 						<i class="ff-icon fa fa-search"></i>
 					</div>
 				</form>
-				<label for="mm-media-upload-input" class="btn-add"><span class="btnf-icon"></span></label>
+				<!-- <label for="mm-media-upload-input" class="btn-add"><span class="btnf-icon"></span></label> -->
 			</div>
 		</div>
 
+		<a href="" ng-click="masterController.addItems.enabled = !masterController.addItems.enabled" ng-class="{'btnf-close': masterController.addItems.enabled}" class="btn-add"><span class="btnf-icon"></span></a>
 
 		<div class="container-fluid">
 			<div class="row">
@@ -92,31 +93,8 @@
 			</div>
 		</footer>
 
-		<div id="fileupload-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.fileupload.files.length > 0 }">
-			<div class="col-xs-4 fu-progress">
-
-				<div class="header-bar"></div>
-				<div class="content-sec">
-					
-					<div class="media" ng-repeat="item in masterController.fileupload.files">
-						<div class="media-left">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=6&txt=50%C3%9750&w=50&h=50" alt="">
-						</div>
-						<div class="media-body">
-							<span class="label label-success pull-right" ng-if="item.progress > 99 && item.success"><i class="fa fa-check"></i></span>
-							<span class="label label-danger pull-right" ng-if="item.progress > 99 && item.error"><i class="fa fa-remove"></i></span>
-							<div class="media-heading">{{item.name}}</div>
-							<div class="text-muted">{{item.size}} - {{item.type}}</div>
-						</div>
-						<div class="fu-p-bar" ng-style="{'width': item.progress + '%'}"></div>
-					</div>
-					
-				</div>
-				<div class="footer-bar"></div>
-			</div>
-		</div>	 
-
 	</div>
+
 
 	<form id="mm-media-upload" action="#" method="POST"><input type="file" id="mm-media-upload-input" mm-on-change ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" name="file[]" ></form>
 
