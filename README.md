@@ -7,6 +7,8 @@ Project Independent Media Manager
 * Nice screenshots in readme
 * Reduce dependency on Fancybox and $Q
 * Idea for Add Menu - http://codepen.io/hone/pen/jERzmd
+* Minify and Pack assets - Use Grunt or Gulp
+* Css preprocess - Less or Sass
 
 ###Dependencies
 * jQuery
@@ -33,7 +35,7 @@ Project Independent Media Manager
 ###Open 
 ```javascript
 {
-	selectMode: '', //single or multiple
-	filterType: ''  // image, video, page
+	selectMode: '', //single or multiple [default, single]
+	filterType: ''  // image, video, page [default, all]
 }
 ```
