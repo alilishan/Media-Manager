@@ -3,6 +3,7 @@
 angular
 	.module('mediaManager')
 	.directive('mmOnChange', FileinputChangeDirective)
+	.directive('mmDropzone', FileinputDropzoneDirective)
 	.directive('mmThumb', ImagePreviewDirective);
 
 
@@ -18,8 +19,8 @@ function FileinputChangeDirective($timeout){
 				element.on('change', function(event){
 					event.preventDefault();
 					var files = (event.target.files !== undefined) ? event.target.files : (event.target.value ? { name: event.target.value.replace(/^.+\\/, '') } : null);	
-						console.log(event, files);
-					var onChangeFn = scope.$eval('$parent.'+attrs.ngOnChange);
+						//console.log(event, files);
+					var onChangeFn = scope.$eval('$parent.'+attrs.ngOnChange); //Need to do this because of targetting issues
 						onChangeFn(files);	
 				});
 
@@ -44,6 +45,44 @@ function FileinputChangeDirective($timeout){
 	}
 }
 
+function FileinputDropzoneDirective(){
+	return {
+		restrict: 'A',
+		scope: {
+			ngMultiple: '=',
+			ngOnChange: '&',
+		},
+		link: function(scope, element, attrs){
+			console.log('Ignoring single select for now. Its set as:', scope.ngMultiple)
+			//console.log(scope.ngOnChange)
+
+			var support = (window.File && window.FileReader && window.FileList && window.Blob) ? true : false;
+
+			if(!support){
+				element.addClass('no-drop-support');
+			} else {
+				element
+					.on('dragenter', function(ev) { 
+						$(this).addClass('on-drop-hover'); 
+						return false; 
+					})
+					.on('dragleave', function(ev) { 
+						$(this).removeClass('on-drop-hover'); 
+						return false; 
+					})
+					.on('dragover', function(ev) { return false; })
+					.on('drop', function(ev) {
+						var dt = ev.originalEvent.dataTransfer;
+						var files = (dt.files !== undefined) ? dt.files : (e.target.value ? { name: e.target.value.replace(/^.+\\/, '') } : null);
+						//console.log(files);
+						var onChangeFn = scope.$eval('$parent.'+attrs.ngOnChange); //Need to do this because of targetting issues
+							onChangeFn(files);	
+						return false;
+					});
+			}
+		}
+	}
+}
 
 function ImagePreviewDirective($timeout, $window){
     var helper = {

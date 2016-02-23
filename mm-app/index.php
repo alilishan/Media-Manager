@@ -37,7 +37,7 @@
 				<div class="navbar-header"><span class="navbar-brand">Media Manager</span></div>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
-					<li><a href="" ng-click="masterController.closeMessage(masterController.open_id)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
+					<li><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
 				</ul>
 			</div>
 			<div class="container-fluid">
@@ -45,12 +45,11 @@
 					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
-					<div class="fancy-filter">
-						<input type="text" class="form-control" placeholder="">
+					<div class="fancy-filter" ng-class="{'is-wide':masterController.filter.search.string}">
+						<input type="text" class="form-control" ng-model="masterController.filter.search.string" placeholder="SEARCH">
 						<i class="ff-icon fa fa-search"></i>
 					</div>
 				</form>
-				<!-- <label for="mm-media-upload-input" class="btn-add"><span class="btnf-icon"></span></label> -->
 			</div>
 		</div>
 
@@ -72,7 +71,7 @@
 				</div>
 
 				<div class="col-xs-2 filters" ng-class="{'is-open':  masterController.filter.show }">
-					
+					<div class="well text-center">More Filters Coming Soon</div>
 				</div>
 			</div>
 		</div>
@@ -81,13 +80,13 @@
 		<footer class="footer">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-xs-3 text-left"><a href="" ng-click="masterController.closeMessage(masterController.open_id)" class="btn btn-link">Cancel</a></div>
+					<div class="col-xs-3 text-left"><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn btn-link">Cancel</a></div>
 					<div class="col-xs-6 text-center">
 						<div class="select-count btn" ng-show="masterController.selected.items.length"><span class="label label-success">{{masterController.selected.items.length}}</span>{{masterController.selected.text}}</div>
-						<a href="" class="btn btn-default"  ng-show="masterController.selected.items.length"><i class="fa fa-trash-o "></i></a>
+						<a href="" class="btn btn-link"  ng-show="masterController.selected.items.length" ng-click="masterController.deleteSelection(masterController.OPEN_ID, masterController.selected.items)"><span class="text-danger"><i class="fa fa-trash-o "></i> Delete</span></a>
 					</div>
 					<div class="col-xs-3">
-						<a href="" ng-show="masterController.selected.items.length" ng-click="masterController.makeSelection(masterController.open_id, masterController.selected.items)" class="btn btn-success">Select</a>
+						<a href="" ng-show="masterController.selected.items.length" ng-click="masterController.makeSelection(masterController.OPEN_ID, masterController.selected.items)" class="btn btn-success">Select</a>
 					</div>
 				</div>
 				

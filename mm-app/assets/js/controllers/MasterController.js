@@ -8,7 +8,8 @@ angular
 function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFactory){
 	var _this = this;
 		_this.APP_CONST = APP_CONST;
-		_this.open_id = '';
+		_this.OPEN_ID = '';
+		_this.$rootScope = $rootScope;
 		_this.$timeout = $timeout;
 
 		_this.selected = {
@@ -18,11 +19,22 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 
 		_this.filter = {
 			show: false,
-			type: ''
+			type: '',
+			search: {
+				enabled: false,
+				string: ''
+			}
 		};
 
 		_this.addItems = {
-			enabled: false
+			enabled: false,
+			virtualFile: {
+				name: '',
+				type: 'video',
+				create: function(){
+					$rootScope.$broadcast('VFILE-CREATE-REQUEST');
+				}
+			}
 		}
 
 		_this.toast = {
@@ -131,17 +143,14 @@ MasterController.prototype.makeSelection = function(id, items){
 	var $this = this;
 	var obj = {
 		id: id,
-		url: '',
 		action: 'select',
 		items: items
 	}
 	parent.postMessage(JSON.stringify(obj), $this.APP_CONST.postmessageParent);
 }
 
-MasterController.prototype.modifyTheme = function(data){
-	less.modifyVars({
-		'@themeColor': data.color
-	});
+MasterController.prototype.deleteSelection = function(id, items){
+	this.$rootScope.$broadcast('MM-ITEMS-DELETED', {id:id, items:items});
 }
 
 MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)

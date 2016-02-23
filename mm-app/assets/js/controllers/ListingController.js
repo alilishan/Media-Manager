@@ -5,9 +5,9 @@ angular
 	.controller('ListingController', ListingController);
 
 
-function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactory){
+function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactory, $log){
 	$scope.masterController.pageClass = 'page-images';
-	$scope.masterController.open_id = $stateParams.id;
+	$scope.masterController.OPEN_ID = $stateParams.id;
 
 	$scope.showLoading = true;
 	$scope.params = $stateParams;
@@ -29,56 +29,66 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	console.log($scope.params, $scope.masterController.filter)
 
 	$scope.getData = function(){
+		
 		DataFactory.getMediaListing().then(function(resp){
-			console.log(resp.data);
+			//console.log(resp.data);
 			$scope.mediaList= resp.data;	
 			$scope.showLoading = false;
+			
+			$scope.masterController.selected.items = [];
+			
 		}, function(error){
 			$scope.masterController.showTaost('Error Getting Data [E1002]', 10000);
 			$scope.showLoading = false;
 		});
 	}
 
-	/*$scope.mediaList = [
-		{
-			id: '1',
-			name: 'Motorbike', selected: false,
-			type: 'image', width: '1080px', height: '1920px', ext: 'png',
-			url: 'http://rs1225.pbsrc.com/albums/ee388/joinedbro/JB%20Web%20SIte%20Blog/JBHDWallpapers2.jpg~c200'
-		}, 
-		{
-			id: '2',
-			name: 'Lone blue Tree', selected: false,
-			type: 'video', width: '1080px', height: '1920px', ext: 'png',
-			url: 'http://www.3dwallpapersonline.com/wp-content/uploads/2015/12/Winter-HD-Wallpapers-3-200x200.jpg'
-		}, 
-		{
-			id: '3',
-			name: 'Ronaldo preping to take a kick.', selected: false,
-			type: 'page', width: '1080px', height: '1920px', ext: 'png',
-			url: 'http://3.bp.blogspot.com/-G_Vuo5eX5UA/Ut0uoqiNqyI/AAAAAAAAA7Q/yes-azQstJk/s200-c/Cristiano+Ronaldo+HD+Wallpaper+1080p.jpg'
-		}
-	]*/
-
-	/*console.log(JSON.stringify($scope.mediaList, 2, ' '))*/
-
 	$scope.selectItem = function(item){
-		item.selected = !item.selected;
-
 		if(item.selected){
-			$scope.masterController.selected.items.push(item);
-			$scope.masterController.selected.text = ($scope.masterController.selected.items.length > 1)? 'Items Selected' : 'Item Selected'; 
-		} else {
+			item.selected = false;
 			var index = $scope.masterController.selected.items.indexOf(item);
 			if(!angular.isUndefined(index)) $scope.masterController.selected.items.splice(index, 1);
 			$scope.masterController.selected.text = ($scope.masterController.selected.items.length > 1)? 'Items Selected' : 'Item Selected';
-		}
+		} else {
+			if($scope.masterController.fileupload.multiple || $scope.masterController.selected.items.length < 1){
+				item.selected = true;
+				$scope.masterController.selected.items.push(item);
+				$scope.masterController.selected.text = ($scope.masterController.selected.items.length > 1)? 'Items Selected' : 'Item Selected'; 
+			} 
+		}	
+		return false;
 	}
 
 
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
-		console.log('Reload Data')
+		$log.debug('Reloading Media List');
+		$scope.getData();
 	});
+
+	$scope.$on('MM-ITEMS-DELETED', function(e, data){
+		//console.log(data);
+		$scope.showLoading = true;
+		DataFactory.postMediaDelete(data).then(function(){
+			$log.debug('Reloading Media List');
+			$scope.getData();
+		});
+	});
+
+	$scope.$on('VFILE-CREATE-REQUEST', function(){
+		if($scope.masterController.addItems.virtualFile.name != ''){
+			$scope.masterController.addItems.enabled = false;
+			$scope.showLoading = true;
+
+			DataFactory.postVirtualFile({
+				id:$scope.masterController.OPEN_ID, 
+				name:$scope.masterController.addItems.virtualFile.name, 
+				type:$scope.masterController.addItems.virtualFile.type 
+			}).then(function(){
+				$log.debug('Reloading Media List');
+				$scope.getData();
+			});
+		}
+	});	
 
 	//Initialize
 	$scope.getData();

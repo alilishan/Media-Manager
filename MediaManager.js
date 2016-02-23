@@ -16,16 +16,27 @@ var MediaManager = {
 		openSpeed: 100,
 		openSpeed: 100,
 		autoSize: false,
+		scrolling: 'no',
+		scrollOutside: false,
 		modal: true,
+		helpers: { 
+			media : {}, 
+			overlay : {
+				closeClick : false,
+				css : { 'background' : 'rgba(0, 0, 0, .8)', 'overflow': 'hidden'}
+			}
+		},
 		afterShow: function(){},
 		afterClose: function(){}
 	},
 	Initialize: function(options){
 		this.settings = $.extend({
-			path: '',
+			path: 'mm-app/',
 			postmessageParent: 'http://localhost/',
 			fileuploadPath: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
-			getMediaListing: 'http://localhost/mediaManager/example_files/mm-data.json'
+			getMediaListing: 'http://localhost/mediaManager/example_files/mm-data.json', 
+			postMediaDelete: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
+			postVirtualFile: 'http://localhost/mediaManager/example_files/ajax_image_upload.php'
 		}, options);
 
 		this.initialized = false;

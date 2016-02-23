@@ -24,7 +24,9 @@ angular
     .constant('APP_CONST',{
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
-        'getMediaListing': window.parent.MediaManager.settings.getMediaListing
+        'getMediaListing': window.parent.MediaManager.settings.getMediaListing,
+        'postMediaDelete': window.parent.MediaManager.settings.postMediaDelete,
+        'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile
     });
 
 /*angular

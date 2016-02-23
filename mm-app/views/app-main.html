@@ -2,16 +2,21 @@
 <div ui-view="app-content" class="page {{masterController.pageClass}}"></div>
 
 
-<div id="mm-addfiles-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.addItems.enabled}">
+<div id="mm-addfiles-cover" mm-dropzone ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" class="row center-xs middle-xs" ng-class="{'is-open': masterController.addItems.enabled}">
 	<div class="col-xs-10">
-		<div class="drop-support">
+		<div class="dropzone-inner">
 			<div class="icon"><div class="fa fa-cloud-upload"></div></div>
-			<p class="bold">Drag & Drop</p>
-			<p>your media files, or <label for="mm-media-upload-input" class="btn-browse">browse</label></p>
+			<div class="has-drop">
+				<p class="bold">Drag & Drop</p>
+				<p>your media files, or <label for="mm-media-upload-input" class="btn-browse">browse</label></p>
+			</div>
+			<div class="no-drop">
+				<p><label for="mm-media-upload-input" class="btn-browse">Browse</label> for your files</p>
+			</div>
 			<div class="input-group input-group-lg">
-				<input type="text" class="form-control" placeholder="or perhaps a Virtual File">
+				<input type="text" class="form-control" ng-model="masterController.addItems.virtualFile.name" placeholder="or perhaps a Virtual File">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Create</button>
+					<button class="btn btn-default" ng-click="masterController.addItems.virtualFile.create()" type="button">Create</button>
 				</span>
 			</div>
 			<!-- <input type="text" class="form-control input-lg" placeholder="or perhaps a Virtual File"> -->

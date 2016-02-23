@@ -3,12 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-
+	
+	<!-- For Example Page formatting -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+	<!-- Dependencies -->
 	<link rel="stylesheet" href="mm-dependencies/jq-fancybox/jquery.fancybox.css"> 
+
 	<script src="mm-dependencies/jquery-1.12.0.min.js"></script>
 	<script src="mm-dependencies/q.js"></script>
 	<script src="mm-dependencies/jq-fancybox/jquery.fancybox.pack.js"></script>
+	
+	<!-- Media Manager  -->
 	<script src="MediaManager.js"></script>
+
 	<script>
 		$(document).ready(function(){
 
@@ -17,23 +25,28 @@
 			}
 
 			MediaManager.Initialize({
-				path: 'media-manager/',
+				path: 'mm-app/',
 				postmessageParent: 'http://localhost/'
 			});
 
-			$('.various').on('click', function(e){
+			$('#btn-single .btn').on('click', function(e){
 				e.preventDefault();
 				var data = $(this).data();
 				MediaManager.Open(data).then(function(resp){
 					console.log('various', resp);
+					$('#btn-single .form-control').val(resp.items[0].url);
 				});
 			});
 
-			$('.other').on('click', function(e){
+			$('#btn-multiple').on('click', function(e){
 				e.preventDefault();
 				var data = $(this).data();
 				MediaManager.Open(data).then(function(resp){
 					console.log('other', resp);
+					for (var i = 0; i < resp.items.length; i++) {
+						var item = resp.items[i];
+						$('<input type="text" class="form-control" value="'+item.url+'" style="margin: 5px;">').appendTo('#cnt-multiple')
+					};
 				});
 			});
 
@@ -43,9 +56,37 @@
 </head>
 <body>
 
-<a href="#" class="various" data-filter-type="image" data-select-mode="single">Open Media Manager</a><br>
-<a href="#" class="other" data-filter-type="video" data-select-mode="multiple">Textsr</a><br>
-<a href="#" class="other" data-select-mode="multiple">All</a>
+<div class="container">
+	<div class="page-header"><h1>Media Manager</h1></div>
+
+	<h2>Single</h2>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div id="btn-single" class="input-group">
+				<input type="text" class="form-control" placeholder="Search for...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" data-filter-type="image" data-select-mode="single">Get Image</button>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+
+	<h2>Multiple</h2>
+
+	<div id="btn-multiple" class="btn btn-default"  data-filter-type="image" data-select-mode="multiple">Get Images</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div id="cnt-multiple"></div>
+		</div>
+	</div>
+	
+	<hr>
+
+</div>
 	
 </body>
 </html>
