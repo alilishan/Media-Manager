@@ -36,7 +36,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header"><span class="navbar-brand">Media Manager</span></div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
+					<li><a href="" ng-click="masterController.showInfo()" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
 					<li><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
 				</ul>
 			</div>

@@ -127,6 +127,12 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 
 			return deferred.promise;
 		}	
+
+
+
+		_this.showInfo = function(){
+			_this.showTaost(APP_CONST.restrictionMessage, 10000);
+		}
 	
 }
 

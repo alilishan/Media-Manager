@@ -133,6 +133,7 @@ a, .btn, .btn:focus {outline: none !important;}
   border: none; 
   width: 96px !important; 
   padding-left: 30px;
+  box-shadow: none;
 
   -webkit-transition: width 200ms ease;
           transition: width 200ms ease;
@@ -152,7 +153,7 @@ a, .btn, .btn:focus {outline: none !important;}
 }
 .mm-wrapper .fancy-filter .form-control::-webkit-input-placeholder,
 .mm-wrapper .fancy-filter .form-control::placeholder {
-  color: #777;
+  color: #555;
 }
 
 
