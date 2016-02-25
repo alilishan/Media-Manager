@@ -32,9 +32,33 @@ Project Independent Media Manager
 	postVirtualFile: ''
 }
 ```
-###Open 
+###Usage 
+```javascript
+	var data = {
+		selectMode: '', //single or multiple [default, single]
+		filterType: ''  // image, video, page [default, all]
+	}
+
+	$('your button').on('click', function(e){
+		e.preventDefault();
+		
+		MediaManager.Open(data).then(function(resp){
+			//Do Your Thing
+			//Will return an array of the selcted objects.
+		});
+
+	});
+```
+###Required Format
 ```javascript
 {
-	selectMode: '', //single or multiple [default, single]
-	filterType: ''  // image, video, page [default, all]
+	"id": "",
+	"name": "",
+	"selected": false,
+	"type": "",
+	"width": "",
+	"height": "",
+	"ext": "png",
+	"url": ""
 }
+```

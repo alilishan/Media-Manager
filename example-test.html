@@ -33,7 +33,7 @@
 				e.preventDefault();
 				var data = $(this).data();
 				MediaManager.Open(data).then(function(resp){
-					console.log('various', resp);
+					console.log('various', JSON.stringify(resp, 2, ' '));
 					$('#btn-single .form-control').val(resp.items[0].url);
 				});
 			});
