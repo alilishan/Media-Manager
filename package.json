@@ -1,0 +1,24 @@
+{
+  "name": "media-manager",
+  "version": "1.0.0",
+  "description": "Standalone Media Manager for various projects",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alilishan/Media-Manager.git"
+  },
+  "keywords": [
+    "media",
+    "manager"
+  ],
+  "author": "Ali Lishan",
+  "bugs": {
+    "url": "https://github.com/alilishan/Media-Manager/issues"
+  },
+  "homepage": "https://github.com/alilishan/Media-Manager#readme",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-less": "^1.2.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

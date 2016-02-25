@@ -32,7 +32,7 @@ var MediaManager = {
 	Initialize: function(options){
 		this.settings = $.extend({
 			path: 'mm-app/',
-			postmessageParent: 'http://localhost/',
+			postmessageParent: '*',
 			fileuploadPath: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
 			getMediaListing: 'http://localhost/mediaManager/example_files/mm-data.json', 
 			postMediaDelete: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
