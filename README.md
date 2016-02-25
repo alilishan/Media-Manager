@@ -1,8 +1,6 @@
 
 # Media-Manager
 Project Independent Media Manager
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
 
 ###Todo
 * Media List filter animation
@@ -46,7 +44,7 @@ Project Independent Media Manager
 		
 		MediaManager.Open(data).then(function(resp){
 			//Do Your Thing
-			//Will return an array of the selcted objects.
+			//Will return an array of the selected objects.
 		});
 
 	});
@@ -64,3 +62,7 @@ Project Independent Media Manager
 	"url": ""
 }
 ```
+
+##Screenshots
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
