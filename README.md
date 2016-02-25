@@ -1,6 +1,8 @@
 
 # Media-Manager
 Project Independent Media Manager
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
 
 ###Todo
 * Media List filter animation
