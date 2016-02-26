@@ -27,5 +27,10 @@ angular
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
         'getMediaListing': window.parent.MediaManager.settings.getMediaListing,
         'postMediaDelete': window.parent.MediaManager.settings.postMediaDelete,
-        'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile
+        'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile,
+        'firstLevelFilters': {
+            image: window.parent.MediaManager.settings.flf_image,
+            video: window.parent.MediaManager.settings.flf_video,
+            page: window.parent.MediaManager.settings.flf_page
+        }
     });

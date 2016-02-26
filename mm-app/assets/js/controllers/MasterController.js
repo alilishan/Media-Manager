@@ -11,6 +11,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 		_this.OPEN_ID = '';
 		_this.$rootScope = $rootScope;
 		_this.$timeout = $timeout;
+		_this.firstLevelFilters = APP_CONST.firstLevelFilters;
 
 		_this.selected = {
 			text: '',
@@ -46,6 +47,8 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			multiple: false,
 			files: [],
 			filesCompleted: 0,
+			filesSuccessCount: 0,
+			filesErrorCount: 0,
 			addFiles: function(files){
 				if(files.length) {
 					//Close Add Menu
@@ -78,7 +81,8 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			}	
 
 			_this.fileupload.filesCompleted = 0;
-
+			_this.fileupload.filesSuccessCount = 0;
+			_this.fileupload.filesErrorCount = 0;
 
 			if(filesLength){
 				_this.fileupload.files = files;
@@ -98,10 +102,14 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 							if(resp.data.status == 'true'){
 								_this.fileupload.files[resp.id].success = true;
 								_this.fileupload.files[resp.id].error = false;
+								
+								_this.fileupload.filesSuccessCount ++;
 							} else {
 								_this.fileupload.files[resp.id].success = false;
 								_this.fileupload.files[resp.id].error = true;
-								_this.fileupload.files[resp.id].errorMsg = resp.data.message
+								_this.fileupload.files[resp.id].errorMsg = resp.data.message;
+
+								_this.fileupload.filesErrorCount ++;
 							}
 
 							_this.fileupload.filesCompleted ++;
@@ -110,8 +118,9 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						}, function(id, resp){
 							_this.fileupload.files[resp.id].success = false;
 							_this.fileupload.files[resp.id].error = true;
-							_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]'
+							_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]';
 
+							_this.fileupload.filesErrorCount ++;
 							_this.fileupload.filesCompleted ++;
 							checkProgress();
 

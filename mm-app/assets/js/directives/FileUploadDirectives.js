@@ -61,17 +61,20 @@ function FileinputDropzoneDirective(){
 			if(!support){
 				element.addClass('no-drop-support');
 			} else {
-				element
-					.on('dragenter', function(ev) { 
-						$(this).addClass('on-drop-hover'); 
-						return false; 
-					})
-					.on('dragleave', function(ev) { 
-						$(this).removeClass('on-drop-hover'); 
-						return false; 
-					})
+ 
+			$(window)
+				.draghover()
+				.on({'draghoverstart': function() {
+						$('body').addClass('on-drop-hover');
+					}, 'draghoverend': function() {
+						$('body').removeClass('on-drop-hover');
+					}
+				});
+
+				$('body')
 					.on('dragover', function(ev) { return false; })
 					.on('drop', function(ev) {
+						$('body').removeClass('on-drop-hover');
 						var dt = ev.originalEvent.dataTransfer;
 						var files = (dt.files !== undefined) ? dt.files : (e.target.value ? { name: e.target.value.replace(/^.+\\/, '') } : null);
 						//console.log(files);
@@ -130,3 +133,25 @@ function ImagePreviewDirective($timeout, $window){
 	}
 }
 
+// The plugin code
+$.fn.draghover = function(options) {
+  return this.each(function() {
+
+    var collection = $(),
+        self = $(this);
+
+    self.on('dragenter', function(e) {
+      if (collection.length === 0) {
+        self.trigger('draghoverstart');
+      }
+      collection = collection.add(e.target);
+    });
+
+    self.on('dragleave drop', function(e) {
+      collection = collection.not(e.target);
+      if (collection.length === 0) {
+        self.trigger('draghoverend');
+      }
+    });
+  });
+};

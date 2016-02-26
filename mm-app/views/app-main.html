@@ -29,7 +29,13 @@
 <div id="mm-fileupload-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.fileupload.enabled }">
 	<div class="col-xs-4 fu-progress">
 
-		<div class="header-bar">Completed {{masterController.fileupload.filesCompleted}} of {{masterController.fileupload.files.length}}</div>
+		<div class="header-bar">
+			<div class="pull-right">
+				<span class="label label-success">{{masterController.fileupload.filesSuccessCount}}</span>
+				<span class="label label-danger">{{masterController.fileupload.filesErrorCount}}</span>
+			</div>
+			<span>Completed {{masterController.fileupload.filesCompleted}} of {{masterController.fileupload.files.length}}</span>
+		</div>
 		<div class="content-sec">
 			
 			<div class="media" ng-repeat="item in masterController.fileupload.files">
@@ -53,3 +59,11 @@
 		<div class="footer-bar"> <a href="" ng-click="masterController.fileupload.close()"  ng-class="{'disabled': masterController.fileupload.filesCompleted !== masterController.fileupload.files.length}" class="btn btn-link">CLOSE</a> </div>
 	</div>
 </div>	 
+
+
+<div id="mm-filedrop-cover"  class="row center-xs middle-xs">
+	<div class="col-xs-4">
+		<div class="icon"><div class="fa fa-cloud-upload"></div></div>
+		<p>Drop Your Files to Upload</p>
+	</div>
+</div>

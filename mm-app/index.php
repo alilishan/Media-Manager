@@ -60,9 +60,9 @@
 				<div class="col-xs-2 sidebar">
 					<ul class="nav nav-sidebar">
 						<li ng-class="{'active': masterController.filter.type == ''}"><a href="" ng-click="masterController.filter.type = ''">All</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'image'}"><a href="" ng-click="masterController.filter.type = 'image'"><i class="sb-icon fa fa-image"></i> Images</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'video'}"><a href="" ng-click="masterController.filter.type = 'video'"><i class="sb-icon fa fa-film"></i> Videos</a></li>
-						<li ng-class="{'active': masterController.filter.type == 'page'}"><a href="" ng-click="masterController.filter.type = 'page'"><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
+						<li ng-if="masterController.firstLevelFilters.image" ng-class="{'active': masterController.filter.type == 'image'}"><a href="" ng-click="masterController.filter.type = 'image'"><i class="sb-icon fa fa-image"></i> Images</a></li>
+						<li ng-if="masterController.firstLevelFilters.video" ng-class="{'active': masterController.filter.type == 'video'}"><a href="" ng-click="masterController.filter.type = 'video'"><i class="sb-icon fa fa-film"></i> Videos</a></li>
+						<li ng-if="masterController.firstLevelFilters.page" ng-class="{'active': masterController.filter.type == 'page'}"><a href="" ng-click="masterController.filter.type = 'page'"><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
 					</ul>
 				</div>
 

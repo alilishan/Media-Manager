@@ -33,10 +33,13 @@ var MediaManager = {
 		this.settings = $.extend({
 			path: 'mm-app/',
 			postmessageParent: '*',
-			fileuploadPath: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
-			getMediaListing: 'http://localhost/mediaManager/example_files/mm-data.json', 
-			postMediaDelete: 'http://localhost/mediaManager/example_files/ajax_image_upload.php',
-			postVirtualFile: 'http://localhost/mediaManager/example_files/ajax_image_upload.php'
+			fileuploadPath: 'http://192.168.0.105/mediaManager/example_files/ajax_image_upload.php',
+			getMediaListing: 'http://192.168.0.105/mediaManager/example_files/mm-data.json', 
+			postMediaDelete: 'http://192.168.0.105/mediaManager/example_files/ajax_image_upload.php',
+			postVirtualFile: 'http://192.168.0.105/mediaManager/example_files/ajax_image_upload.php',
+			flf_image: true, //First Level Filters
+			flf_video: true,
+			flf_page: true
 		}, options);
 
 		this.initialized = false;

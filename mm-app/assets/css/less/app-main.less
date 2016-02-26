@@ -28,6 +28,13 @@ html, body {
 body {
 	padding-top: 100px; 
 	overflow: hidden;
+
+	&.on-drop-hover {
+		#mm-filedrop-cover {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
 }
 
 //MM-WRAPPER
@@ -60,7 +67,7 @@ body {
 		.navbar-nav {
 			> li {
 				> a {
-					line-height: 1em;
+					//line-height: 1em;
 
 					.fa {margin-right: 5px; font-size: 15px;}
 				}
@@ -104,6 +111,10 @@ body {
 			margin-left: -20px;
 
 			> li {
+				display: block;
+				margin-bottom: 2px; 
+				padding: 0;
+
 				> a {
 					padding-right: 20px;
 				  	padding-left: 20px;
@@ -123,7 +134,7 @@ body {
 					> a:focus {
 						color: #428bca;
 						background-color: #fff;
-						box-shadow: inset 3px 0 0 #1784c7;
+						box-shadow: inset 4px 0 0 -1px #1784c7;
 					}
 				}
 			}
@@ -181,6 +192,16 @@ body {
 				text-decoration: none;
 			}
 		}
+
+		.row {
+			margin-right: -15px;
+			margin-left: -15px;
+
+			.col-xs-6 {
+				flex-basis: 49%;
+				max-width: 49%;
+			}
+		}
 	}
 }
 
@@ -219,7 +240,7 @@ body {
 			left: 0;
 			padding: 8px;
 			pointer-events: none;
-			top: 0;
+			top: 1px;
      	}
 
 		&.is-wide {
@@ -294,8 +315,15 @@ body {
 					transition: transform 200ms ease;
 
 					.filename {
-						padding: 10px; 
-						box-sizing: border-box; 
+						//padding: 10px; 
+						//box-sizing: border-box; 
+
+						.info-fn-cols {
+							padding-top: 10px;
+							padding-bottom: 10px;
+
+							.fa {margin-left: 5px;}
+						}
 
 						.icon-image {color: orange;}
 						.icon-video {color: red;}
@@ -590,6 +618,18 @@ body {
 				line-height: 2em;
 				letter-spacing: 0.5px;
 				word-spacing: 1px;
+
+				.label {
+					border-radius: 100px;
+					color: #fff;
+					padding: 1px 12px 2px;
+					margin: 1px 6px 0 0;
+					font-size: 12px;
+					font-weight: 600;
+
+					&.label-success {background: #54c08a;}
+					&.label-danger {background: #a94442;}
+				}
 			}
 
 			.footer-bar{
@@ -662,7 +702,7 @@ body {
 					left: 0;
 					bottom: 0;
 					z-index: 0;
-					background: #f9f9fb;
+					background: #efefef;
 				}
 
 				&:last-child { border-bottom: none; }
@@ -755,4 +795,37 @@ body {
 	overflow: hidden;
 	
 	&:focus {outline: none; box-shadow: none;}
+}
+
+
+//FileDrop 
+.mm-wrapper {
+	#mm-filedrop-cover{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.95);
+		z-index: 1030;
+		opacity: 0;
+		pointer-events: none;
+		transition: transform 200ms ease,opacity 200ms ease;
+		transform: scale(.9); 
+
+		.icon{
+			font-size: 6em;
+			text-align: center;
+			line-height: 0;
+			color: #5f6f93;
+			opacity: .83;
+		}
+
+		p {
+			font-size: 29px;
+			color: #5f6f93;
+			font-weight: 300;
+			text-align: center;
+		}
+	}
 }

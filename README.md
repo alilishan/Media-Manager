@@ -11,6 +11,10 @@ Project Independent Media Manager
 ###Used
 * Flexbox Grid - http://flexboxgrid.com/
 * ngThumb - https://github.com/nervgh/angular-file-upload/blob/master/examples/image-preview/directives.js
+* Drag Hover jQuery Plugin - 
+  * http://stackoverflow.com/questions/10253663/how-to-detect-the-dragleave-event-in-firefox-when-dragging-outside-the-window/10310815#10310815
+  * http://stackoverflow.com/questions/14194324/firefox-firing-dragleave-when-dragging-over-text
+
 
 ##Config
 
@@ -22,7 +26,10 @@ Project Independent Media Manager
 	fileuploadPath: 'example_files/ajax_image_upload.php',
 	getMediaListing: 'example_files/mm-data.json', 
 	postMediaDelete: '',
-	postVirtualFile: ''
+	postVirtualFile: '',
+	flf_image: true, // flf_First Level Filters
+	flf_video: true,
+	flf_page: true
 }
 ```
 ###Usage 

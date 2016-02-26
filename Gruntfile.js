@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     compress: false,
                     yuicompress: true,
                     optimization: 2,
-                    sourceMap: true,
+                    //sourceMap: true,
                     modifyVars: {
                         version: '<%= pkg.version %>'
                     },
