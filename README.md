@@ -4,7 +4,6 @@ Project Independent Media Manager
 
 ###Todo
 * Media List filter animation
-* Nice screenshots in readme
 * Dark theme
 * Reduce dependency on Fancybox and $Q
 * Idea for Add Menu - http://codepen.io/hone/pen/jERzmd
