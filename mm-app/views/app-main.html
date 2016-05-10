@@ -1,5 +1,12 @@
 
+<!-- SIDEBAR COVER -->
+<div ui-view="app-sidebar"></div>
+
+<!-- CONTENT COVER -->
 <div ui-view="app-content" class="page {{masterController.pageClass}}"></div>
+
+<!-- FILTER COVER -->
+<div ui-view="app-filter"></div>
 
 
 <div id="mm-addfiles-cover" mm-dropzone ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" class="row center-xs middle-xs" ng-class="{'is-open': masterController.addItems.enabled}">
@@ -67,3 +74,61 @@
 		<p>Drop Your Files to Upload</p>
 	</div>
 </div>
+
+
+
+<div id="mm-folder-manager" class="row center-xs middle-xs" ng-class="{'is-open': masterController.folders.manager.enabled}">
+	<div class="col-xs-8">
+		<div class="title">
+			<span>Manage Folders</span>
+
+			<div class="input-group pull-right">
+				<input type="text" class="form-control" ng-model="masterController.folders.manager.add.string" placeholder="New Folder">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="masterController.folders.manager.add.submit(masterController.folders.manager.add.string)"><i class="fa fa-plus"></i></button>
+				</span>
+			</div><!-- /input-group -->
+
+		</div>
+
+		<div class="content custom-scrollbar">
+
+			<!-- <div class="input-group" ng-repeat="folder in masterController.folders.list">
+				<i class="fa fa-folder-o"></i>
+				<input type="text" ng-model="folder.name" class="form-control" aria-label="...">
+				<div class="input-group-btn">
+					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.edit(folder.id, folder.name)"><i class="fa fa-floppy-o"></i></a>
+					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.delete(folder.id)"><i class="fa fa-trash-o"></i></a>
+				</div>
+			</div> -->
+
+			<ul class="mm-folderList">
+				<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': '0'})" ng-include="'mm-foldermanager-navtree.html'"></li>
+			</ul>
+			
+		</div>
+		<div class="footbar">
+			<a href="" ng-click="masterController.folders.manager.enabled = false" class="btn btn-link">Close</a>
+		</div>
+	</div>
+</div>
+
+<!-- Tree Item Template -->
+<script type="text/ng-template"  id="mm-foldermanager-navtree.html">
+	<!-- <i class="fa fa-folder-open-o"></i>
+	<span class="folder-name">{{folder.name}}</span> -->
+
+	<div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-folder-o"></i></span>
+		<input type="text" ng-model="folder.name" class="form-control" aria-label="...">
+		<div class="input-group-btn">
+			<a href="" class="btn btn-link" ><i class="fa fa-arrows"></i></a>
+			<a href="" class="btn btn-link" ng-click="masterController.folders.manager.edit(folder.id, folder.name)"><i class="fa fa-floppy-o"></i></a>
+			<a href="" class="btn btn-link" ng-click="masterController.folders.manager.delete(folder.id)"><i class="fa fa-trash-o"></i></a>
+		</div>
+	</div>
+
+	<ul class="mm-folderList">
+		<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': folder.id})" ng-include="'mm-foldermanager-navtree.html'"></li>
+	</ul>
+</script>

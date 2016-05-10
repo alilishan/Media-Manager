@@ -16,6 +16,7 @@
 	<script src="assets/libs/angular-1.5.0/angular.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-ui-router.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-animate.min.js"></script>
+	<script src="assets/libs/underscore-min.js"></script>
 
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>
@@ -42,6 +43,7 @@
 			</div>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav navbar-right nav-pushed-left">
+					<li><a href="" ng-click="masterController.folders.manager.enabled = !masterController.folders.manager.enabled"><i class="fa fa-folder-o"></i> FOLDERS</a></li>
 					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
@@ -57,22 +59,9 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-2 sidebar">
-					<ul class="nav nav-sidebar">
-						<li ng-class="{'active': masterController.filter.type == ''}"><a href="" ng-click="masterController.filter.type = ''">All</a></li>
-						<li ng-if="masterController.firstLevelFilters.image" ng-class="{'active': masterController.filter.type == 'image'}"><a href="" ng-click="masterController.filter.type = 'image'"><i class="sb-icon fa fa-image"></i> Images</a></li>
-						<li ng-if="masterController.firstLevelFilters.video" ng-class="{'active': masterController.filter.type == 'video'}"><a href="" ng-click="masterController.filter.type = 'video'"><i class="sb-icon fa fa-film"></i> Videos</a></li>
-						<li ng-if="masterController.firstLevelFilters.page" ng-class="{'active': masterController.filter.type == 'page'}"><a href="" ng-click="masterController.filter.type = 'page'"><i class="sb-icon fa fa-file-code-o"></i> Pages</a></li>
-					</ul>
-				</div>
-
-				<div class=" col-xs-offset-2 col-xs-10 main mm-maincontent" ng-class="{ 'col-xs-8': masterController.filter.show }">
-					<div ui-view></div>
-				</div>
-
-				<div class="col-xs-2 filters" ng-class="{'is-open':  masterController.filter.show }">
-					<div class="well text-center">More Filters Coming Soon</div>
-				</div>
+				
+				<div ui-view></div>
+				
 			</div>
 		</div>
 

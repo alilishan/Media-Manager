@@ -1,0 +1,31 @@
+//Custom Scroll bars 
+//  https://www.coffeepowered.net/2011/06/17/sexy-css-scrollbars/
+//  http://cssdeck.com/labs/custom-webkit-scrollbars
+.custom-scrollbar {
+	
+	&::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: rgba(0,0,0,.1);
+		-webkit-border-radius: 5px;
+	}
+	
+	&::-webkit-scrollbar-thumb:vertical {
+		background-color: rgba(0,0,0,.2);
+		-webkit-border-radius: 5px;
+	}
+
+	&::-webkit-scrollbar-thumb:vertical:hover,
+	&::-webkit-scrollbar-thumb:horizontal:hover {
+		background-color: #999;
+	}
+
+	&::-webkit-scrollbar-thumb:horizontal {
+		background-color: rgba(0,0,0,.2);
+		-webkit-border-radius: 6px;
+	}
+
+}

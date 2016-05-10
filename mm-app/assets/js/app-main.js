@@ -28,6 +28,9 @@ angular
         'getMediaListing': window.parent.MediaManager.settings.getMediaListing,
         'postMediaDelete': window.parent.MediaManager.settings.postMediaDelete,
         'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile,
+        'postFolderAdd': window.parent.MediaManager.settings.postFolderAdd,
+        'postFolderEdit': window.parent.MediaManager.settings.postFolderEdit,
+        'postFolderDelete': window.parent.MediaManager.settings.postFolderDelete,
         'firstLevelFilters': {
             image: window.parent.MediaManager.settings.flf_image,
             video: window.parent.MediaManager.settings.flf_video,

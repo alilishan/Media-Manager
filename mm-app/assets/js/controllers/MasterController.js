@@ -18,12 +18,43 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			items: []
 		};
 
+		_this.folders = {
+			list:[],
+			selected: '0',
+			manager: {
+				enabled: true,
+				add: {
+					string: '',
+					submit: function(string){
+						if(angular.isUndefined(string) || string == ''){
+							_this.showTaost('Need a Folder Name');
+							return false;
+						}
+						_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {string:string});
+					}
+				},
+				edit: function(id, name){
+					if(angular.isUndefined(name) || name == ''){
+						_this.showTaost('Need a Folder Name');
+						return false;
+					}
+					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', {id: id, name: name});
+				},
+				delete: function(id){
+					_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', {id: id});
+				}
+			}
+		}
+
 		_this.filter = {
-			show: false,
+			show: true,
 			type: '',
 			search: {
 				enabled: false,
 				string: ''
+			},
+			onclick: function(type){
+				_this.filter.type = (type == _this.filter.type)? '' : type;
 			}
 		};
 

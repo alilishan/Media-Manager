@@ -6,54 +6,60 @@
 <pre>{{params | json}}</pre>
 <pre>{{consts | json}}</pre> -->
 
-<div class="media-listing">
-	
-	<div class="media-container" ng-show="mediaList.length && !showLoading">
+<div class=" col-xs-offset-2 col-xs-10 main mm-maincontent custom-scrollbar" ng-class="{ 'col-xs-8': masterController.filter.show }">
+					
+	<div class="media-listing">
 		
-		<div class="row center-xs">
+		<div class="media-container" ng-show="mediaList.length && !showLoading">
 			
-			<div class="col-xs-3 media-item" ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string})" ng-class="{'item-selected': item.selected}">
-				<div class="image"><img ng-src="{{item.url}}" alt=""></div>
-				<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
-				<div class="overlay text-left">
-					<div class="checker big">
-						<label ng-click="selectItem(item)" ng-class="{'is-set': item.selected}"></label>
+			<div class="row center-xs">
+				
+				<div class="col-xs-3 media-item" ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected})" ng-class="{'item-selected': item.selected}">
+					<div class="image"><img ng-src="{{item.url}}" alt=""></div>
+					<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
+					<div class="overlay text-left">
+						<div class="checker big">
+							<label ng-click="selectItem(item)" ng-class="{'is-set': item.selected}"></label>
+						</div>
+					</div>
+					<div class="info">
+						<div class="filename row">
+							<div class="col-xs-2 col-sm-2 info-fn-cols text-center icon icon-{{item.type}}"><i class="fa" ng-class="{ 'fa-image':item.type == 'image', 'fa-film':item.type == 'video', 'fa-file-code-o':item.type == 'page'}"></i></div>
+							<div class="col-xs-9 col-sm-9 info-fn-cols text-left text">{{item.name}}</div>
+						</div>
 					</div>
 				</div>
-				<div class="info">
-					<div class="filename row">
-						<div class="col-xs-2 col-sm-2 info-fn-cols text-center icon icon-{{item.type}}"><i class="fa" ng-class="{ 'fa-image':item.type == 'image', 'fa-film':item.type == 'video', 'fa-file-code-o':item.type == 'page'}"></i></div>
-						<div class="col-xs-9 col-sm-9 info-fn-cols text-left text">{{item.name}}</div>
-					</div>
-				</div>
+
+			</div>
+
+			<div class="empty-filters" ng-if="!mediaItems.length">
+				<h1>No results found</h1>
+				<small>Try adjusting your search or filter to find what you're looking for.</small>
 			</div>
 
 		</div>
 
-		<div class="empty-filters" ng-if="!mediaItems.length">
-			<h1>No results found</h1>
-			<small>Try adjusting your search or filter to find what you're looking for.</small>
+		<div class="empty-filters" ng-if="!mediaList.length && !showLoading">
+			<h1>No Data</h1>
+			<small>Try Adding in a few media items.</small>
+		</div>
+
+		<div class="empty-filters" ng-if="showLoading">
+			<div class="sk-cube-grid">
+				<div class="sk-cube sk-cube1"></div>
+				<div class="sk-cube sk-cube2"></div>
+				<div class="sk-cube sk-cube3"></div>
+				<div class="sk-cube sk-cube4"></div>
+				<div class="sk-cube sk-cube5"></div>
+				<div class="sk-cube sk-cube6"></div>
+				<div class="sk-cube sk-cube7"></div>
+				<div class="sk-cube sk-cube8"></div>
+				<div class="sk-cube sk-cube9"></div>
+			</div>
 		</div>
 
 	</div>
 
-	<div class="empty-filters" ng-if="!mediaList.length && !showLoading">
-		<h1>No Data</h1>
-		<small>Try Adding in a few media items.</small>
-	</div>
 
-	<div class="empty-filters" ng-if="showLoading">
-		<div class="sk-cube-grid">
-			<div class="sk-cube sk-cube1"></div>
-			<div class="sk-cube sk-cube2"></div>
-			<div class="sk-cube sk-cube3"></div>
-			<div class="sk-cube sk-cube4"></div>
-			<div class="sk-cube sk-cube5"></div>
-			<div class="sk-cube sk-cube6"></div>
-			<div class="sk-cube sk-cube7"></div>
-			<div class="sk-cube sk-cube8"></div>
-			<div class="sk-cube sk-cube9"></div>
-		</div>
-	</div>
 
 </div>

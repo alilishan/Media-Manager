@@ -14,6 +14,7 @@ Project Independent Media Manager
 * Drag Hover jQuery Plugin - 
   * http://stackoverflow.com/questions/10253663/how-to-detect-the-dragleave-event-in-firefox-when-dragging-outside-the-window/10310815#10310815
   * http://stackoverflow.com/questions/14194324/firefox-firing-dragleave-when-dragging-over-text
+* [Recursive ng-repeat template](http://stackoverflow.com/questions/15661289/how-can-i-make-recursive-templates-in-angularjs-when-using-nested-objects)  
 
 
 ##Config
@@ -21,7 +22,7 @@ Project Independent Media Manager
 ###Global 
 ```javascript
 {
-	path: 'media-manager/',
+	path: 'path-to/mm-app/',
 	postmessageParent: '*', //Please set a domain for security reasons
 	fileuploadPath: 'example_files/ajax_image_upload.php',
 	getMediaListing: 'example_files/mm-data.json', 
@@ -33,10 +34,23 @@ Project Independent Media Manager
 }
 ```
 ###Usage 
+```html
+	<!-- Dependencies -->
+	<link rel="stylesheet" href="path-to/mm-dependencies/jq-fancybox/jquery.fancybox.css"> 
+
+	<script src="path-to/mm-dependencies/jquery-1.12.0.min.js"></script>
+	<script src="path-to/mm-dependencies/q.js"></script>
+	<script src="path-to/mm-dependencies/jq-fancybox/jquery.fancybox.pack.js"></script>
+	
+	<!-- Media Manager  -->
+	<script src="path-to/MediaManager.js"></script>
+```
+
 ```javascript
 	var data = {
 		selectMode: '', //single or multiple [default, single]
-		filterType: ''  // image, video, page [default, all]
+		filterType: '',  // image, video, page [default, all]
+		selectFolder: '0' //Target Folder
 	}
 
 	$('your button').on('click', function(e){
@@ -49,7 +63,7 @@ Project Independent Media Manager
 
 	});
 ```
-###Required Format
+###Required GET data format
 ```javascript
 {
 	"id": "",
@@ -61,6 +75,23 @@ Project Independent Media Manager
 	"ext": "png",
 	"url": ""
 }
+```
+Example:
+```javascript
+[
+	{
+		"id": "1",
+		"name": "Motorbike",
+		"selected": false,
+		"type": "image",
+		"width": "1080px",
+		"height": "1920px",
+		"ext": "png",
+		"url": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200"
+	},
+	{...},
+	{...}
+]
 ```
 
 ##Screenshots

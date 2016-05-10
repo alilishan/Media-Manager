@@ -15,6 +15,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	$scope.filterEnabled = false;
 	$scope.addEnaled = false;
 	$scope.mediaList = [];
+	$scope.folderList = [];
 
 	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
@@ -26,22 +27,38 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		$scope.masterController.fileupload.multiple = ($scope.params.selectMode == 'multiple')? true : false;
 	}
 
-	console.log($scope.params, $scope.masterController.filter)
+	//Set Folder
+	if(!angular.isUndefined($scope.params.selectFolder)){
+		$scope.masterController.folders.selected = $scope.params.selectFolder;
+	}
+
+	//console.log($scope.params, $scope.masterController.filter, $scope.masterController.folders);
+
 
 	$scope.getData = function(){
-		
 		DataFactory.getMediaListing().then(function(resp){
-			//console.log(resp.data);
-			$scope.mediaList= resp.data;	
+			//console.log(resp.data.items);
+			$scope.mediaList = resp;	
 			$scope.showLoading = false;
 			
 			$scope.masterController.selected.items = [];
-			
 		}, function(error){
 			$scope.masterController.showTaost('Error Getting Data [E1002]', 10000);
 			$scope.showLoading = false;
 		});
 	}
+
+
+	$scope.getFolders = function(){
+		DataFactory.getFolderList().then(function(resp){
+			$scope.masterController.folders.list = resp;
+			$scope.showLoading = false;	
+		}, function(error){
+			$scope.masterController.showTaost('Error Getting Folders [E1003]', 10000);
+			$scope.showLoading = false;
+		});
+	}
+
 
 	$scope.selectItem = function(item){
 		if(item.selected){
@@ -88,8 +105,45 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 				$scope.getData();
 			});
 		}
+	});
+
+	$scope.$on('MM-FOLDERS-ADD', function(e, data){
+		//console.log(data);
+		data.activeFolder = $scope.masterController.folders.selected;
+		$scope.showLoading = true;
+		DataFactory.postNewFolder(data).then(function(){
+			$log.debug('Reloading Folder List');
+			$scope.getFolders();
+		}, function(){
+			$scope.masterController.showTaost('Error Adding Folders [E2001]', 10000);
+		});
+	});
+
+	$scope.$on('MM-FOLDERS-EDIT', function(e, data){
+		//console.log(data);
+		data.activeFolder = $scope.masterController.folders.selected;
+		$scope.showLoading = true;
+		DataFactory.postEditFolder(data).then(function(){
+			$log.debug('Reloading Folder List');
+			$scope.getFolders();
+		}, function(){
+			$scope.masterController.showTaost('Error Editing Folders [E2002]', 10000);
+		});
 	});	
 
+	$scope.$on('MM-FOLDERS-DELETE', function(e, data){
+		//console.log(data);
+		data.activeFolder = $scope.masterController.folders.selected;
+		$scope.showLoading = true;
+		DataFactory.postDeleteFolder(data).then(function(){
+			$log.debug('Reloading Folder List');
+			$scope.getFolders();
+		}, function(){
+			$scope.masterController.showTaost('Error Deleting Folders [E2003]', 10000);
+		});
+	});		
+
 	//Initialize
+	$scope.getFolders();
 	$scope.getData();
 }

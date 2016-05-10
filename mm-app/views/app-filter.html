@@ -1,0 +1,33 @@
+				<div class="col-xs-2 filters custom-scrollbar" ng-class="{'is-open':  masterController.filter.show }">
+
+
+					<div class="panel-group" id="mm-filter-accordion" role="tablist" aria-multiselectable="true">
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#mm-filter-accordion" href="#mm-flt-media-types" aria-expanded="true" aria-controls="mm-flt-media-types">Media Type</a>
+								</h4>
+							</div>
+							<div id="mm-flt-media-types" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+
+									<ul class="mm-filter-options mm-f-radio">
+										<li class="mm-f-item" ng-class="{'is-active': masterController.filter.type == ''}" > <a href="" ng-click="masterController.filter.type = ''" class="mm-f-label">All</a> </li>
+										<li class="mm-f-item" ng-if="masterController.firstLevelFilters.image" ng-class="{'is-active': masterController.filter.type == 'image'}" > <a href="" ng-click="masterController.filter.type = 'image'" class="mm-f-label">Images</a> </li>
+										<li class="mm-f-item" ng-if="masterController.firstLevelFilters.video" ng-class="{'is-active': masterController.filter.type == 'video'}" > <a href="" ng-click="masterController.filter.type = 'video'" class="mm-f-label">Videos</a> </li>
+										<li class="mm-f-item" ng-if="masterController.firstLevelFilters.page" ng-class="{'is-active': masterController.filter.type == 'page'}" > <a href="" ng-click="masterController.filter.type = 'page'" class="mm-f-label">Pages</a> </li>
+									</ul>
+									
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+
+
+				</div>

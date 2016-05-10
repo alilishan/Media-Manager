@@ -1,5 +1,6 @@
 //Imports
 @import 'app-font-opensans.less';
+@import 'app-webkit-custom-scrolbar.less';
 
 //Variables
 @version: '1.0.0';
@@ -99,16 +100,20 @@ body {
 		left: 0;
 		z-index: 1000;
 		display: block;
-		padding: 20px;
+		padding: 40px 20px 20px;
 		overflow-x: hidden;
 		overflow-y: auto;
 		background-color: #fff;
-		border-right: 1px solid #eee;  
+		border-right: 1px solid #eee; 
+
+		> .nav-sidebar {
+			margin-left: -20px;
+			margin-right: -20px;
+		} 
 
 		.nav-sidebar {
-			margin-right: -21px;
 			margin-bottom: 20px;
-			margin-left: -20px;
+			padding: 0;
 
 			> li {
 				display: block;
@@ -116,16 +121,42 @@ body {
 				padding: 0;
 
 				> a {
-					padding-right: 20px;
-				  	padding-left: 20px;
-				  	color: #666;
-				  	font-weight: 500;
+					padding: 8px 0px 8px 40px;
+					color: #666;
+					font-weight: 500;
+					display: block;
+					position: relative;
+					transition: 
+						color 200ms ease, 
+						box-shadow 200ms ease,
+						opacity 200ms ease;
+
+					&:hover,
+					&:active,
+					&:focus {
+						text-decoration: none;
+					}
 
 				  	.sb-icon {
-				  		opacity: .8; 
-				  		margin-right: 10px;
-				  		font-size: 15px;
+						opacity: .8;
+						position: absolute;
+						left: 15px;
+						top: 11px;
 				  	}
+
+				  	.sb-text {
+						display: block;
+						width: 98%;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+				  	}
+				}
+
+				&.root-node {
+					> a {
+						padding-left: 20px;
+					}
 				}
 
 				&.active {
@@ -134,9 +165,50 @@ body {
 					> a:focus {
 						color: #428bca;
 						background-color: #fff;
-						box-shadow: inset 4px 0 0 -1px #1784c7;
+						box-shadow: inset -4px 0 0 -1px #1784c7;
+						text-decoration: none;
+
+						.sb-icon {
+							opacity: 1;
+						}
 					}
 				}
+
+				
+				> ul {
+					padding-left: 15px;
+					margin-bottom: 0;
+				}
+
+
+			}
+		}
+	}
+}
+
+//Add Folder
+.mm-wrapper {
+	#mm-add-folder-wrap {
+		position: absolute;
+		left: 0;
+		top: -1px;
+		margin-right: -2px;
+
+		.form-control {
+			border-radius: 0;
+			box-shadow: none;
+			border-color: #e7e7e7;
+		}
+
+		.input-group-btn {
+			.btn {
+				border-radius: 0;
+				border-color: #e7e7e7;
+				border-right: 0;
+				text-transform: uppercase;
+				letter-spacing: .8px;
+				font-weight: 600;
+				color: #666;
 			}
 		}
 	}
@@ -151,7 +223,7 @@ body {
 		right: 0;
 		z-index: 1000;
 		display: block;
-		padding: 20px;
+		padding: 30px 20px 20px;
 		overflow-x: hidden;
 		overflow-y: auto;
 		background-color: #fff;
@@ -166,6 +238,109 @@ body {
 			opacity: 1;
 			transform: translateX(0);
 		} 
+
+		#mm-filter-accordion {
+			.panel-title {
+				text-transform: uppercase;
+				letter-spacing: .8px;
+				font-size: .8em;
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+//Filter Options
+.mm-wrapper {
+	.mm-filter-options {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		.mm-f-item {
+			position: relative;
+			margin-bottom: .8em;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			.mm-f-label {
+				padding-left: 24px;
+				color: #666;
+				font-weight: 500;
+				user-select: none;
+				text-transform: uppercase;
+				letter-spacing: .8px;
+				font-size: .8em;
+				font-weight: 600;
+
+				&:after,
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				&:after {
+					width: 6px;
+					height: 6px;
+					background-color: #ffffff;
+					left: 5px;
+					display: none;
+				}
+
+				&:before {
+					width: 16px;
+					height: 16px;
+					left: 0;
+					background-color: #ffffff;
+					border: 2px solid #e6e6e6;
+				}
+
+			}
+			
+			&.is-active {
+				.mm-f-label {
+					&:before {
+						border-color: #337ab7;
+						background-color: #337ab7;
+					}
+
+					&:after {
+						display: block;
+					}
+				}
+			}
+		}
+
+		&.mm-f-radio {
+			.mm-f-item {
+				.mm-f-label {
+					&:after,
+					&:before {
+						border-radius: 50%;
+					}
+					
+				}
+			}
+		}
+
+		&.mm-f-checkbox {
+			.mm-f-item {
+				.mm-f-label {
+					&:after {
+						left: 0;	
+						width: 16px;
+						height: 16px;
+						background: url("@{imgs_path}cd-icon-check.svg?v=@{version}") no-repeat center center;
+					}
+				}
+			}
+		}
+
 	}
 }
 
@@ -827,5 +1002,125 @@ body {
 			font-weight: 300;
 			text-align: center;
 		}
+	}
+}
+
+
+//Folders Manager
+.mm-wrapper {
+	#mm-folder-manager {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, .99);
+		z-index: 1030;
+		opacity: 0;
+		pointer-events: none;
+		transition: transform 200ms ease,opacity 200ms ease;
+		transform: scale(.9); 
+
+		&.is-open {
+			opacity: 1;
+			pointer-events: auto;
+			transform: scale(1);
+		}
+
+		.title {
+		    border-bottom: 1px solid #e7e7e7;
+			padding-bottom: 8px;
+			text-align: left;
+			
+			span {
+				font-size: 1.3em;
+				color: #5f6f93;
+				font-weight: 500;
+			}
+
+			.input-group {
+				width: 40%;
+
+				.form-control {
+					border-radius: 0;
+				}
+
+				.btn {
+					border-radius: 0;
+				}
+			}
+		}
+
+		.content {
+			margin: 10px 0;
+			max-height: 300px;
+			overflow: auto;
+			padding: 0 10px;
+
+
+			.mm-folderList {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+
+				li {
+					text-align: left;
+					
+					.input-group {
+						margin: 5px 0;
+						/*padding-left: 20px;*/
+
+						&:hover {
+							background: #efefef;
+
+							.btn-link {
+								opacity: 1;
+							}
+						}
+
+						.input-group-addon {
+							border:0;
+							background: transparent;
+							border-radius: 0;
+						}
+
+						.form-control {
+							border-radius: 0;
+							box-shadow: none;
+							border:0;
+							background: transparent;
+							padding-left: 0;
+
+							&:focus {
+								+ .input-group-btn {
+									.btn-link {
+										opacity: 1;
+									}
+								}
+							}
+						}
+
+						.btn-link {
+							color: #5f6f93;
+							opacity: 0;
+							transition: opacity 200ms ease;
+						}
+					}
+					
+					> ul {
+						list-style: none;
+						padding-left: 20px;
+					}
+				} 
+
+			}
+
+		}
+
+		.footbar {
+			border-top: 1px solid #e7e7e7;
+			padding-top: 10px;
+		}
+
 	}
 }

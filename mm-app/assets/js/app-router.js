@@ -15,11 +15,17 @@ function RouterConfigurations ($stateProvider, $urlRouterProvider){
         })
 
         .state('app.listing', {
-            url: '/listing?id?selectMode?filterType',
+            url: '/listing?id?selectMode?filterType?selectFolder',
             views: {
                 'app-content': {
                     templateUrl: 'views/app-listing.html',
                     controller: 'ListingController'
+                },
+                'app-sidebar': {
+                    templateUrl: 'views/app-sidebar.html'
+                },
+                'app-filter': {
+                    templateUrl: 'views/app-filter.html'  
                 }
             }
         })
