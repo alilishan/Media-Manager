@@ -29,7 +29,8 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 	//Set Folder
 	if(!angular.isUndefined($scope.params.selectFolder)){
-		$scope.masterController.folders.selected = $scope.params.selectFolder;
+		console.log('Folder Pre Selection is disabled!!')
+		//$scope.masterController.folders.selected = $scope.params.selectFolder;
 	}
 
 	//console.log($scope.params, $scope.masterController.filter, $scope.masterController.folders);
@@ -107,41 +108,18 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		}
 	});
 
-	$scope.$on('MM-FOLDERS-ADD', function(e, data){
-		//console.log(data);
-		data.activeFolder = $scope.masterController.folders.selected;
-		$scope.showLoading = true;
-		DataFactory.postNewFolder(data).then(function(){
-			$log.debug('Reloading Folder List');
-			$scope.getFolders();
+	$scope.$on('MM-FOLDERS-ADD', sendFolderStructureUpdates);
+	$scope.$on('MM-FOLDERS-EDIT', sendFolderStructureUpdates);
+	$scope.$on('MM-FOLDERS-DELETE', sendFolderStructureUpdates);
+	$scope.$on('MM-FOLDERS-UPDATE', sendFolderStructureUpdates);
+
+	function sendFolderStructureUpdates(e, data){
+		DataFactory.postFolderSave(data).then(function(){
+			$log.debug('Folders changed logged!');
 		}, function(){
 			$scope.masterController.showTaost('Error Adding Folders [E2001]', 10000);
 		});
-	});
-
-	$scope.$on('MM-FOLDERS-EDIT', function(e, data){
-		//console.log(data);
-		data.activeFolder = $scope.masterController.folders.selected;
-		$scope.showLoading = true;
-		DataFactory.postEditFolder(data).then(function(){
-			$log.debug('Reloading Folder List');
-			$scope.getFolders();
-		}, function(){
-			$scope.masterController.showTaost('Error Editing Folders [E2002]', 10000);
-		});
-	});	
-
-	$scope.$on('MM-FOLDERS-DELETE', function(e, data){
-		//console.log(data);
-		data.activeFolder = $scope.masterController.folders.selected;
-		$scope.showLoading = true;
-		DataFactory.postDeleteFolder(data).then(function(){
-			$log.debug('Reloading Folder List');
-			$scope.getFolders();
-		}, function(){
-			$scope.masterController.showTaost('Error Deleting Folders [E2003]', 10000);
-		});
-	});		
+	}
 
 	//Initialize
 	$scope.getFolders();

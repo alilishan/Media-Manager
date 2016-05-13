@@ -1,14 +1,77 @@
 {
-"folders": [
-  {"id":"1", "name": "Project A", "parent": "0"},
-  {"id":"2", "name": "Christmas Promos", "parent": "0"},
-  {"id":"3", "name": "Screenplify", "parent": "0"},
-  {"id":"4", "name": "Demo Files", "parent": "1"},
-  {"id":"5", "name": "Images", "parent": "4"},
-  {"id":"6", "name": "Pages", "parent": "2"},
-  {"id":"7", "name": "Videos", "parent": "0"}
-],  
-"items": [
+"folders": {
+  "version": "1.0.0",
+  "items": [
+    {
+      "id":"1", 
+      "name": "1.0", 
+      "items": [
+        {
+          "id":"1.1", 
+          "name": "1.1", 
+          "items": [
+            {
+              "id":"1.1.1", 
+              "name": "1.1.1", 
+              "items": [
+
+              ]
+            },
+            {
+              "id":"1.2.1", 
+              "name": "1.2.1", 
+              "items": [
+
+              ]
+            }
+          ]
+        },
+        {
+          "id":"1.2", 
+          "name": "1.2", 
+          "items": [
+            {
+              "id":"1.1.2", 
+              "name": "1.1.2", 
+              "items": [
+
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"2", 
+      "name": "2.0", 
+      "items": [
+        {
+          "id":"2.1", 
+          "name": "2.1", 
+          "items": [
+            {
+              "id":"2.1.1", 
+              "name": "2.1.1", 
+              "items": [
+                {
+                  "id":"2.1.2", 
+                  "name": "C 2.1.2", 
+                  "items": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"3", 
+      "name": "3.0", 
+      "items": []
+    }
+  ]
+},  
+"media": [
     {
       "id": "1",
       "name": "Motorbike",

@@ -19,16 +19,8 @@ function DataFactory($http, APP_CONST, $q){
 			return $http.post(APP_CONST.postVirtualFile, dataObj);
 		}
 
-		factory.postNewFolder = function(dataObj){
-			return $http.post(APP_CONST.postFolderAdd, dataObj);
-		}
-
-		factory.postEditFolder = function(dataObj){
-			return $http.post(APP_CONST.postFolderEdit, dataObj);
-		}
-
-		factory.postDeleteFolder = function(dataObj){
-			return $http.post(APP_CONST.postFolderDelete, dataObj);
+		factory.postFolderSave = function(dataObj){
+			return $http.post(APP_CONST.postFolderSave, dataObj);
 		}
 
 		factory.getFolderList = function(){
@@ -47,7 +39,7 @@ function DataFactory($http, APP_CONST, $q){
 			var deferred = $q.defer();
 
 			$http.get(APP_CONST.getMediaListing).then(function(resp){
-				deferred.resolve(resp.data.items);
+				deferred.resolve(resp.data.media);
 			}, function(){
 				deferred.reject();
 			});

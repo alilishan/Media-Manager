@@ -15,7 +15,8 @@ Project Independent Media Manager
   * http://stackoverflow.com/questions/10253663/how-to-detect-the-dragleave-event-in-firefox-when-dragging-outside-the-window/10310815#10310815
   * http://stackoverflow.com/questions/14194324/firefox-firing-dragleave-when-dragging-over-text
 * [Recursive ng-repeat template](http://stackoverflow.com/questions/15661289/how-can-i-make-recursive-templates-in-angularjs-when-using-nested-objects)  
-
+* [ng ui-sortable](https://github.com/angular-ui/ui-sortable)
+* [tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)
 
 ##Config
 
@@ -28,6 +29,7 @@ Project Independent Media Manager
 	getMediaListing: 'example_files/mm-data.json', 
 	postMediaDelete: '',
 	postVirtualFile: '',
+	postFolderSave: '',
 	flf_image: true, // flf_First Level Filters
 	flf_video: true,
 	flf_page: true
@@ -66,34 +68,58 @@ Project Independent Media Manager
 ###Required GET data format
 ```javascript
 {
-	"id": "",
-	"name": "",
-	"selected": false,
-	"type": "",
-	"width": "",
-	"height": "",
-	"ext": "png",
-	"url": ""
+	"folders": {
+		"items": [
+			{"id":"", "name": "", "parent": ""}
+		]
+	},
+	"media": [
+		{
+			"id": "",
+			"name": "",
+			"selected": false,
+			"type": "",
+			"folder": "",
+			"width": "",
+			"height": "",
+			"ext": "png",
+			"url": ""
+		}
+	]
 }
 ```
 Example:
 ```javascript
-[
-	{
-		"id": "1",
-		"name": "Motorbike",
-		"selected": false,
-		"type": "image",
-		"width": "1080px",
-		"height": "1920px",
-		"ext": "png",
-		"url": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200"
+{
+	"folders": {
+		"items": [
+			{"id":"1", "name": "Project A", "parent": "0"},
+			{...},
+			{...}
+		]
 	},
-	{...},
-	{...}
-]
+	"media": [
+		{
+			"id": "1",
+			"name": "Motorbike",
+			"selected": false,
+			"type": "image",
+			"folder": "1",
+			"width": "1080px",
+			"height": "1920px",
+			"ext": "png",
+			"url": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200"
+		},
+		{...},
+		{...}
+	]
+}
 ```
 
 ##Screenshots
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
+
+
+##Good Read
+* [Recursive data strunctures](http://blog.wax-o.com/2014/01/how-to-find-deep-and-get-parent-in-javascript-nested-objects-with-recursive-functions-and-the-reference-concept-level-beginner/)

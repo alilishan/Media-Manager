@@ -37,9 +37,7 @@ var MediaManager = {
 			getMediaListing: 'http://localhost/MediaManager/example_files/mm-data.json', 
 			postMediaDelete: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			postVirtualFile: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
-			postFolderAdd: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=add',
-			postFolderEdit: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=edit',
-			postFolderDelete: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=delete',
+			postFolderSave: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=save',
 			flf_image: true, //First Level Filters
 			flf_video: true,
 			flf_page: true

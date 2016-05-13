@@ -95,12 +95,12 @@ body {
 .mm-wrapper {
 	.sidebar {
 		position: fixed;
-		top: 101px;
+		top: 134px;
 		bottom: 0;
 		left: 0;
 		z-index: 1000;
 		display: block;
-		padding: 40px 20px 20px;
+		padding: 0 20px 20px;
 		overflow-x: hidden;
 		overflow-y: auto;
 		background-color: #fff;
@@ -117,11 +117,11 @@ body {
 
 			> li {
 				display: block;
-				margin-bottom: 2px; 
+				margin-bottom: 0; 
 				padding: 0;
 
 				> a {
-					padding: 8px 0px 8px 40px;
+					padding: 5px 0px 5px 40px;
 					color: #666;
 					font-weight: 500;
 					display: block;
@@ -140,8 +140,8 @@ body {
 				  	.sb-icon {
 						opacity: .8;
 						position: absolute;
-						left: 15px;
-						top: 11px;
+						left: 20px;
+						top: 8px;
 				  	}
 
 				  	.sb-text {
@@ -150,6 +150,11 @@ body {
 						white-space: nowrap;
 						overflow: hidden;
 						text-overflow: ellipsis;
+				  	}
+
+				  	small {
+				  		text-transform: uppercase;
+				  		letter-spacing: .8px;
 				  	}
 				}
 
@@ -164,7 +169,7 @@ body {
 					> a:hover,
 					> a:focus {
 						color: #428bca;
-						background-color: #fff;
+						background-color: transparent;
 						box-shadow: inset -4px 0 0 -1px #1784c7;
 						text-decoration: none;
 
@@ -183,16 +188,31 @@ body {
 
 			}
 		}
+
+
+		.folder-tree {
+
+			li{
+				background: url('@{imgs_path}treeview-default-line.gif?v=@{version}') no-repeat 0px -119px;
+				
+				&:last-child {
+					background-position: 0 -1885px;
+				}
+			}
+
+		}
 	}
 }
 
 //Add Folder
 .mm-wrapper {
 	#mm-add-folder-wrap {
-		position: absolute;
+		position: fixed;
 		left: 0;
-		top: -1px;
+		top: 100px;
 		margin-right: -2px;
+		background: #fff;
+		padding: 0;
 
 		.form-control {
 			border-radius: 0;
@@ -204,7 +224,6 @@ body {
 			.btn {
 				border-radius: 0;
 				border-color: #e7e7e7;
-				border-right: 0;
 				text-transform: uppercase;
 				letter-spacing: .8px;
 				font-weight: 600;
@@ -305,8 +324,8 @@ body {
 			&.is-active {
 				.mm-f-label {
 					&:before {
-						border-color: #337ab7;
-						background-color: #337ab7;
+						border-color: #4285f4;
+						background-color: #4285f4;
 					}
 
 					&:after {
@@ -1028,18 +1047,18 @@ body {
 		}
 
 		.title {
-		    border-bottom: 1px solid #e7e7e7;
-			padding-bottom: 8px;
+		    border-bottom: 1px solid #ccc;
+			padding-bottom: 15px;
 			text-align: left;
 			
 			span {
-				font-size: 1.3em;
+				font-size: 1.5em;
 				color: #5f6f93;
 				font-weight: 500;
 			}
 
 			.input-group {
-				width: 40%;
+				width: 30%;
 
 				.form-control {
 					border-radius: 0;
@@ -1052,10 +1071,11 @@ body {
 		}
 
 		.content {
-			margin: 10px 0;
+			margin: 0 15px;
 			max-height: 300px;
+			min-height: 200px;
 			overflow: auto;
-			padding: 0 10px;
+			padding: 0 0 20px;
 
 
 			.mm-folderList {
@@ -1065,13 +1085,24 @@ body {
 
 				li {
 					text-align: left;
+					background-image: url('@{imgs_path}treeview-default-line.gif?v=@{version}');
+					background-repeat: no-repeat;
+					background-position: -7px -340px;
+					
+					&:last-child {
+						background: none;
+						
+						.input-group {
+							.input-group-addon {
+								background-position: -7px -1882px,  8px 22px;
+							}
+						}
+					}
 					
 					.input-group {
-						margin: 5px 0;
-						/*padding-left: 20px;*/
 
 						&:hover {
-							background: #efefef;
+							background-color: #efefef;
 
 							.btn-link {
 								opacity: 1;
@@ -1082,6 +1113,14 @@ body {
 							border:0;
 							background: transparent;
 							border-radius: 0;
+							padding-left: 15px;
+
+							background: 
+								url('@{imgs_path}treeview-default-line.gif?v=@{version}') no-repeat -7px -116px;
+
+							.fa {
+								color: #5f6f93;
+							}	
 						}
 
 						.form-control {
@@ -1105,12 +1144,50 @@ body {
 							opacity: 0;
 							transition: opacity 200ms ease;
 						}
+
 					}
 					
-					> ul {
-						list-style: none;
-						padding-left: 20px;
+					.mm-folderList {
+						margin-left: 15px; 
+						margin-right: 10px; 
+
+						li {
+							.input-group-addon {
+								background-position: -7px -1882px,  8px 22px;
+							}
+						}
 					}
+
+					&.ui-sortable-helper {
+						background: #efefef;
+
+						.mm-no-children {
+							display: none;
+						}
+					}
+					
+				}
+
+				&.mm-no-children {
+					padding: 10px 10px 10px 0;
+					border:1px dashed #ccc;
+					position: relative;
+
+					/*&:before {
+						content: '';
+						position: absolute;
+						top: -13px;
+						left: -2px;
+						background: #fff;
+						width: 2px;
+						height: 12px;
+					}*/
+				}
+
+				.ui-sortable-placeholder {
+					background: #efefef;
+					border:1px dashed #ccc;
+					visibility: visible !important;
 				} 
 
 			}
@@ -1118,7 +1195,7 @@ body {
 		}
 
 		.footbar {
-			border-top: 1px solid #e7e7e7;
+			border-top: 1px solid #ccc;
 			padding-top: 10px;
 		}
 

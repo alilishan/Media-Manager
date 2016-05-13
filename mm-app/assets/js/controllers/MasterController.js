@@ -22,15 +22,24 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			list:[],
 			selected: '0',
 			manager: {
-				enabled: true,
+				enabled: false,
 				add: {
 					string: '',
-					submit: function(string){
+					focus: '0',
+					submit: function(string, rooted){
 						if(angular.isUndefined(string) || string == ''){
 							_this.showTaost('Need a Folder Name');
 							return false;
 						}
-						_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {string:string});
+
+						var selectedFolder = (rooted)? _this.folders.manager.add.focus : _this.folders.selected;
+
+						mmInsertItem(_this.folders.list.items, selectedFolder, string, function(newItem){
+							_this.$rootScope.$broadcast('MM-FOLDERS-ADD', _this.folders.list);
+							_this.folders.manager.add.string = '';
+
+							if(rooted) _this.folders.manager.add.focus = '0';
+						});
 					}
 				},
 				edit: function(id, name){
@@ -38,11 +47,25 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						_this.showTaost('Need a Folder Name');
 						return false;
 					}
-					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', {id: id, name: name});
+					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', _this.folders.list);
 				},
 				delete: function(id){
-					_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', {id: id});
+					mmRemoveItem(_this.folders.list.items, id, function(){
+						_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', _this.folders.list);
+					});
 				}
+			},
+			sortableOptions: {
+				connectWith: '.mm-folderList',
+				update: function(e, ui) {
+					if (this === ui.item.parent()[0]) {
+						_this.$rootScope.$broadcast('MM-FOLDERS-UPDATE', _this.folders.list);
+					}
+				}
+			},
+			getTemplate: function(item){
+				if (item) { return 'mm-foldermanager-navtree.html'; }
+				return null;
 			}
 		}
 
@@ -125,6 +148,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						file.errorMsg = false;
 						file.success = false;
 						file.sizeMB = (file.size / 1048576).toFixed(1) + ' MB '; // MB = 2^20 = 1,048,576 Bytes
+						file.targetFolder = _this.folders.selected;
 
 						UploadFactory.upload(APP_CONST.fileuploadPath, file, i).then(function(resp){
 							//console.log('s', resp)
@@ -207,4 +231,73 @@ MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)
 	$this.$timeout(function(){
 		$this.toast.message = '';
 	}, duration);	
+}
+
+
+function mmInsertItem(collection, targetId, name, callback) {
+
+	if(targetId == "0"){
+
+		var newObj = {
+			"id": Math.floor(10*Math.random())+""+(new Date).getTime(),
+			"name": name,
+			"items": []
+		}
+
+		collection.push(newObj);
+
+		if(typeof callback == 'function') callback(newObj);
+
+	} else {
+
+		_.each(collection, function(item){
+
+			if(item.id == targetId) {
+				var newObj = {
+					"id": Math.floor(10*Math.random())+""+(new Date).getTime(),
+					"name": name,
+					"items": []
+				}
+
+				item.items.push(newObj);
+
+				if(typeof callback == 'function') callback(newObj);
+
+			} else {
+				if(item.items.length){
+					mmInsertItem(item.items, targetId, name, callback);
+				}
+			}
+
+		});
+
+	}
+
+
+	return null;
+}
+
+function mmRemoveItem(collection, targetId, callback) {
+
+	_.each(collection, function(item){
+
+			if(item.hasOwnProperty('id') && item.id == targetId) {
+				
+				console.log('found haha', collection, item, _.indexOf(collection, item));
+
+				collection.splice(_.indexOf(collection, item), 1);
+
+				if(typeof callback == 'function') callback();
+
+			} else {
+				if(item.items.length){
+					mmRemoveItem(item.items, targetId, callback);
+				}
+			}
+
+		});
+
+
+
+	return null;
 }

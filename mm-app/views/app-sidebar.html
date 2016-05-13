@@ -1,22 +1,24 @@
 
+				
+				<!-- ADD FOLDER -->
+				<div id="mm-add-folder-wrap" class="col-xs-2">
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="masterController.folders.manager.add.string" placeholder="New Folder">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" ng-click="masterController.folders.manager.add.submit(masterController.folders.manager.add.string)"><i class="fa fa-plus"></i></button>
+						</span>
+					</div><!-- /input-group -->
+				</div>
 
 				<!-- SIDEBAR -->
 				<div class="col-xs-2 sidebar custom-scrollbar">
 					
-					<div id="mm-add-folder-wrap">
-						<div class="input-group">
-							<input type="text" class="form-control" ng-model="masterController.folders.manager.add.string" placeholder="New Folder">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" ng-click="masterController.folders.manager.add.submit(masterController.folders.manager.add.string)"><i class="fa fa-plus"></i></button>
-							</span>
-						</div><!-- /input-group -->
-					</div>
 					
-					<ul class="nav-sidebar">
-						<li class="root-node" ng-class="{'active': '' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = ''">/ all</a></li>
-						<li class="root-node" ng-class="{'active': '0' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = '0'">/ root</a></li>
+					<ul class="nav-sidebar folder-tree">
+						<li class="root-node" ng-class="{'active': '' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = ''"><small>All Media</small></a></li>
+						<li class="root-node" ng-class="{'active': '0' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = '0'"><small>/ Root Folder</small></a></li>
 						
-						<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': '0'})" ng-class="{'active': folder.id == masterController.folders.selected}" ng-include="'mm-sidebar-navtree.html'"  data-id="{{folder.id}}"></li>
+						<li ng-repeat="folder in masterController.folders.list.items" ng-class="{'active': folder.id == masterController.folders.selected}" ng-include="'mm-sidebar-navtree.html'"  data-id="{{folder.id}}"></li>
 
 					</ul>
 
@@ -27,11 +29,11 @@
 				<script type="text/ng-template"  id="mm-sidebar-navtree.html">
 
 					<a href="" ng-click="masterController.folders.selected = folder.id">
-						<i class="sb-icon fa " ng-class="{'fa-folder-o': masterController.folders.selected != folder.id, 'fa-folder-open': masterController.folders.selected == folder.id}" ng-hide=""></i>
+						<i class="sb-icon fa " ng-class="{'fa-folder-o': masterController.folders.selected != folder.id, 'fa-folder-open': masterController.folders.selected == folder.id}"></i>
 						<span class="sb-text">{{folder.name}}</span><!--  - {{folder.id}} - {{folder.parent}} -->
 					</a>
 
 					<ul class="nav-sidebar">
-						<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': folder.id})"  ng-class="{'active': folder.id == masterController.folders.selected}" ng-include="'mm-sidebar-navtree.html'" data-id="{{folder.id}}"></li>
+						<li ng-repeat="folder in folder.items"  ng-class="{'active': folder.id == masterController.folders.selected}" ng-include="'mm-sidebar-navtree.html'" data-id="{{folder.id}}"></li>
 					</ul>
 				</script>

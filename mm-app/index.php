@@ -13,10 +13,13 @@
 
 	<script src="assets/libs/jquery-1.12.0.min.js"></script>
 	<script src="assets/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+	<script src="assets/libs/jquery-ui-1.11.4.custom.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-ui-router.min.js"></script>
 	<script src="assets/libs/angular-1.5.0/angular-animate.min.js"></script>
 	<script src="assets/libs/underscore-min.js"></script>
+	<script src="assets/libs/ng-ui-sortable/sortable.js"></script>
+	<script src="assets/libs/ng-ui-sortable/tg.dynamic.directive.js"></script>
 
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>

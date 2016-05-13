@@ -68,6 +68,7 @@
 </div>	 
 
 
+
 <div id="mm-filedrop-cover"  class="row center-xs middle-xs">
 	<div class="col-xs-4">
 		<div class="icon"><div class="fa fa-cloud-upload"></div></div>
@@ -85,7 +86,7 @@
 			<div class="input-group pull-right">
 				<input type="text" class="form-control" ng-model="masterController.folders.manager.add.string" placeholder="New Folder">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" ng-click="masterController.folders.manager.add.submit(masterController.folders.manager.add.string)"><i class="fa fa-plus"></i></button>
+					<button class="btn btn-default" type="button" ng-click="masterController.folders.manager.add.submit(masterController.folders.manager.add.string, true)"><i class="fa fa-plus"></i></button>
 				</span>
 			</div><!-- /input-group -->
 
@@ -93,42 +94,42 @@
 
 		<div class="content custom-scrollbar">
 
-			<!-- <div class="input-group" ng-repeat="folder in masterController.folders.list">
-				<i class="fa fa-folder-o"></i>
-				<input type="text" ng-model="folder.name" class="form-control" aria-label="...">
-				<div class="input-group-btn">
-					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.edit(folder.id, folder.name)"><i class="fa fa-floppy-o"></i></a>
-					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.delete(folder.id)"><i class="fa fa-trash-o"></i></a>
-				</div>
-			</div> -->
+			<!-- <ul class="mm-folderList" ui-sortable="masterController.folders.sortableOptions" ng-model="masterController.folders.list">
+				<li ng-repeat="folder in masterController.folders.list" ng-include="'mm-foldermanager-navtree.html'"></li>
+			</ul> -->
 
-			<ul class="mm-folderList">
-				<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': '0'})" ng-include="'mm-foldermanager-navtree.html'"></li>
-			</ul>
-			
+			<tg-dynamic-directive ng-model="masterController.folders.list" tg-dynamic-directive-view="masterController.folders.getTemplate"></tg-dynamic-directive>
+
 		</div>
 		<div class="footbar">
 			<a href="" ng-click="masterController.folders.manager.enabled = false" class="btn btn-link">Close</a>
 		</div>
 	</div>
+
 </div>
 
 <!-- Tree Item Template -->
 <script type="text/ng-template"  id="mm-foldermanager-navtree.html">
-	<!-- <i class="fa fa-folder-open-o"></i>
-	<span class="folder-name">{{folder.name}}</span> -->
 
-	<div class="input-group">
-		<span class="input-group-addon"><i class="fa fa-folder-o"></i></span>
-		<input type="text" ng-model="folder.name" class="form-control" aria-label="...">
-		<div class="input-group-btn">
-			<a href="" class="btn btn-link" ><i class="fa fa-arrows"></i></a>
-			<a href="" class="btn btn-link" ng-click="masterController.folders.manager.edit(folder.id, folder.name)"><i class="fa fa-floppy-o"></i></a>
-			<a href="" class="btn btn-link" ng-click="masterController.folders.manager.delete(folder.id)"><i class="fa fa-trash-o"></i></a>
-		</div>
-	</div>
 
-	<ul class="mm-folderList">
-		<li ng-repeat="folder in folderList = (masterController.folders.list | filter:{'parent': folder.id})" ng-include="'mm-foldermanager-navtree.html'"></li>
+	<ul class="mm-folderList" ui-sortable="masterController.folders.sortableOptions" ng-model="ngModelItem.items" ng-class="{'mm-no-children': ngModelItem.items.length < 1}">
+		
+		<li ng-repeat="folder in ngModelItem.items" data-num-items="{{ngModelItem.items.length}}">
+
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-folder-o"></i></span>
+				<input type="text" ng-model="folder.name" class="form-control" aria-label="..." ng-focus="masterController.folders.manager.add.focus = folder.id" >
+				<div class="input-group-btn">
+					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.edit(folder.id, folder.name)"><i class="fa fa-floppy-o"></i></a>
+					<a href="" class="btn btn-link" ng-click="masterController.folders.manager.delete(folder.id)"><i class="fa fa-trash-o"></i></a>
+				</div>
+			</div>
+
+			<tg-dynamic-directive ng-model="folder" tg-dynamic-directive-view="masterController.folders.getTemplate"></tg-dynamic-directive>
+
+		</li>
+
 	</ul>
+
+
 </script>
