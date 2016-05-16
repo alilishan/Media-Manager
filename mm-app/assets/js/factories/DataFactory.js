@@ -15,6 +15,10 @@ function DataFactory($http, APP_CONST, $q){
 			return $http.post(APP_CONST.postMediaDelete, dataObj);
 		}
 
+		factory.postMediaUpdates = function(dataObj){
+			return $http.post(APP_CONST.postMediaUpdates, dataObj);
+		}
+
 		factory.postVirtualFile = function(dataObj){
 			return $http.post(APP_CONST.postVirtualFile, dataObj);
 		}

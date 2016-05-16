@@ -35,6 +35,7 @@ var MediaManager = {
 			postmessageParent: '*',
 			fileuploadPath: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			getMediaListing: 'http://localhost/MediaManager/example_files/mm-data.json', 
+			postMediaUpdates: 'http://localhost/MediaManager/example_files/ajax_media_edit.php', 
 			postMediaDelete: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			postVirtualFile: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			postFolderSave: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=save',

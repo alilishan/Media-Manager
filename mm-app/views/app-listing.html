@@ -12,14 +12,21 @@
 		
 		<div class="media-container" ng-show="mediaList.length && !showLoading">
 			
-			<div class="row center-xs">
+			<div class="row center-xs" mm-selectable-list>
 				
-				<div class="col-xs-3 media-item" ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected})" ng-class="{'item-selected': item.selected}">
+				<div 
+					class="col-xs-3 media-item" 
+					ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected} : masterController.folders.filterStrict )" 
+					ng-class="{'item-selected': item.selected}"
+					mm-item-draggable="item.selected"
+					mm-idrg-model="masterController.selected"
+					data-id="{{item.id}}"
+				>
 					<div class="image"><img ng-src="{{item.url}}" alt=""></div>
 					<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
-					<div class="overlay text-left">
+					<div class="overlay text-left" ng-click="selectItem(item)">
 						<div class="checker big">
-							<label ng-click="selectItem(item)" ng-class="{'is-set': item.selected}"></label>
+							<label  ng-class="{'is-set': item.selected}"></label><!-- ng-click="selectItem(item)" -->
 						</div>
 					</div>
 					<div class="info">

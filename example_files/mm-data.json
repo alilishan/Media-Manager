@@ -1,120 +1,97 @@
 {
-"folders": {
-  "version": "1.0.0",
-  "items": [
-    {
-      "id":"1", 
-      "name": "1.0", 
-      "items": [
-        {
-          "id":"1.1", 
-          "name": "1.1", 
-          "items": [
+    "folders": {
+        "version": "1.0.0",
+        "items": [
             {
-              "id":"1.1.1", 
-              "name": "1.1.1", 
-              "items": [
-
-              ]
+                "id": "81463364084762",
+                "name": "Project A",
+                "items": [
+                    {
+                        "id": "21463364091657",
+                        "name": "Images",
+                        "items": [
+                            {
+                                "id": "91463364104761",
+                                "name": "Thumbnails",
+                                "items": [
+                                    {
+                                        "id": "61463364129226",
+                                        "name": "sm",
+                                        "items": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "81463364099265",
+                        "name": "Videos",
+                        "items": []
+                    }
+                ]
             },
             {
-              "id":"1.2.1", 
-              "name": "1.2.1", 
-              "items": [
-
-              ]
+                "id": "41463364139605",
+                "name": "Screenplify",
+                "items": [
+                    {
+                        "id": "91463364158043",
+                        "name": "Layouts",
+                        "items": []
+                    },
+                    {
+                        "id": "11463364164578",
+                        "name": "Pages",
+                        "items": []
+                    }
+                ]
             }
-          ]
+        ]
+    },
+    "media": [
+        {
+            "id": "1",
+            "name": "Motorbike",
+            "selected": false,
+            "type": "image",
+            "folder": "21463364091657",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "png",
+            "url": "http://rs1225.pbsrc.com/albums/ee388/joinedbro/JB%20Web%20SIte%20Blog/JBHDWallpapers2.jpg~c200"
         },
         {
-          "id":"1.2", 
-          "name": "1.2", 
-          "items": [
-            {
-              "id":"1.1.2", 
-              "name": "1.1.2", 
-              "items": [
-
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id":"2", 
-      "name": "2.0", 
-      "items": [
+            "id": "2",
+            "name": "Lone blue Tree",
+            "selected": false,
+            "type": "video",
+            "folder": "81463364099265",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "png",
+            "url": "http://images.myipadminiwallpaper.com/Gallery/24_iOS7/web-thumbs/My-iPad-Wallpaper-default-iOS7-theme_4-thumb.png"
+        },
         {
-          "id":"2.1", 
-          "name": "2.1", 
-          "items": [
-            {
-              "id":"2.1.1", 
-              "name": "2.1.1", 
-              "items": [
-                {
-                  "id":"2.1.2", 
-                  "name": "C 2.1.2", 
-                  "items": []
-                }
-              ]
-            }
-          ]
+            "id": "4",
+            "name": "Lemon Tree",
+            "selected": false,
+            "type": "image",
+            "folder": "91463364158043",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "jpg",
+            "url": "http://www.marthastewart.com/sites/files/marthastewart.com/styles/wmax-520-highdpi/public/d20/mld106783_0211_tree2/mld106783_0211_tree2_vert.jpg?itok=R-gnd38Z"
+        },
+        {
+            "id": "3",
+            "name": "Ronaldo preping to take a kick.",
+            "selected": false,
+            "type": "page",
+            "folder": "11463364164578",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "png",
+            "url": "http://3.bp.blogspot.com/-G_Vuo5eX5UA/Ut0uoqiNqyI/AAAAAAAAA7Q/yes-azQstJk/s200-c/Cristiano+Ronaldo+HD+Wallpaper+1080p.jpg"
         }
-      ]
-    },
-    {
-      "id":"3", 
-      "name": "3.0", 
-      "items": []
-    }
-  ]
-},  
-"media": [
-    {
-      "id": "1",
-      "name": "Motorbike",
-      "selected": false,
-      "type": "image",
-      "folder": "1",
-      "width": "1080px",
-      "height": "1920px",
-      "ext": "png",
-      "url": "http://rs1225.pbsrc.com/albums/ee388/joinedbro/JB%20Web%20SIte%20Blog/JBHDWallpapers2.jpg~c200"
-    },
-    {
-      "id": "2",
-      "name": "Lone blue Tree",
-      "selected": false,
-      "type": "video",
-      "folder": "7",
-      "width": "1080px",
-      "height": "1920px",
-      "ext": "png",
-      "url": "http://images.myipadminiwallpaper.com/Gallery/24_iOS7/web-thumbs/My-iPad-Wallpaper-default-iOS7-theme_4-thumb.png"
-    },
-    {
-      "id": "4",
-      "name": "Lemon Tree",
-      "selected": false,
-      "type": "image",
-      "folder": "0",
-      "width": "1080px",
-      "height": "1920px",
-      "ext": "jpg",
-      "url": "http://www.marthastewart.com/sites/files/marthastewart.com/styles/wmax-520-highdpi/public/d20/mld106783_0211_tree2/mld106783_0211_tree2_vert.jpg?itok=R-gnd38Z"
-    },
-    {
-      "id": "3",
-      "name": "Ronaldo preping to take a kick.",
-      "selected": false,
-      "type": "page",
-      "folder": "6",
-      "width": "1080px",
-      "height": "1920px",
-      "ext": "png",
-      "url": "http://3.bp.blogspot.com/-G_Vuo5eX5UA/Ut0uoqiNqyI/AAAAAAAAA7Q/yes-azQstJk/s200-c/Cristiano+Ronaldo+HD+Wallpaper+1080p.jpg"
-    }
-  ]
+    ]
 }

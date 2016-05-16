@@ -35,7 +35,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						var selectedFolder = (rooted)? _this.folders.manager.add.focus : _this.folders.selected;
 
 						mmInsertItem(_this.folders.list.items, selectedFolder, string, function(newItem){
-							_this.$rootScope.$broadcast('MM-FOLDERS-ADD', _this.folders.list);
+							_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {data: _this.folders.list, type: 'ADD'});
 							_this.folders.manager.add.string = '';
 
 							if(rooted) _this.folders.manager.add.focus = '0';
@@ -47,25 +47,34 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						_this.showTaost('Need a Folder Name');
 						return false;
 					}
-					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', _this.folders.list);
+					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', {data: _this.folders.list, type: 'EDIT', id: id, name: name});
 				},
 				delete: function(id){
 					mmRemoveItem(_this.folders.list.items, id, function(){
-						_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', _this.folders.list);
+						_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', {data: _this.folders.list, type: 'DELETE', id: id});
 					});
+				},
+				ondrop: function(folder){
+					_this.$rootScope.$broadcast('MM-FOLDERS-ONDROP', {data: folder, type: 'ONDROP', id: folder.id});
 				}
 			},
 			sortableOptions: {
 				connectWith: '.mm-folderList',
 				update: function(e, ui) {
 					if (this === ui.item.parent()[0]) {
-						_this.$rootScope.$broadcast('MM-FOLDERS-UPDATE', _this.folders.list);
+						_this.$rootScope.$broadcast('MM-FOLDERS-UPDATE', {data: _this.folders.list, type: 'UPDATE'});
 					}
 				}
 			},
 			getTemplate: function(item){
 				if (item) { return 'mm-foldermanager-navtree.html'; }
 				return null;
+			},
+			filterStrict: function (actual, expected) {
+				if (expected === '') { 	//Handle All Media Option
+					return true;		//Angular will call the comparator function and pass in "expected" as expected and the element as "actual". So we say, if the expected or "expected" is empty, then match ALL elements (return true). Otherwise, perform a 'strict' object comparison.
+				}
+				return angular.equals(expected, actual);
 			}
 		}
 
@@ -281,7 +290,9 @@ function mmRemoveItem(collection, targetId, callback) {
 
 	_.each(collection, function(item){
 
-			if(item.hasOwnProperty('id') && item.id == targetId) {
+		if(!angular.isUndefined(item)){
+
+			if(item.id == targetId) {
 				
 				console.log('found haha', collection, item, _.indexOf(collection, item));
 
@@ -295,7 +306,9 @@ function mmRemoveItem(collection, targetId, callback) {
 				}
 			}
 
-		});
+		}
+
+	});
 
 
 

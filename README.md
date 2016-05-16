@@ -17,6 +17,7 @@ Project Independent Media Manager
 * [Recursive ng-repeat template](http://stackoverflow.com/questions/15661289/how-can-i-make-recursive-templates-in-angularjs-when-using-nested-objects)  
 * [ng ui-sortable](https://github.com/angular-ui/ui-sortable)
 * [tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)
+* [ngRepeat filter: comparator](http://stackoverflow.com/questions/21519794/angular-function-filter-comparator-example)
 
 ##Config
 
@@ -27,6 +28,7 @@ Project Independent Media Manager
 	postmessageParent: '*', //Please set a domain for security reasons
 	fileuploadPath: 'example_files/ajax_image_upload.php',
 	getMediaListing: 'example_files/mm-data.json', 
+	postMediaUpdates: '',
 	postMediaDelete: '',
 	postVirtualFile: '',
 	postFolderSave: '',
@@ -52,7 +54,7 @@ Project Independent Media Manager
 	var data = {
 		selectMode: '', //single or multiple [default, single]
 		filterType: '',  // image, video, page [default, all]
-		selectFolder: '0' //Target Folder
+		selectFolder: '0' //Target Folder ** FOLDER PRESELECTION IS DISABLED FOR NOW **
 	}
 
 	$('your button').on('click', function(e){
@@ -69,8 +71,13 @@ Project Independent Media Manager
 ```javascript
 {
 	"folders": {
+		"version": "1.0.0",
 		"items": [
-			{"id":"", "name": "", "parent": ""}
+			{
+				"id":"", 
+				"name": "", 
+				"items": []
+			}
 		]
 	},
 	"media": [
@@ -92,8 +99,21 @@ Example:
 ```javascript
 {
 	"folders": {
+		"version": "1.0.0",
 		"items": [
-			{"id":"1", "name": "Project A", "parent": "0"},
+			{
+				"id":"1", 
+				"name": 
+				"Project A", 
+				"items": [
+					{
+						"id":"", 
+						"name": "", 
+						"items": []
+					},
+					{....}
+				]
+			},
 			{...},
 			{...}
 		]

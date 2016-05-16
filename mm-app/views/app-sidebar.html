@@ -15,10 +15,21 @@
 					
 					
 					<ul class="nav-sidebar folder-tree">
-						<li class="root-node" ng-class="{'active': '' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = ''"><small>All Media</small></a></li>
-						<li class="root-node" ng-class="{'active': '0' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = '0'"><small>/ Root Folder</small></a></li>
+						<li class="root-node" ng-class="{'active': '' == masterController.folders.selected}"><a href="" ng-click="masterController.folders.selected = ''; masterController.filter.type = '';"><small>All Media</small></a></li>
 						
-						<li ng-repeat="folder in masterController.folders.list.items" ng-class="{'active': folder.id == masterController.folders.selected}" ng-include="'mm-sidebar-navtree.html'"  data-id="{{folder.id}}"></li>
+						<li 
+							class="root-node" 
+							ng-class="{'active': '0' == masterController.folders.selected}"
+						>
+							<a mm-sidebar-droppable="masterController.folders.manager.ondrop" href="" ng-click="masterController.folders.selected = '0'" data-folder-id="0"><small>/ Root Folder</small></a>
+						</li>
+						
+						<li 
+							ng-repeat="folder in masterController.folders.list.items" 
+							ng-class="{'active': folder.id == masterController.folders.selected}" 
+							ng-include="'mm-sidebar-navtree.html'"  data-id="{{folder.id}}"
+						>
+						</li>
 
 					</ul>
 
@@ -28,7 +39,7 @@
 				<!-- Tree Item Template -->
 				<script type="text/ng-template"  id="mm-sidebar-navtree.html">
 
-					<a href="" ng-click="masterController.folders.selected = folder.id">
+					<a href="" mm-sidebar-droppable="masterController.folders.manager.ondrop(folder)" ng-click="masterController.folders.selected = folder.id" data-folder-id="{{folder.id}}">
 						<i class="sb-icon fa " ng-class="{'fa-folder-o': masterController.folders.selected != folder.id, 'fa-folder-open': masterController.folders.selected == folder.id}"></i>
 						<span class="sb-text">{{folder.name}}</span><!--  - {{folder.id}} - {{folder.parent}} -->
 					</a>

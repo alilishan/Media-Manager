@@ -76,10 +76,12 @@ function FileinputDropzoneDirective(){
 					.on('drop', function(ev) {
 						$('body').removeClass('on-drop-hover');
 						var dt = ev.originalEvent.dataTransfer;
-						var files = (dt.files !== undefined) ? dt.files : (e.target.value ? { name: e.target.value.replace(/^.+\\/, '') } : null);
-						//console.log(files);
-						var onChangeFn = scope.$eval('$parent.'+attrs.ngOnChange); //Need to do this because of targetting issues
-							onChangeFn(files);	
+						if(dt){
+							//console.log(dt.files);
+							var files = (dt.files !== undefined) ? dt.files : (e.target.value ? { name: e.target.value.replace(/^.+\\/, '') } : null);
+							var onChangeFn = scope.$eval('$parent.'+attrs.ngOnChange); //Need to do this because of targetting issues
+								onChangeFn(files);	
+						}
 						return false;
 					});
 			}

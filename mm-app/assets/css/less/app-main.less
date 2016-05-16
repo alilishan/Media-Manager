@@ -129,7 +129,8 @@ body {
 					transition: 
 						color 200ms ease, 
 						box-shadow 200ms ease,
-						opacity 200ms ease;
+						opacity 200ms ease,
+						background 500ms ease;
 
 					&:hover,
 					&:active,
@@ -155,6 +156,10 @@ body {
 				  	small {
 				  		text-transform: uppercase;
 				  		letter-spacing: .8px;
+				  	}
+
+				  	&.drop-hover {
+				  		background-color: rgba(0, 0, 0, 0.1);
 				  	}
 				}
 
@@ -397,6 +402,12 @@ body {
 			}
 		}
 	}
+
+	.btn-all-caps {
+		text-transform: uppercase; 
+		letter-spacing: .8px; 
+		font-size: 1em;
+	}
 }
 
 //Fancy Filter
@@ -590,12 +601,39 @@ body {
 
 				&.item-selected .checker,
 				.checker:hover {opacity: 1;}
-
-
 			}
 		}
 	}
 }
+
+//Media Item Draggable Helper
+.mm-item-drag-helper {
+	width: 50px;
+	height: 50px;
+
+	&.ui-draggable-dragging {
+		position: fixed !important;
+		z-index: 1001;
+	}
+
+	.item-icon {
+		border-right: 1px solid transparent;
+		background: #ccc;
+		color:#333;
+		
+		i {
+			display: block;
+			padding: 2px;
+		}
+
+		img {
+			width: 100%;
+    		height: auto;
+		}
+	}
+
+}
+
 
 //Selected Count
 .mm-wrapper {

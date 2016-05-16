@@ -78,6 +78,17 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	}
 
 
+	$scope.clearSelected = function(){
+		_.each($scope.mediaList, function(item, index){
+			item.selected = false;
+
+			if((index + 1) == $scope.mediaList.length){
+				$scope.masterController.selected.items = [];
+			}
+		});
+	}
+
+
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
 		$log.debug('Reloading Media List');
 		$scope.getData();
@@ -113,13 +124,34 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	$scope.$on('MM-FOLDERS-DELETE', sendFolderStructureUpdates);
 	$scope.$on('MM-FOLDERS-UPDATE', sendFolderStructureUpdates);
 
-	function sendFolderStructureUpdates(e, data){
+	function sendFolderStructureUpdates(e, data){ console.log(JSON.stringify(data, 2, ' '))
 		DataFactory.postFolderSave(data).then(function(){
 			$log.debug('Folders changed logged!');
 		}, function(){
 			$scope.masterController.showTaost('Error Adding Folders [E2001]', 10000);
 		});
 	}
+
+	$scope.$on('MM-FOLDERS-ONDROP', function(e, data){
+		//console.log(data);
+		if($scope.masterController.selected.items.length){
+
+			_.each($scope.masterController.selected.items, function(item, index){
+				item.folder = data.id;
+
+				if((index + 1) == $scope.masterController.selected.items.length){
+					DataFactory.postMediaUpdates($scope.masterController.selected.items).then(function(){
+						$scope.clearSelected();
+						$log.debug('Media Updates Posted');
+					});
+				}
+			})
+
+		} else {
+			console.log('Nothing to Drop');
+		}
+
+	});
 
 	//Initialize
 	$scope.getFolders();

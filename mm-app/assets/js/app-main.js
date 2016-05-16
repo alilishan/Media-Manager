@@ -28,6 +28,7 @@ angular
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
         'getMediaListing': window.parent.MediaManager.settings.getMediaListing,
+        'postMediaUpdates': window.parent.MediaManager.settings.postMediaUpdates,
         'postMediaDelete': window.parent.MediaManager.settings.postMediaDelete,
         'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile,
         'postFolderSave': window.parent.MediaManager.settings.postFolderSave,

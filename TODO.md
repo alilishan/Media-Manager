@@ -1,7 +1,7 @@
 
 # Media-Manager To Do
 
-* Items move to folder option - next to delete
+* ~~Items move to folder option - next to delete~~
 * Angular scroll to new item / folder
 * Add New screenshots
 * Add small confirm dialogue to delete items 
