@@ -9,6 +9,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 	var _this = this;
 		_this.APP_CONST = APP_CONST;
 		_this.OPEN_ID = '';
+		_this.OPEN_MODE = '';
 		_this.$rootScope = $rootScope;
 		_this.$timeout = $timeout;
 		_this.firstLevelFilters = APP_CONST.firstLevelFilters;

@@ -52,9 +52,9 @@ Project Independent Media Manager
 
 ```javascript
 	var data = {
-		selectMode: '', //single or multiple [default, single]
+		selectMode: '', //single or multiple or manage [default, single]
 		filterType: '',  // image, video, page [default, all]
-		selectFolder: '0' //Target Folder ** FOLDER PRESELECTION IS DISABLED FOR NOW **
+		selectFolder: '0' //Target Folder ** FOLDER PRE-SELECTION IS DISABLED FOR NOW **
 	}
 
 	$('your button').on('click', function(e){

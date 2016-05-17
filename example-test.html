@@ -45,6 +45,14 @@
 				});
 			});
 
+			$('#btn-manage').on('click', function(e){
+				e.preventDefault();
+				var data = $(this).data();
+				MediaManager.Open(data).then(function(resp){
+					console.log('Manage Closed', JSON.stringify(resp, 2, ' '));
+				});
+			});
+
 			$('#btn-multiple').on('click', function(e){
 				e.preventDefault();
 				var data = $(this).data();
@@ -65,6 +73,16 @@
 
 <div class="container">
 	<div class="page-header"><h1>Media Manager</h1></div>
+	
+	<h2>Manage Mode</h2>
+
+	<div id="btn-manage" class="btn btn-default"  data-filter-type="" data-select-mode="manage" data-select-folder="0">Media Manager</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			
+		</div>
+	</div>
 
 	<h2>Single</h2>
 

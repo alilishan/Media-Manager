@@ -78,7 +78,7 @@
 						<a href="" class="btn btn-link"  ng-show="masterController.selected.items.length" ng-click="masterController.deleteSelection(masterController.OPEN_ID, masterController.selected.items)"><span class="text-danger"><i class="fa fa-trash-o "></i> Delete</span></a>
 					</div>
 					<div class="col-xs-2">
-						<a href="" ng-show="masterController.selected.items.length" ng-click="masterController.makeSelection(masterController.OPEN_ID, masterController.selected.items)" class="btn btn-success">Select</a>
+						<a href="" ng-show="masterController.selected.items.length && masterController.OPEN_MODE != 'MANAGE'" ng-click="masterController.makeSelection(masterController.OPEN_ID, masterController.selected.items)" class="btn btn-success">Select</a>
 					</div>
 				</div>
 				
