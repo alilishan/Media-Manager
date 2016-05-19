@@ -34,32 +34,32 @@
 
 
 <div id="mm-fileupload-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.fileupload.enabled }">
-	<div class="col-xs-4 fu-progress">
+	<div class="col-xs-8 fu-progress">
 
 		<div class="header-bar">
 			<div class="pull-right">
-				<span class="label label-success">{{masterController.fileupload.filesSuccessCount}}</span>
-				<span class="label label-danger">{{masterController.fileupload.filesErrorCount}}</span>
+				<!-- <span class="label label-success">{{masterController.fileupload.filesSuccessCount}}</span>
+				<span class="label label-danger">{{masterController.fileupload.filesErrorCount}}</span> -->
 			</div>
-			<span>Completed {{masterController.fileupload.filesCompleted}} of {{masterController.fileupload.files.length}}</span>
+			<span>Uploading {{masterController.fileupload.files.length}} file<g ng-show="masterController.fileupload.files.length > 1">s</g></span>
 		</div>
-		<div class="content-sec">
+		<div class="content-sec custom-scrollbar">
 			
-			<div class="media" ng-repeat="item in masterController.fileupload.files">
-				<div class="media-left">
+			<div class="row center-xs">
+				
+				<div class="upload-item col-xs-3" ng-repeat="item in masterController.fileupload.files">
 					<div mm-thumb class="mm-thumb" ng-model="item"></div>
-					<!-- <img src="https://placeholdit.imgix.net/~text?txtsize=6&txt=50%C3%9750&w=50&h=50" alt=""> -->
-				</div>
-				<div class="media-body">
-					<span class="label label-success pull-right" ng-if="item.progress > 99 && item.success"><i class="fa fa-check"></i></span>
-					<span class="label label-danger pull-right" ng-if="item.progress > 99 && item.error"><i class="fa fa-remove"></i></span>
-					<div class="media-heading">{{item.name}}</div>
-					<div class="text-muted">
-						<span ng-if="item.errorMsg == false">{{item.sizeMB}} - {{item.type}}</span>
-						<span ng-if="item.errorMsg != false" class="text-danger">{{item.errorMsg}}</span>
+					<div class="mm-info">
+						<div class="progress">
+							<div class="progress-bar" ng-class="{'progress-bar-success': item.progress > 99 && item.success, 'progress-bar-danger': item.progress > 99 && item.error}" ng-style="{'width': item.progress + '%'}"></div>
+						</div>
+						<div class="text">{{item.name}}</div>
+						<div class="text-muted">
+							<span ng-if="item.errorMsg == false">{{item.sizeMB}} - {{item.type}}</span>
+							<span ng-if="item.errorMsg != false" class="text-danger">{{item.errorMsg}}</span>
+						</div>
 					</div>
 				</div>
-				<div class="fu-p-bar" ng-style="{'width': item.progress + '%'}"></div>
 			</div>
 			
 		</div>
@@ -69,7 +69,7 @@
 
 
 
-<div id="mm-filedrop-cover"  class="row center-xs middle-xs">
+<div id="mm-filedrop-cover" class="row center-xs middle-xs">
 	<div class="col-xs-4">
 		<div class="icon"><div class="fa fa-cloud-upload"></div></div>
 		<p>Drop Your Files to Upload</p>
@@ -77,9 +77,31 @@
 </div>
 
 
+<div id="mm-delete-confirmation" class="row center-xs middle-xs" ng-class="{'is-open': masterController.deleteConfirmation.enabled}">
+	<div class="col-xs-5 dc-innerwrap">
+		
+		<div class="dc-heading">{{masterController.deleteConfirmation.title}}</div>
+		<div class="dc-content">
+			<h3>
+				<strong>{{masterController.deleteConfirmation.message}}</strong>
+			</h3>
+			<div class="checkedbox checked"> You have selected {{masterController.deleteConfirmation.items_length}} item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span>.</div>
+			<div class="checkedbox checked"> All selected media item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>permenantly deleted</strong>.</div>
+			<div class="checkedbox checked"> All content linked to the item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>broken</strong>.</div>
+
+			<div class="btn-bar">
+				<a href="" ng-click="masterController.deleteConfirmation.deferred.resolve()" class="btn btn-danger">Yes, Delete Media</a>
+				<a href="" ng-click="masterController.deleteConfirmation.deferred.reject()" class="btn btn-link">Close</a>
+			</div>
+		</div> 
+
+	</div>
+</div>
+
+
 
 <div id="mm-folder-manager" class="row center-xs middle-xs" ng-class="{'is-open': masterController.folders.manager.enabled}">
-	<div class="col-xs-8">
+	<div class="col-xs-8 mm-fm-inner-wrap">
 		<div class="title">
 			<span>Manage Folders</span>
 

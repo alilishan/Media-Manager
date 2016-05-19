@@ -92,6 +92,17 @@
             "height": "1920px",
             "ext": "png",
             "url": "http://3.bp.blogspot.com/-G_Vuo5eX5UA/Ut0uoqiNqyI/AAAAAAAAA7Q/yes-azQstJk/s200-c/Cristiano+Ronaldo+HD+Wallpaper+1080p.jpg"
+        },
+        {
+            "id": "4",
+            "name": "Transparent Banana",
+            "selected": false,
+            "type": "image",
+            "folder": "0",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "png",
+            "url": "http://pngimg.com/upload/banana_PNG835.png"
         }
     ]
 }

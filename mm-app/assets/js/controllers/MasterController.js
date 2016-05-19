@@ -106,6 +106,23 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			message: ''
 		}
 
+		_this.deleteConfirmation = {
+			enabled: false,
+			title: 'Delete Media Items',
+			message: 'Warning: this cannot be undone.',
+			items_length: 0,
+			confirm: function(length){
+				_this.deleteConfirmation.deferred = $q.defer();
+				_this.deleteConfirmation.enabled = true;
+				_this.deleteConfirmation.items_length = length;
+				return _this.deleteConfirmation.deferred.promise;
+			},
+			close: function(){
+				_this.deleteConfirmation.enabled = false;
+				_this.deleteConfirmation.items_length = 0;
+			}
+		}
+
 		_this.fileupload = {
 			enabled: false,
 			multiple: false,
@@ -229,8 +246,16 @@ MasterController.prototype.makeSelection = function(id, items){
 	parent.postMessage(JSON.stringify(obj), $this.APP_CONST.postmessageParent);
 }
 
-MasterController.prototype.deleteSelection = function(id, items){
-	this.$rootScope.$broadcast('MM-ITEMS-DELETED', {id:id, items:items});
+MasterController.prototype.deleteSelection = function(id, items){ 
+	var $this = this;
+
+	$this.deleteConfirmation.confirm(items.length).then(function(){
+		$this.$rootScope.$broadcast('MM-ITEMS-DELETED', {id:id, items:items});
+		$this.deleteConfirmation.close();
+	}, function(){
+		$this.deleteConfirmation.close();
+	});
+
 }
 
 MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)

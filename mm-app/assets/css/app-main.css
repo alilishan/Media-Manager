@@ -1,4 +1,4 @@
-/*! media-manager 2016-05-16 */
+/*! media-manager 2016-05-19 */
 /* Open Sans @font-face kit */
 /* BEGIN Light */
 @font-face {
@@ -110,6 +110,12 @@
   background-color: rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
 }
+.transparent-image-bg {
+  background-image: -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-position: 0 0,10px 10px;
+  background-size: 21px 21px;
+}
 html,
 body {
   padding: 0;
@@ -131,6 +137,17 @@ body .btn:hover,
 html .btn:focus,
 body .btn:focus {
   outline: none !important;
+}
+html .tooltip-inner,
+body .tooltip-inner {
+  border-radius: 2px;
+  font-size: 11px;
+  background: rgba(18, 21, 29, 0.96);
+  box-shadow: none;
+  color: #f9f9fb;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  padding: 6px 10px;
 }
 body {
   padding-top: 100px;
@@ -464,8 +481,10 @@ body.on-drop-hover #mm-filedrop-cover {
 .mm-wrapper .media-listing .media-container .media-item .image {
   height: 160px;
   overflow: hidden;
-  background: url('imgs/blank.png?v=1 0') no-repeat center center #fff;
-  background-size: cover;
+  background-image: -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-position: 0 0,10px 10px;
+  background-size: 21px 21px;
 }
 .mm-wrapper .media-listing .media-container .media-item .image img {
   width: 100%;
@@ -485,6 +504,72 @@ body.on-drop-hover #mm-filedrop-cover {
           transition: transform 200ms ease,opacity 200ms ease;
   -webkit-transform: translateY(-20px);
           transform: translateY(-20px);
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  visibility: hidden;
+  border: 10px solid transparent;
+  -webkit-transition: visibility 0s ease 450ms;
+          transition: visibility 0s ease 450ms;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .tools li {
+  float: left;
+  list-style: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0 0 12px;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .tools li a {
+  opacity: 0;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
+  -webkit-transition: -webkit-transform .2s ease,opacity .2s ease;
+          transition: transform .2s ease,opacity .2s ease;
+  color: #fff;
+  display: block;
+  font-weight: 400;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .tools li:nth-child(2) a {
+  -webkit-transition-delay: 25ms;
+          transition-delay: 25ms;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .tools li:nth-child(3) a {
+  -webkit-transition-delay: 50ms;
+          transition-delay: 50ms;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay .mm-btn-more-tools {
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  display: block;
+  border: 10px solid transparent;
+  position: absolute;
+  cursor: pointer;
+  font-size: 1.3em;
+  text-align: center;
+  color: #fff;
+  opacity: .8;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay.show-more-tools .tools {
+  visibility: visible;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay.show-more-tools .tools a {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: .8;
+}
+.mm-wrapper .media-listing .media-container .media-item .overlay.show-more-tools .mm-btn-more-tools {
+  opacity: 0!important;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
 }
 .mm-wrapper .media-listing .media-container .media-item.item-selected .overlay,
 .mm-wrapper .media-listing .media-container .media-item:hover .overlay {
@@ -762,7 +847,7 @@ body.on-drop-hover #mm-filedrop-cover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(58, 66, 76, 0.96);
   z-index: 1030;
   opacity: 0;
   pointer-events: none;
@@ -779,32 +864,13 @@ body.on-drop-hover #mm-filedrop-cover {
 }
 .mm-wrapper #mm-fileupload-cover .fu-progress {
   background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(43, 59, 93, 0.32), 0 0 13px rgba(43, 59, 93, 0.32);
   padding: 0;
-}
-.mm-wrapper #mm-fileupload-cover .fu-progress .header-bar,
-.mm-wrapper #mm-fileupload-cover .fu-progress .footer-bar {
-  position: absolute;
-  left: 0;
-  height: 50px;
-  width: 100%;
-  z-index: 1;
-  padding: 6px 0;
+  border-radius: 4px;
 }
 .mm-wrapper #mm-fileupload-cover .fu-progress .header-bar {
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  top: 0;
-  box-shadow: 0 1px 2px rgba(43, 59, 93, 0.11), 0 0 13px rgba(43, 59, 93, 0.09);
-  text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 1.2em;
-  font-weight: normal;
-  line-height: 2em;
-  letter-spacing: 0.5px;
-  word-spacing: 1px;
+  border-bottom: 1px solid #eaecf1;
+  padding: 20px 10px;
+  text-align: center;
 }
 .mm-wrapper #mm-fileupload-cover .fu-progress .header-bar .label {
   border-radius: 100px;
@@ -820,11 +886,14 @@ body.on-drop-hover #mm-filedrop-cover {
 .mm-wrapper #mm-fileupload-cover .fu-progress .header-bar .label.label-danger {
   background: #a94442;
 }
+.mm-wrapper #mm-fileupload-cover .fu-progress .header-bar span {
+  font-size: 1.5em;
+  color: #5f6f93;
+  font-weight: 500;
+}
 .mm-wrapper #mm-fileupload-cover .fu-progress .footer-bar {
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  bottom: 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #eaecf1;
+  padding: 20px 10px;
 }
 .mm-wrapper #mm-fileupload-cover .fu-progress .footer-bar .btn {
   text-transform: uppercase;
@@ -835,58 +904,78 @@ body.on-drop-hover #mm-filedrop-cover {
   text-decoration: none;
 }
 .mm-wrapper #mm-fileupload-cover .fu-progress .content-sec {
-  margin: 50px 0;
-  max-height: 300px;
+  margin: 0;
+  max-height: 400px;
+  min-height: 200px;
   overflow: auto;
+  padding: 20px 0 20px;
+  background-color: #f5f5f5;
 }
-.mm-wrapper #mm-fileupload-cover .fu-progress .media {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-  overflow: hidden;
+.mm-wrapper #mm-fileupload-cover .fu-progress .content-sec > .row {
   margin: 0;
 }
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .media-heading {
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item {
+  height: 200px;
+  padding: 0;
+  margin: 5px 10px 5px 0;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(43, 59, 93, 0.29);
+}
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-thumb {
+  height: 160px;
+  overflow: hidden;
+  background-image: -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), -webkit-linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-position: 0 0,10px 10px;
+  background-size: 21px 21px;
+}
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-thumb img {
+  width: 100%;
+  height: auto;
+}
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-info {
+  height: 40px;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: auto;
+  z-index: 1;
+  box-shadow: 0 -1px 0 0 rgba(80, 88, 104, 0.12);
+  border-radius: 0 0 3px 3px;
+  -webkit-transform: translateY(-37px);
+          transform: translateY(-37px);
+}
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-info .text {
+  padding: 5px ;
+  font-size: 14px;
+  margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #5A5757;
-  letter-spacing: .8px;
-  font-size: 1.2em;
-  font-weight: 500;
 }
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .text-muted {
-  color: #999;
-  font-size: 12px;
-  letter-spacing: .8px;
-}
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .label {
-  border-radius: 100px;
-}
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .media-left,
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .media-body {
-  z-index: 1;
-  position: relative;
-}
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .media-left .mm-thumb {
-  width: 60px;
-  height: 60px;
-  background: url('imgs/blank.png?v=1 0') no-repeat center center #fff;
-  background-size: 215px;
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-info .text-muted {
+  font-size: 10px;
+  padding: 0 5px 5px;
   overflow: hidden;
 }
-.mm-wrapper #mm-fileupload-cover .fu-progress .media .fu-p-bar {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 0;
-  background: #efefef;
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-info .progress {
+  width: 100%;
+  height: 3px;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  background: transparent;
 }
-.mm-wrapper #mm-fileupload-cover .fu-progress .media:last-child {
-  border-bottom: none;
+.mm-wrapper #mm-fileupload-cover .fu-progress .upload-item .mm-info .progress .progress-bar {
+  box-shadow: none;
+  -webkit-transition: background-color 500ms ease;
+          transition: background-color 500ms ease;
 }
 .mm-wrapper #mm-toast-cover {
   position: fixed;
@@ -1036,7 +1125,7 @@ body.on-drop-hover #mm-filedrop-cover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.99);
+  background: rgba(58, 66, 76, 0.96);
   z-index: 1030;
   opacity: 0;
   pointer-events: none;
@@ -1051,9 +1140,14 @@ body.on-drop-hover #mm-filedrop-cover {
   -webkit-transform: scale(1);
           transform: scale(1);
 }
+.mm-wrapper #mm-folder-manager .mm-fm-inner-wrap {
+  background: #fff;
+  padding: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
 .mm-wrapper #mm-folder-manager .title {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 15px;
+  padding: 20px 10px;
   text-align: left;
 }
 .mm-wrapper #mm-folder-manager .title span {
@@ -1071,11 +1165,15 @@ body.on-drop-hover #mm-filedrop-cover {
   border-radius: 0;
 }
 .mm-wrapper #mm-folder-manager .content {
-  margin: 0 15px;
-  max-height: 300px;
+  margin: 0;
+  max-height: 500px;
   min-height: 200px;
   overflow: auto;
-  padding: 0 0 20px;
+  padding: 0 0 20px 15px;
+  border-top: 1px solid #eaecf1;
+  border-bottom: 1px solid #eaecf1;
+  background: #f9f9fb;
+  box-sizing: border-box;
 }
 .mm-wrapper #mm-folder-manager .content .mm-folderList {
   padding: 0;
@@ -1159,6 +1257,102 @@ body.on-drop-hover #mm-filedrop-cover {
   visibility: visible !important;
 }
 .mm-wrapper #mm-folder-manager .footbar {
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
+  padding: 20px 10px;
+}
+.mm-wrapper #mm-delete-confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(58, 66, 76, 0.96);
+  z-index: 1030;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: -webkit-transform 200ms ease,opacity 200ms ease;
+          transition: transform 200ms ease,opacity 200ms ease;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+.mm-wrapper #mm-delete-confirmation.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.mm-wrapper #mm-delete-confirmation .dc-innerwrap {
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 0;
+}
+.mm-wrapper #mm-delete-confirmation .dc-heading {
+  padding: 20px 10px;
+  color: #d9534f;
+  font-size: 28px;
+  margin: 0 0 0;
+  text-align: center;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content {
+  border-top: 1px solid #eaecf1;
+  background: #f9f9fb;
+  padding: 30px;
+  box-sizing: border-box;
+  text-align: left;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content h3 {
+  font-size: 1.3em;
+  color: #464d5d;
+  margin: 0 0 12px;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content strong {
+  font-weight: 600;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox {
+  font-size: 1.1em;
+  line-height: 20px;
+  color: #7e8890;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  margin: 15px 0;
+  padding: 5px 0 5px 32px;
+  position: relative;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox:before,
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox:after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox:before {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox:after {
+  font: normal normal normal 11px/1 FontAwesome;
+  left: 6px;
+  top: 9px;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox.checked:before {
+  border-color: #d9534f;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .checkedbox.checked:after {
+  content: "\f00c";
+  color: #d9534f;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .btn-bar {
+  text-align: center;
+  padding-top: 20px;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .btn-bar .btn {
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-size: 1em;
+}
+.mm-wrapper #mm-delete-confirmation .dc-content .btn-bar .btn + .btn {
+  margin-left: 10px;
 }

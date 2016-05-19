@@ -24,10 +24,17 @@
 				>
 					<div class="image"><img ng-src="{{item.url}}" alt=""></div>
 					<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
-					<div class="overlay text-left" ng-click="selectItem(item)">
-						<div class="checker big">
+					<div class="overlay text-left">
+						<div class="checker big" ng-click="selectItem(item)">
 							<label  ng-class="{'is-set': item.selected}"></label><!-- ng-click="selectItem(item)" -->
 						</div>
+						
+						<ul class="tools">
+							<li><a href="{{item.url}}" download="item.name" data-toggle="tooltip" title="Download"><i class="fa fa-download"></i></a></li>
+							<li><a href="" data-toggle="tooltip" title="Delete" ng-click="masterController.deleteSelection(masterController.OPEN_ID, [item])"><i class="fa fa-trash-o"></i></a></li>
+						</ul>
+
+						<a class="mm-btn-more-tools"><i class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></i></a>
 					</div>
 					<div class="info">
 						<div class="filename row">

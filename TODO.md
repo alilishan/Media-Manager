@@ -3,11 +3,12 @@
 
 * ~~Items move to folder option - next to delete~~
 * ~~Manage Mode~~
+* ~~Do up upload dialogue~~
 * Angular scroll to new item / folder
 * Add New screenshots
-* Add small confirm dialogue to delete items 
+* ~~Add small confirm dialogue to delete items~~ 
 
-* Darker progress bar - condition to be darker when progressig maybe
+* ~~Darker progress bar - condition to be darker when progressig maybe~~
 * ~~Customizable first level filter ['images', 'videos', 'pages' ]~~
 * Font size Changes from local to spark
 * Media List filter animation

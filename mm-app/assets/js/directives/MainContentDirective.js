@@ -4,7 +4,8 @@ angular
 	.module('mediaManager')
 	.directive('mmMaincontent', MainContentDirective)
 	.directive('mmItemDraggable', ListItemDraggable)
-	.directive('mmSidebarDroppable', SidebarDroppable);
+	.directive('mmSidebarDroppable', SidebarDroppable)
+	.directive('mmBtnMoreTools', BtnShowMoreTools);
 
 
 function MainContentDirective($timeout){
@@ -145,6 +146,51 @@ function SidebarDroppable($rootScope, $timeout){
 					});
 				});
 
+			}
+
+			$timeout(function(){
+				bindUI();
+			}, 0);
+			
+		}
+	}
+}
+
+
+function BtnShowMoreTools($timeout){
+	return {
+		restrict: 'C',
+		link: function(scope, element, attrs){
+
+			function bindUI(){
+
+				$(document).ready(function($) {
+					
+					var $parent = $(element).parents('.overlay');
+					
+					$(element).on('click', function(e){
+						e.preventDefault();
+
+						if($parent.hasClass('show-more-tools')){
+							$parent.removeClass('show-more-tools');
+						} else {
+							$parent.addClass('show-more-tools');
+						}
+						return false;
+					});
+
+					$parent.on('mousemove', function(e){
+						var $tools = $(this).find('.tools');
+						if(!$tools.is(e.target) && $tools.has(e.target).length === 0){
+							$(this).removeClass('show-more-tools');
+						}
+					});
+
+					$parent.find('[data-toggle="tooltip"]').tooltip({
+						container: 'body'
+					});
+
+				});
 			}
 
 			$timeout(function(){
