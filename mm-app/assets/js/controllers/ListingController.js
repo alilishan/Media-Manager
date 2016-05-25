@@ -39,13 +39,12 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 	$scope.getData = function(){
 		DataFactory.getMediaListing().then(function(resp){
-			//console.log(resp.data.items);
 			$scope.mediaList = resp;	
 			$scope.showLoading = false;
 			
 			$scope.masterController.selected.items = [];
 		}, function(error){
-			$scope.masterController.showTaost('Error Getting Data [E1002]', 10000);
+			$scope.masterController.showTaost('Error Getting Data [E1002]', 5000);
 			$scope.showLoading = false;
 		});
 	}
@@ -56,7 +55,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			$scope.masterController.folders.list = resp;
 			$scope.showLoading = false;	
 		}, function(error){
-			$scope.masterController.showTaost('Error Getting Folders [E1003]', 10000);
+			$scope.masterController.showTaost('Error Getting Folders [E1003]', 5000);
 			$scope.showLoading = false;
 		});
 	}
@@ -91,7 +90,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
-		$log.debug('Reloading Media List');
+		$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
 		$scope.getData();
 	});
 
@@ -99,7 +98,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		//console.log(data);
 		$scope.showLoading = true;
 		DataFactory.postMediaDelete(data).then(function(){
-			$log.debug('Reloading Media List');
+			$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
 			$scope.getData();
 		});
 	});
@@ -114,7 +113,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 				name:$scope.masterController.addItems.virtualFile.name, 
 				type:$scope.masterController.addItems.virtualFile.type 
 			}).then(function(){
-				$log.debug('Reloading Media List');
+				$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
 				$scope.getData();
 			});
 		}
@@ -125,11 +124,31 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	$scope.$on('MM-FOLDERS-DELETE', sendFolderStructureUpdates);
 	$scope.$on('MM-FOLDERS-UPDATE', sendFolderStructureUpdates);
 
-	function sendFolderStructureUpdates(e, data){ console.log(JSON.stringify(data, 2, ' '))
-		DataFactory.postFolderSave(data).then(function(){
-			$log.debug('Folders changed logged!');
+	function sendFolderStructureUpdates(e, data){ console.log(data)
+		DataFactory.postFolderSave(data).then(function(resp){ console.log(resp)
+			resp = resp.data;
+			if(resp.status == 'true'){
+				if(data.type == 'ADD'){
+					$scope.masterController.mmFolderInsertItem($scope.masterController.folders.list.items, data.id, data.parent, data.name, function(newItem){
+						//
+					});
+				}
+
+				if(data.type == 'DELETE'){
+					$scope.masterController.mmFolderRemoveItem($scope.masterController.folders.list.items, data.id, function(){
+						//
+					});
+				}
+
+				$scope.masterController.showTaost('Changes Saved.', 3000);
+			} else {
+				$scope.masterController.showTaost(resp.message +' [XHR]', 3000);
+			}
+
+
+
 		}, function(){
-			$scope.masterController.showTaost('Error Adding Folders [E2001]', 10000);
+			$scope.masterController.showTaost('Error Adding Folders [E2001]', 5000);
 		});
 	}
 

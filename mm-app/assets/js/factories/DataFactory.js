@@ -31,7 +31,15 @@ function DataFactory($http, APP_CONST, $q){
 			var deferred = $q.defer();
 
 			$http.get(APP_CONST.getMediaListing).then(function(resp){
-				deferred.resolve(resp.data.folders);
+				if('status' in resp.data){
+					if(resp.data.status == 'true'){
+						deferred.resolve(resp.data.data.folders);
+					} else {
+						deferred.reject(resp.data.message);
+					}
+				} else {
+					deferred.resolve(resp.data.folders);
+				}
 			}, function(){
 				deferred.reject();
 			});
@@ -43,7 +51,15 @@ function DataFactory($http, APP_CONST, $q){
 			var deferred = $q.defer();
 
 			$http.get(APP_CONST.getMediaListing).then(function(resp){
-				deferred.resolve(resp.data.media);
+				if('status' in resp.data){
+					if(resp.data.status == 'true'){
+						deferred.resolve(resp.data.data.media);
+					} else {
+						deferred.reject(resp.data.message);
+					}
+				} else {
+					deferred.resolve(resp.data.media);
+				}
 			}, function(){
 				deferred.reject();
 			});

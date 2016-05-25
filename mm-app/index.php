@@ -86,7 +86,7 @@
 		</footer>
 
 		<div id="mm-toast-cover" class="row center-xs middle-xs">
-			<div class="col-xs-3"><div class="mm-toast-msg" ng-class="{'is-open': masterController.toast.message !== '' }">{{masterController.toast.message}}</div></div>
+			<div class="col-xs-4"><div class="mm-toast-msg" ng-class="{'is-open': masterController.toast.message !== '' }">{{masterController.toast.message}}</div></div>
 		</div>
 
 	</div>

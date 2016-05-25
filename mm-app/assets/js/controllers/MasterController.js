@@ -32,15 +32,13 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 							_this.showTaost('Need a Folder Name');
 							return false;
 						}
-
+						var newID = Math.floor(10*Math.random())+""+(new Date).getTime();
 						var selectedFolder = (rooted)? _this.folders.manager.add.focus : _this.folders.selected;
 
-						mmInsertItem(_this.folders.list.items, selectedFolder, string, function(newItem){
-							_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {data: _this.folders.list, type: 'ADD'});
-							_this.folders.manager.add.string = '';
+						_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {'id': newID,'name': string, 'parent': selectedFolder, 'struncture': _this.folders.list, type: 'ADD'});
+						_this.folders.manager.add.string = '';
 
-							if(rooted) _this.folders.manager.add.focus = '0';
-						});
+						if(rooted) _this.folders.manager.add.focus = '0';
 					}
 				},
 				edit: function(id, name){
@@ -50,10 +48,15 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 					}
 					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', {data: _this.folders.list, type: 'EDIT', id: id, name: name});
 				},
-				delete: function(id){
-					mmRemoveItem(_this.folders.list.items, id, function(){
+				delete: function(id){ 
+
+					_this.deleteConfirmation.confirm('folder', 1).then(function(){
 						_this.$rootScope.$broadcast('MM-FOLDERS-DELETE', {data: _this.folders.list, type: 'DELETE', id: id});
+						_this.deleteConfirmation.close();
+					}, function(){
+						_this.deleteConfirmation.close();
 					});
+
 				},
 				ondrop: function(folder){
 					_this.$rootScope.$broadcast('MM-FOLDERS-ONDROP', {data: folder, type: 'ONDROP', id: folder.id});
@@ -111,7 +114,12 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			title: 'Delete Media Items',
 			message: 'Warning: this cannot be undone.',
 			items_length: 0,
-			confirm: function(length){
+			type: 'media',
+			confirm: function(type, length){
+				if(type == 'media') _this.deleteConfirmation.title = 'Delete Media Items';
+				if(type == 'folder') _this.deleteConfirmation.title = 'Delete Folder';
+				
+				_this.deleteConfirmation.type = type;
 				_this.deleteConfirmation.deferred = $q.defer();
 				_this.deleteConfirmation.enabled = true;
 				_this.deleteConfirmation.items_length = length;
@@ -249,7 +257,7 @@ MasterController.prototype.makeSelection = function(id, items){
 MasterController.prototype.deleteSelection = function(id, items){ 
 	var $this = this;
 
-	$this.deleteConfirmation.confirm(items.length).then(function(){
+	$this.deleteConfirmation.confirm('media', items.length).then(function(){
 		$this.$rootScope.$broadcast('MM-ITEMS-DELETED', {id:id, items:items});
 		$this.deleteConfirmation.close();
 	}, function(){
@@ -258,7 +266,7 @@ MasterController.prototype.deleteSelection = function(id, items){
 
 }
 
-MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)
+MasterController.prototype.showTaost = function(msg, duration){
 	var $this = this;
 		$this.toast.message = msg;
 	var duration = angular.isUndefined(duration)? 3000: parseInt(duration);
@@ -269,12 +277,13 @@ MasterController.prototype.showTaost = function(msg, duration){ console.log(msg)
 }
 
 
-function mmInsertItem(collection, targetId, name, callback) {
+MasterController.prototype.mmFolderInsertItem = function(collection, id, targetId, name, callback) {
+	var $this = this;
 
 	if(targetId == "0"){
 
 		var newObj = {
-			"id": Math.floor(10*Math.random())+""+(new Date).getTime(),
+			"id": id,
 			"name": name,
 			"items": []
 		}
@@ -289,7 +298,7 @@ function mmInsertItem(collection, targetId, name, callback) {
 
 			if(item.id == targetId) {
 				var newObj = {
-					"id": Math.floor(10*Math.random())+""+(new Date).getTime(),
+					"id": id,
 					"name": name,
 					"items": []
 				}
@@ -298,9 +307,9 @@ function mmInsertItem(collection, targetId, name, callback) {
 
 				if(typeof callback == 'function') callback(newObj);
 
-			} else {
+			} else { console.log(item)
 				if(item.items.length){
-					mmInsertItem(item.items, targetId, name, callback);
+					$this.mmFolderInsertItem(item.items, id, targetId, name, callback);
 				}
 			}
 
@@ -312,8 +321,9 @@ function mmInsertItem(collection, targetId, name, callback) {
 	return null;
 }
 
-function mmRemoveItem(collection, targetId, callback) {
-
+MasterController.prototype.mmFolderRemoveItem = function(collection, targetId, callback) {
+	var $this = this;
+	
 	_.each(collection, function(item){
 
 		if(!angular.isUndefined(item)){
@@ -328,7 +338,7 @@ function mmRemoveItem(collection, targetId, callback) {
 
 			} else {
 				if(item.items.length){
-					mmRemoveItem(item.items, targetId, callback);
+					$this.mmFolderRemoveItem(item.items, targetId, callback);
 				}
 			}
 

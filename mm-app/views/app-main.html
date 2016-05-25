@@ -77,26 +77,6 @@
 </div>
 
 
-<div id="mm-delete-confirmation" class="row center-xs middle-xs" ng-class="{'is-open': masterController.deleteConfirmation.enabled}">
-	<div class="col-xs-5 dc-innerwrap">
-		
-		<div class="dc-heading">{{masterController.deleteConfirmation.title}}</div>
-		<div class="dc-content">
-			<h3>
-				<strong>{{masterController.deleteConfirmation.message}}</strong>
-			</h3>
-			<div class="checkedbox checked"> You have selected {{masterController.deleteConfirmation.items_length}} item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span>.</div>
-			<div class="checkedbox checked"> All selected media item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>permenantly deleted</strong>.</div>
-			<div class="checkedbox checked"> All content linked to the item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>broken</strong>.</div>
-
-			<div class="btn-bar">
-				<a href="" ng-click="masterController.deleteConfirmation.deferred.resolve()" class="btn btn-danger">Yes, Delete Media</a>
-				<a href="" ng-click="masterController.deleteConfirmation.deferred.reject()" class="btn btn-link">Close</a>
-			</div>
-		</div> 
-
-	</div>
-</div>
 
 
 
@@ -155,3 +135,31 @@
 
 
 </script>
+
+
+
+<!-- HAS TO BE THE LAST LAYER AS GOES ON TOP ALL -->
+<div id="mm-delete-confirmation" class="row center-xs middle-xs" ng-class="{'is-open': masterController.deleteConfirmation.enabled}">
+	<div class="col-xs-5 dc-innerwrap">
+		
+		<div class="dc-heading">{{masterController.deleteConfirmation.title}}</div>
+		<div class="dc-content">
+			<h3>
+				<strong>{{masterController.deleteConfirmation.message}}</strong>
+			</h3>
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'media'"> You have selected {{masterController.deleteConfirmation.items_length}} item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span>.</div>
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'media'"> All selected media item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>permenantly deleted</strong>.</div>
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'media'"> All content linked to the item<span ng-show="masterController.deleteConfirmation.items_length > 1">s</span> will be <strong>broken</strong>.</div>
+
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'folder'"> All Sub-Folders linked to the Folder will be <strong>deleted</strong>.</div>
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'folder'"> All Media Files linked to the Folder will be <strong>deleted</strong>.</div>
+			<div class="checkedbox checked" ng-show="masterController.deleteConfirmation.type == 'folder'"> All content linked to the Media in the Folders will be <strong>broken</strong>.</div>
+
+			<div class="btn-bar">
+				<a href="" ng-click="masterController.deleteConfirmation.deferred.resolve()" class="btn btn-danger">Yes, Delete {{masterController.deleteConfirmation.type}}</a>
+				<a href="" ng-click="masterController.deleteConfirmation.deferred.reject()" class="btn btn-link">Close</a>
+			</div>
+		</div> 
+
+	</div>
+</div>

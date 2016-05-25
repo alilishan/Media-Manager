@@ -40,7 +40,7 @@
 				e.preventDefault();
 				var data = $(this).data();
 				MediaManager.Open(data).then(function(resp){
-					console.log('various', JSON.stringify(resp, 2, ' '));
+					//console.log('various', JSON.stringify(resp, 2, ' '));
 					$('#btn-single .form-control').val(resp.items[0].url);
 				});
 			});
@@ -49,7 +49,7 @@
 				e.preventDefault();
 				var data = $(this).data();
 				MediaManager.Open(data).then(function(resp){
-					console.log('Manage Closed', JSON.stringify(resp, 2, ' '));
+					console.log('Manager Closed', JSON.stringify(resp, 2, ' '));
 				});
 			});
 

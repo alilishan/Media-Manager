@@ -90,7 +90,8 @@ Project Independent Media Manager
 			"width": "",
 			"height": "",
 			"ext": "png",
-			"url": ""
+			"url": "", //Maybe thumbnail or preview
+			"path": "" //Full Path to the File
 		}
 	]
 }
@@ -128,11 +129,21 @@ Example:
 			"width": "1080px",
 			"height": "1920px",
 			"ext": "png",
-			"url": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200"
+			"url": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200",
+			"path": "http://rs1225.pbsrc.com/.../JBHDWallpapers2.jpg~c200"
 		},
 		{...},
 		{...}
 	]
+}
+```
+
+###Required Folder Update Responses
+```javascript
+{
+	"status": "true", /"false"
+	"message": "",
+	"data": {...}
 }
 ```
 

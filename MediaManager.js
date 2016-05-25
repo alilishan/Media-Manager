@@ -11,10 +11,9 @@ var MediaManager = {
 		openEffect : 'none',
 		closeEffect  : 'none',
 		wrapCSS: '',
-		width: '90%',
-		height: '90%', 
-		openSpeed: 100,
-		openSpeed: 100,
+		width: '98%',
+		height: '98%', 
+		openSpeed: 1000,
 		autoSize: false,
 		scrolling: 'no',
 		scrollOutside: false,
@@ -52,7 +51,13 @@ var MediaManager = {
 		window.addEventListener("message", function(event){
 			var args = arguments;
 				args[0].data = event;
-			var data = JSON.parse(args[0].data);
+
+			try {
+				var data = JSON.parse(args[0].data);
+			} catch(e) {
+				console.log('ALERT MM ERR', e, args);
+				return false;
+			}	
 			
 			if(data.action == 'close'){
 				$this.Close();
