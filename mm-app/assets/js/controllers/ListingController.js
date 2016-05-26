@@ -116,6 +116,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 				type:$scope.masterController.addItems.virtualFile.type,
 				targetFolder: ($scope.masterController.folders.selected == '' )? '0' : $scope.masterController.folders.selected
 			}).then(function(){
+				$scope.masterController.addItems.virtualFile.name = '';
 				$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
 				$scope.getData();
 			});
