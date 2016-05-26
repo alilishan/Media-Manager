@@ -23,7 +23,7 @@ Project Independent Media Manager
 
 ###Global 
 ```javascript
-{
+MediaManager.Initialize(({
 	path: 'path-to/mm-app/',
 	postmessageParent: '*', //Please set a domain for security reasons
 	fileuploadPath: 'example_files/ajax_image_upload.php',
@@ -35,7 +35,7 @@ Project Independent Media Manager
 	flf_image: true, // flf_First Level Filters
 	flf_video: true,
 	flf_page: true
-}
+});
 ```
 ###Usage 
 ```html
@@ -55,6 +55,11 @@ Project Independent Media Manager
 		selectMode: '', //single or multiple or manage [default, single]
 		filterType: '',  // image, video, page [default, all]
 		selectFolder: '0' //Target Folder ** FOLDER PRE-SELECTION IS DISABLED FOR NOW **
+	}
+	
+	//Fancybox Methods & Callbacks are exposed - http://fancyapps.com/fancybox/
+	MediaManager.fancybox.afterClose = function(){
+		console.log('closed')
 	}
 
 	$('your button').on('click', function(e){
