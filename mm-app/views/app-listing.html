@@ -23,15 +23,19 @@
 					data-id="{{item.id}}"
 				>
 					<div class="image"><img ng-src="{{item.url}}" alt=""></div>
-					<div class="text-muted text-left sub-info">{{item.width}} x {{item.height}} <span class="pull-right">{{item.ext}}</span></div>
-					<div class="overlay text-left">
-						<div class="checker big" ng-click="selectItem(item)">
+					<div class="text-muted text-center sub-info">
+						<span class="pull-left">{{item.size}}</span>
+						<span ng-show="item.width !='' && item.height !=''">{{item.width}} {{item.height}}</span>  
+						<span class="pull-right">{{item.ext}}</span>
+					</div>
+					<div class="overlay text-left" ng-click="selectItem($event, item)">
+						<div class="checker big">
 							<label  ng-class="{'is-set': item.selected}"></label><!-- ng-click="selectItem(item)" -->
 						</div>
 						
 						<ul class="tools">
-							<li><a href="{{item.path}}" download="{{item.name}}" data-toggle="tooltip" title="Download"><i class="fa fa-download"></i></a></li>
-							<li><a href="" data-toggle="tooltip" title="Delete" ng-click="masterController.deleteSelection(masterController.OPEN_ID, [item])"><i class="fa fa-trash-o"></i></a></li>
+							<li><a ng-href="{{item.path}}" download="{{item.name}}" data-toggle="tooltip" title="Download" ng-click="$event.stopPropagation()"><i class="fa fa-download"></i></a></li>
+							<li><a href="" data-toggle="tooltip" title="Delete" ng-click="masterController.deleteSelection(masterController.OPEN_ID, [item])" ng-click="$event.stopPropagation()"><i class="fa fa-trash-o"></i></a></li>
 						</ul>
 
 						<a class="mm-btn-more-tools"><i class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></i></a>

@@ -63,7 +63,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	}
 
 
-	$scope.selectItem = function(item){
+	$scope.selectItem = function(e, item){
 		if(item.selected){
 			item.selected = false;
 			var index = $scope.masterController.selected.items.indexOf(item);
