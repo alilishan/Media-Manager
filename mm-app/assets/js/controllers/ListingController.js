@@ -38,6 +38,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 
 	$scope.getData = function(){
+		$scope.showLoading = true;
 		DataFactory.getMediaListing().then(function(resp){
 			$scope.mediaList = resp;	
 			$scope.showLoading = false;
@@ -51,6 +52,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 
 	$scope.getFolders = function(){
+		$scope.showLoading = true;
 		DataFactory.getFolderList().then(function(resp){
 			$scope.masterController.folders.list = resp;
 			$scope.showLoading = false;	
@@ -111,7 +113,8 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			DataFactory.postVirtualFile({
 				id:$scope.masterController.OPEN_ID, 
 				name:$scope.masterController.addItems.virtualFile.name, 
-				type:$scope.masterController.addItems.virtualFile.type 
+				type:$scope.masterController.addItems.virtualFile.type,
+				targetFolder: ($scope.masterController.folders.selected == '' )? '0' : $scope.masterController.folders.selected
 			}).then(function(){
 				$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
 				$scope.getData();
@@ -125,7 +128,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	$scope.$on('MM-FOLDERS-UPDATE', sendFolderStructureUpdates);
 
 	function sendFolderStructureUpdates(e, data){ console.log(data)
-		DataFactory.postFolderSave(data).then(function(resp){ console.log(resp)
+		DataFactory.postFolderSave(data).then(function(resp){
 			resp = resp.data;
 			if(resp.status == 'true'){
 				if(data.type == 'ADD'){
@@ -144,8 +147,6 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			} else {
 				$scope.masterController.showTaost(resp.message +' [XHR]', 3000);
 			}
-
-
 
 		}, function(){
 			$scope.masterController.showTaost('Error Adding Folders [E2001]', 5000);

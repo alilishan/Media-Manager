@@ -34,6 +34,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						}
 						var newID = Math.floor(10*Math.random())+""+(new Date).getTime();
 						var selectedFolder = (rooted)? _this.folders.manager.add.focus : _this.folders.selected;
+							selectedFolder = (selectedFolder == '')? '0' : selectedFolder;
 
 						_this.$rootScope.$broadcast('MM-FOLDERS-ADD', {'id': newID,'name': string, 'parent': selectedFolder, 'struncture': _this.folders.list, type: 'ADD'});
 						_this.folders.manager.add.string = '';
@@ -64,10 +65,10 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			},
 			sortableOptions: {
 				connectWith: '.mm-folderList',
-				update: function(e, ui) {
-					if (this === ui.item.parent()[0]) {
+				stop: function(e, ui) {
+					//if (this === ui.item.parent()[0]) {
 						_this.$rootScope.$broadcast('MM-FOLDERS-UPDATE', {data: _this.folders.list, type: 'UPDATE'});
-					}
+					//}
 				}
 			},
 			getTemplate: function(item){
@@ -185,7 +186,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						file.sizeMB = (file.size / 1048576).toFixed(1) + ' MB '; // MB = 2^20 = 1,048,576 Bytes
 						file.targetFolder = _this.folders.selected;
 
-						UploadFactory.upload(APP_CONST.fileuploadPath, file, i).then(function(resp){
+						UploadFactory.upload(APP_CONST.fileuploadPath+'?targetFolder='+file.targetFolder, file, i).then(function(resp){
 							//console.log('s', resp)
 							//console.log('s', _this.fileupload.files[resp.id])
 
@@ -307,7 +308,7 @@ MasterController.prototype.mmFolderInsertItem = function(collection, id, targetI
 
 				if(typeof callback == 'function') callback(newObj);
 
-			} else { console.log(item)
+			} else { //console.log(item)
 				if(item.items.length){
 					$this.mmFolderInsertItem(item.items, id, targetId, name, callback);
 				}
@@ -330,7 +331,7 @@ MasterController.prototype.mmFolderRemoveItem = function(collection, targetId, c
 
 			if(item.id == targetId) {
 				
-				console.log('found haha', collection, item, _.indexOf(collection, item));
+				///console.log('found haha', collection, item, _.indexOf(collection, item));
 
 				collection.splice(_.indexOf(collection, item), 1);
 

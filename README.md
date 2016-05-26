@@ -150,7 +150,37 @@ Example:
 ##Screenshots
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-3.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-4.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-5.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-6.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-7.jpg)
 
 
 ##Good Read
 * [Recursive data strunctures](http://blog.wax-o.com/2014/01/how-to-find-deep-and-get-parent-in-javascript-nested-objects-with-recursive-functions-and-the-reference-concept-level-beginner/)
+
+
+###PHP Helper Function to Build Tree
+http://stackoverflow.com/questions/13877656/php-hierarchical-array-parents-and-childs
+```php
+function buildTree(array $elements, $parentId = 0) {
+    $branch = array();
+
+    foreach ($elements as $element) {
+        if ($element['parent_id'] == $parentId) {
+            $children = buildTree($elements, $element['id']);
+            if ($children) {
+                $element['children'] = $children;
+            }
+            $branch[] = $element;
+        }
+    }
+
+    return $branch;
+}
+
+$tree = buildTree($rows);
+
+print_r( $tree );
+```
