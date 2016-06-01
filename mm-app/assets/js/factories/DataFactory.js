@@ -47,10 +47,10 @@ function DataFactory($http, APP_CONST, $q){
 			return deferred.promise;			
 		}
 
-		factory.getMediaListing = function(){
+		factory.getMediaListing = function(folder_id){
 			var deferred = $q.defer();
 
-			$http.get(APP_CONST.getMediaListing).then(function(resp){
+			$http.get(APP_CONST.getMediaListing+'?folder_id='+folder_id).then(function(resp){
 				if('status' in resp.data){
 					if(resp.data.status == 'true'){
 						deferred.resolve(resp.data.data.media);

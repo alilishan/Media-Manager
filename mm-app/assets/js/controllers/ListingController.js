@@ -30,16 +30,15 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 	//Set Folder
 	if(!angular.isUndefined($scope.params.selectFolder)){
-		console.log('Folder Pre Selection is disabled!!')
-		//$scope.masterController.folders.selected = $scope.params.selectFolder;
+		$scope.masterController.folders.selected = $scope.params.selectFolder;
 	}
 
 	//console.log($scope.params, $scope.masterController.filter, $scope.masterController.folders);
 
 
-	$scope.getData = function(){
+	$scope.getData = function(folder_id){
 		$scope.showLoading = true;
-		DataFactory.getMediaListing().then(function(resp){
+		DataFactory.getMediaListing(folder_id).then(function(resp){
 			$scope.mediaList = resp;	
 			$scope.showLoading = false;
 			
@@ -90,10 +89,21 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		});
 	}
 
+	$scope.buildEditorLink = function(item){
+		var url = 'pixie/index.php?id='+item.id;
+			url += '&folder='+$scope.masterController.folders.selected;
+			url += '&name='+item.name.replace(' ', '_');
+			url += '&ext='+item.ext;
+			url += '&image_path='+window.encodeURIComponent(item.path);
+			url += '&save_path='+window.encodeURIComponent($scope.consts.postPixieImageCreate);
+			url += '&callback_path='+window.encodeURIComponent(window.location.href);
+		return url;
+	}
+
 
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
 		$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
-		$scope.getData();
+		$scope.getData($scope.params.selectFolder);
 	});
 
 	$scope.$on('MM-ITEMS-DELETED', function(e, data){
@@ -101,7 +111,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		$scope.showLoading = true;
 		DataFactory.postMediaDelete(data).then(function(){
 			$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
-			$scope.getData();
+			$scope.getData($scope.params.selectFolder);
 		});
 	});
 
@@ -118,7 +128,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			}).then(function(){
 				$scope.masterController.addItems.virtualFile.name = '';
 				$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
-				$scope.getData();
+				$scope.getData($scope.params.selectFolder);
 			});
 		}
 	});
@@ -177,5 +187,5 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 	//Initialize
 	$scope.getFolders();
-	$scope.getData();
+	$scope.getData($scope.params.selectFolder);
 }

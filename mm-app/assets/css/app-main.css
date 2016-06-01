@@ -527,7 +527,7 @@ body.on-drop-hover #mm-filedrop-cover {
   list-style: none;
   cursor: pointer;
   padding: 0;
-  margin: 0 0 0 12px;
+  margin: 0 0 0 15px;
 }
 .mm-wrapper .media-listing .media-container .media-item .overlay .tools li a {
   opacity: 0;

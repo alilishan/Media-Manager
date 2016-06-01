@@ -34,6 +34,7 @@
 						</div>
 						
 						<ul class="tools">
+							<li><a ng-href="{{buildEditorLink(item)}}" data-toggle="tooltip" title="Edit" ng-show="item.type == 'image'"  ng-click="$event.stopPropagation()"><i class="fa fa-pencil"></i></a></li>
 							<li><a ng-href="{{item.path}}" download="{{item.name}}" data-toggle="tooltip" title="Download" ng-click="$event.stopPropagation()"><i class="fa fa-download"></i></a></li>
 							<li><a href="" data-toggle="tooltip" title="Delete" ng-click="masterController.deleteSelection(masterController.OPEN_ID, [item])" ng-click="$event.stopPropagation()"><i class="fa fa-trash-o"></i></a></li>
 						</ul>

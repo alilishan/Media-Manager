@@ -21,7 +21,7 @@
 							class="root-node" 
 							ng-class="{'active': '0' == masterController.folders.selected}"
 						>
-							<a mm-sidebar-droppable="masterController.folders.manager.ondrop" href="" ng-click="masterController.folders.selected = '0'" data-folder-id="0"><small>/ Root Folder</small></a>
+							<a mm-sidebar-droppable="masterController.folders.manager.ondrop" ui-sref="app.listing({selectFolder: '0'})" data-folder-id="0"><small>/ Root Folder</small></a> <!-- ng-click="masterController.folders.selected = '0'" -->
 						</li>
 						
 						<li 
@@ -39,7 +39,7 @@
 				<!-- Tree Item Template -->
 				<script type="text/ng-template"  id="mm-sidebar-navtree.html">
 
-					<a href="" mm-sidebar-droppable="masterController.folders.manager.ondrop(folder)" ng-click="masterController.folders.selected = folder.id" data-folder-id="{{folder.id}}">
+					<a ui-sref="app.listing({selectFolder: folder.id})" mm-sidebar-droppable="masterController.folders.manager.ondrop(folder)" data-folder-id="{{folder.id}}"> <!-- ng-click="masterController.folders.selected = folder.id" -->
 						<i class="sb-icon fa " ng-class="{'fa-folder-o': masterController.folders.selected != folder.id, 'fa-folder-open': masterController.folders.selected == folder.id}"></i>
 						<span class="sb-text">{{folder.name}}</span><!--  - {{folder.id}} - {{folder.parent}} -->
 					</a>

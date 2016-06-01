@@ -32,9 +32,18 @@ angular
         'postMediaDelete': window.parent.MediaManager.settings.postMediaDelete,
         'postVirtualFile': window.parent.MediaManager.settings.postVirtualFile,
         'postFolderSave': window.parent.MediaManager.settings.postFolderSave,
+        'postPixieImageCreate': window.parent.MediaManager.settings.postPixieImageCreate,
         'firstLevelFilters': {
             image: window.parent.MediaManager.settings.flf_image,
             video: window.parent.MediaManager.settings.flf_video,
             page: window.parent.MediaManager.settings.flf_page
         }
     });
+
+
+//Custom filters
+angular
+    .module('mediaManager')
+    .filter('uriescape', function() {
+        return window.encodeURIComponent;
+    });    

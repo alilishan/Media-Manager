@@ -32,6 +32,7 @@ MediaManager.Initialize(({
 	postMediaDelete: '',
 	postVirtualFile: '',
 	postFolderSave: '',
+	postPixieImageCreate: '/mm-app/pixie/save-image.php',
 	flf_image: true, // flf_First Level Filters
 	flf_video: true,
 	flf_page: true
@@ -54,7 +55,7 @@ MediaManager.Initialize(({
 	var data = {
 		selectMode: '', //single or multiple or manage [default, single]
 		filterType: '',  // image, video, page [default, all]
-		selectFolder: '0' //Target Folder ** FOLDER PRE-SELECTION IS DISABLED FOR NOW **
+		selectFolder: '0' //Target Folder
 	}
 	
 	//Fancybox Methods & Callbacks are exposed - http://fancyapps.com/fancybox/

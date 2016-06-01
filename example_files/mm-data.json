@@ -106,8 +106,20 @@
             "width": "1080px",
             "height": "1920px",
             "ext": "png",
-            "url": "http://pngimg.com/upload/banana_PNG835.png",
-            "path": "http://pngimg.com/upload/banana_PNG835.png"
+            "url": "http://localhost/MediaManager/example_files/banana_PNG835.png",
+            "path": "http://localhost/MediaManager/example_files/banana_PNG835.png"
+        },
+        {
+            "id": "5",
+            "name": "Dragon Clipart",
+            "selected": false,
+            "type": "image",
+            "folder": "0",
+            "width": "350px",
+            "height": "350px",
+            "ext": "png",
+            "url": "http://localhost/MediaManager/example_files/7906637_350.png",
+            "path": "http://localhost/MediaManager/example_files/7906637_350.png"
         }
     ]
 }

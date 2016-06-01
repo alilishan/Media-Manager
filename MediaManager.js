@@ -38,6 +38,7 @@ var MediaManager = {
 			postMediaDelete: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			postVirtualFile: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
 			postFolderSave: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=save',
+			postPixieImageCreate: 'http://localhost/MediaManager/mm-app/pixie/save-image.php',
 			flf_image: true, //First Level Filters
 			flf_video: true,
 			flf_page: true
