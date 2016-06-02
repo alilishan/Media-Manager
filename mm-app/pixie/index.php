@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="assets/css/main.css?v17">
         <link rel="stylesheet" href="assets/css/font-roboto.css?v17">
         <link rel="stylesheet" href="../assets/libs/font-awesome-4.5.0/css/font-awesome.min.css">
-        <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'> -->
+        <?php /* ?>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+        <?php */ ?>
 
         <style>
             a.md-button.md-primary.md-raised, a.md-button.md-primary.md-fab, .md-button.md-primary.md-raised, .md-button.md-primary.md-fab {background-color: rgb(95, 111, 147); text-transform: uppercase; letter-spacing: .8px; font-weight: 300;}

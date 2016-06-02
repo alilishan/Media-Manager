@@ -9,6 +9,7 @@ Project Independent Media Manager
 * $Q - https://github.com/kriskowal/q
 
 ###Used
+* Pixie - Image Editor - http://codecanyon.net/item/pixie-image-editor/10721475
 * Flexbox Grid - http://flexboxgrid.com/
 * ngThumb - https://github.com/nervgh/angular-file-upload/blob/master/examples/image-preview/directives.js
 * Drag Hover jQuery Plugin - 
