@@ -13,6 +13,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 		_this.$rootScope = $rootScope;
 		_this.$timeout = $timeout;
 		_this.firstLevelFilters = APP_CONST.firstLevelFilters;
+		_this.pixiePath = 'pixie/index.php';
 
 		_this.selected = {
 			text: '',
@@ -265,6 +266,18 @@ MasterController.prototype.deleteSelection = function(id, items){
 		$this.deleteConfirmation.close();
 	});
 
+}
+
+MasterController.prototype.getPixieLink = function(type){
+	var $this = this;
+	var URL = $this.pixiePath+'?id=000';
+		URL += '&folder='+$this.folders.selected;
+		URL += '&name=New_Image';
+		URL += '&ext=png';
+		URL += '&image_path=';
+		URL += '&save_path='+window.encodeURIComponent($this.APP_CONST.postPixieImageCreate);
+		URL += '&callback_path='+window.encodeURIComponent(window.location.href);
+	return URL;		
 }
 
 MasterController.prototype.showTaost = function(msg, duration){

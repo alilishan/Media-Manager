@@ -90,7 +90,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	}
 
 	$scope.buildEditorLink = function(item){
-		var url = 'pixie/index.php?id='+item.id;
+		var url = $scope.masterController.pixiePath+'?id='+item.id;
 			url += '&folder='+$scope.masterController.folders.selected;
 			url += '&name='+item.name.replace(' ', '_');
 			url += '&ext='+item.ext;

@@ -1,21 +1,21 @@
 @import 'vendor/bootstrap/bootstrap.less';
 @import 'vendor/angular-material.less';
-//@import 'vendor/material-icons/material-design-iconic-font.less';
+@import 'vendor/material-icons/material-design-iconic-font.less';
 @import 'vendor/spectrum.less';
 @import 'vendor/pagination.less';
 @import 'vendor/animate.less';
 @import 'vendor/scrollbar.less';
 
-@primary-color: #5f6f93;
+@primary-color: #1f2532;
 
-@accent-color: rgb(188,170,164);
-@primary-palette: #5f6f93;
+@accent-color: #959BA1;
+@primary-palette: #1f2532;
 
 @text-on-dark-color: #fff;
-@main-gray: #EDEDED;
+@main-gray: #E7E7E7;
 
 @left-sidebar-width: 350px;
-@top-panel-width: 285px;
+@top-panel-width: 485px;
 
 @small-screen-breakpoint: 1200px;
 
@@ -32,6 +32,13 @@
 
 #editor { 
     height: 100%;
+
+    .btn {
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        font-size: 1em;
+        min-width: 96px;
+    }
 
     :focus {
         outline: none;
@@ -94,6 +101,7 @@
         padding: 15px;
         overflow-x: hidden;
         overflow-y: auto;
+        //min-width: 500px;
 
         input[type="file"] {
             display: none;
@@ -126,12 +134,12 @@
         }
 
         .img-preview {
-            width: 240px;
+            width: 340px;
             height: auto;
             max-height: 200px;
             border: 1px solid @main-gray;
-            padding: 15px;
-            margin-top: 20px;
+            padding: 5px;
+            margin: 20px auto 0;
             overflow-x: hidden;
             overflow-y: auto;
 
@@ -144,6 +152,17 @@
         .buttons {
             text-align: center;
             margin-top: 20px;
+
+            .btn {
+                text-transform: uppercase;
+                letter-spacing: .8px;
+                font-size: 1em;
+                min-width: 96px;
+
+                &:first-of-type {
+                    margin-right: 10px;
+                }
+            }
 
             .md-button {
                 min-width: 96px;
@@ -466,19 +485,36 @@
     #top-panel {
         width: @top-panel-width;
         position: absolute;
-        top: 15px;
+        top: 0;
         left: 45%;
         left: ~"calc(50% -"@top-panel-width/2~")";
         z-index: 11;
         background-color: #fff;
-        border-radius: 3px;
+        border-radius: 0 0 4px 4px;
         padding: 10px;
         .user-select(none);
         text-align: center;
+        border:1px solid #e7e7e7;
+        border-top: 0;
+        box-shadow: none;
 
         @media (max-width: @small-screen-breakpoint) {
             left: initial;
             right: 20px;
+        }
+
+        .btn {
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            font-size: 1em;
+            margin-right: 10px;
+
+            &.inactive {
+                opacity: .65;
+                filter: alpha(opacity=65);
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
         }
 
         .md-button {
@@ -544,7 +580,7 @@
                 .transition(color 0.2s ease-in-out);
                 //color: @accent-color;
 
-                color: rgba(0, 0, 0, 0.31);
+                color: rgba(0, 0, 0, 0.7);
                 margin-top: 10px;
             }
 
@@ -1369,11 +1405,14 @@
             position: absolute;
             width: 380px;
             right: 10px;
-            bottom: 8px;
+            bottom: 0;
             background-color: #fff;
-            border-radius: 3px;
+            border-radius: 4px 4px 0 0;
+            border:1px solid #e7e7e7;
+            border-bottom: 0; 
             padding: 0 8px 0 12px;
             font-weight: 700;
+            box-shadow: none;
         }
 
         .current-zoom {
@@ -1440,7 +1479,7 @@
     text-align: center;
     cursor: pointer;
     border-radius: 3px;
-    margin-left: 21px;
+    //margin-left: 21px;
     padding: 0 10px;
     .transition(all 0.2s linear);
 

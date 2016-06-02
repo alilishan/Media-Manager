@@ -21,6 +21,8 @@ angular.module('ImageEditor')
     $scope.objectsPanelOpen = false;
     $scope.historyPanelOpen = false;
 
+    $scope.ngIMAGE_OBJ = IMAGE_OBJ;
+
     $scope.openUploadDialog = function($event) {
         $mdDialog.show({
             template: $('#main-image-upload-dialog-template').html(),
@@ -89,6 +91,8 @@ angular.module('ImageEditor')
             return saver.saveImage();
         }
 
+        $scope.ngIMAGE_OBJ.id = IMAGE_OBJ.id;
+
         $mdDialog.show({
             template: $('#save-image-dialog').html(),
             targetEvent: $event,
@@ -111,7 +115,7 @@ angular.module('ImageEditor')
 
     $scope.saveImage = function($event, type) {
         //saver.saveImage($scope.imageType, $scope.imageQuality, $scope.imageName, $event);
-        saver.saveImage(IMAGE_OBJ.format, IMAGE_OBJ.quality, IMAGE_OBJ.name, $event, type);
+        saver.saveImage($scope.ngIMAGE_OBJ.format, $scope.ngIMAGE_OBJ.quality, $scope.ngIMAGE_OBJ.name, $event, type);
     };
 
     $scope.showImagePreview = function(url) {

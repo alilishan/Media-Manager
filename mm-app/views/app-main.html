@@ -20,8 +20,11 @@
 			<div class="no-drop">
 				<p><label for="mm-media-upload-input" class="btn-browse">Browse</label> for your files</p>
 			</div>
+			<div>
+				<p>Maybe get creative with our <a ng-href="{{masterController.getPixieLink('open')}}" class="btn-browse">Image Creator</a></p>
+			</div>
 			<div class="input-group input-group-lg">
-				<input type="text" class="form-control" ng-model="masterController.addItems.virtualFile.name" placeholder="or perhaps a Virtual File">
+				<input type="text" class="form-control" ng-model="masterController.addItems.virtualFile.name" placeholder="or perhaps click here to create a Virtual File">
 				<span class="input-group-btn">
 					<button class="btn btn-default" ng-click="masterController.addItems.virtualFile.create()" type="button">Create</button>
 				</span>

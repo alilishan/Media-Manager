@@ -14,16 +14,17 @@
         <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'> -->
 
         <style>
-            #editor #top-panel { width: 385px; left: calc(50% - 192.5px); }
             a.md-button.md-primary.md-raised, a.md-button.md-primary.md-fab, .md-button.md-primary.md-raised, .md-button.md-primary.md-fab {background-color: rgb(95, 111, 147); text-transform: uppercase; letter-spacing: .8px; font-weight: 300;}
         </style>
 
         <script>
-        	var INJECTOR, SAVER, DIALOG = {};
+        	var INJECTOR, SAVER, DIALOG, TOAST = {};
             var IMAGE_OBJ = {
+                id: '<?php echo $_REQUEST['id'] ?>',
                 name: '<?php echo $_REQUEST['name'] ?>',
                 format: '<?php echo $_REQUEST['ext'] ?>',
-                quality: 10
+                quality: 10,
+                folder_id: '<?php echo $_REQUEST['folder'] ?>'
             }
 
             //Handle Image Save Type
@@ -39,6 +40,7 @@
                     INJECTOR = window.angular.element('body').injector();
                     SAVER = INJECTOR.get('saver');
                     DIALOG = INJECTOR.get('$mdDialog');
+                    TOAST = INJECTOR.get('$mdToast');
 			    },
 				onSave: function(data, img, name, type) {
 			        //console.log(data)
@@ -48,15 +50,18 @@
                         type: 'POST',
                         url: '<?php echo $_REQUEST['save_path'] ?>',
                         data: { 
-                            id: '<?php echo $_REQUEST['id'] ?>', 
-                            folder_id: '<?php $_REQUEST['folder'] ?>', 
+                            id: IMAGE_OBJ.id, 
+                            folder_id: IMAGE_OBJ.folder_id, 
                             type: type,
                             name: name,
                             ext: IMAGE_OBJ.format,
-                            imgData: data 
+                           // imgData: data 
                         },
                     }).success(function(response) {
-                        console.log('image saved successfully!');
+                        //$('#btn-back-mm').trigger('click');
+                        TOAST.showSimple('Image Succesfuly Saved.');
+                        IMAGE_OBJ.id = '123';
+                        console.log('RAJ Needs to give me back an ID');
                     });
 
 			    }
@@ -89,9 +94,9 @@
                     <div class="scrollbar-wrapper" ed-pretty-scrollbar ed-scroll-axis="y">
                         <ul class="objects-panel list-unstyled" ui-sortable="sortableOptions" ng-model="objects">
                             <li class="object panel-item" ng-repeat="object in objects" ng-click="setAsActive(object)" ng-if="!object.ignore">
-                                <i class="mdi mdi-remove-red-eye toggle-visibility" ng-class="{ 'not-visible': !object.visible }" ng-click="toggleVisibility(object); $event.stopPropagation();"></i>
-                                <i class="mdi mdi-delete delete-object" ng-click="deleteObject(object); $event.stopPropagation();"></i>
-                                <i class="mdi mdi-lock-outline lock-object" ng-class="{ 'not-locked': !object.locked }" ng-click="toggleLock(object); $event.stopPropagation();"></i>
+                                <i class="mdi mdi-remove-red-eye toggle-visibility fa fa-eye" ng-class="{ 'not-visible': !object.visible }" ng-click="toggleVisibility(object); $event.stopPropagation();"></i>
+                                <i class="mdi mdi-delete delete-object fa fa-trash-o" ng-click="deleteObject(object); $event.stopPropagation();"></i>
+                                <i class="mdi mdi-lock-outline lock-object fa fa-lock" ng-class="{ 'fa-unlock-alt': !object.locked }" ng-click="toggleLock(object); $event.stopPropagation();"></i>
                                 {{ spacify(object.name) || spacify(object.type) }}
                             </li>
                             <li ng-if="!canvas.fabric._objects.length" class="text-center"><h4>No layers yet.</h4></li>
@@ -170,8 +175,12 @@
                                     </md-input-container>
                                 </div>
                                 <div class="buttons">
+                                    <a ng-click="cropper.stop()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="cropper.crop()" class="btn btn-primary">Apply</a>
+                                    <?php /*  ?>
                                     <md-button ng-click="cropper.stop()">cancel</md-button>
                                     <md-button ng-click="cropper.crop()" class="md-primary md-raised">crop</md-button>
+                                    <?php */ ?>
                                 </div>
                             </div>
                         </div>
@@ -201,8 +210,12 @@
                                 </section>
 
                                 <div class="buttons">
-                                    <md-button ng-click="cancel()">cancel</md-button>
-                                    <md-button ng-click="applyRotation()" class="md-primary md-raised">apply</md-button>
+                                    <a ng-click="cancel()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="applyRotation()" class="btn btn-primary">Apply</a>
+                                    <?php /*  ?>
+                                    <md-button ng-click="cancel()">Cancel</md-button>
+                                    <md-button ng-click="apply()" class="md-primary md-raised">Apply</md-button>
+                                    <?php */ ?>
                                 </div>
                             </div>
                         </div>
@@ -232,8 +245,12 @@
                                 <md-checkbox ng-model="constrainProportions">Maintain Aspect Ratio</md-checkbox>
 
                                 <div class="buttons margin-top">
-                                    <md-button ng-click="close()">close</md-button>
-                                    <md-button ng-click="apply()" class="md-primary md-raised">resize</md-button>
+                                    <a ng-click="cancel()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="apply()" class="btn btn-primary">Apply</a>
+                                    <?php /*  ?>
+                                    <md-button ng-click="cancel()">Cancel</md-button>
+                                    <md-button ng-click="apply()" class="md-primary md-raised">Apply</md-button>
+                                    <?php */ ?>
                                 </div>
                             </div>
                         </div>
@@ -258,8 +275,12 @@
                                 </section>
 
                                 <div class="buttons">                            
+                                    <a ng-click="cancel()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="apply()" class="btn btn-primary">Apply</a>
+                                    <?php /*  ?>
                                     <md-button ng-click="cancel()">Cancel</md-button>
                                     <md-button ng-click="apply()" class="md-primary md-raised">Apply</md-button>
+                                    <?php */ ?>
                                 </div>
                             </div>
                         </div>
@@ -278,8 +299,12 @@
 
 
                                 <div class="buttons">
+                                    <a ng-click="cancel()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="apply()" class="btn btn-primary">Apply</a>
+                                    <?php /*  ?>
                                     <md-button ng-click="cancel()">Cancel</md-button>
                                     <md-button ng-click="apply()" class="md-primary md-raised">Apply</md-button>
+                                    <?php */ ?>
                                 </div>
                             </div>
                         </div>
@@ -305,11 +330,12 @@
                                     <md-option value="monospace">Monospace</md-option>
                                 </md-select>
                             </div>
-
+                            <?php /* ?>
                             <md-input-container class="filter-input">
                                 <label>Search</label>
                                 <input type="text" ng-model="filters.family" ng-change="fonts.paginator.filter(filters)">
                             </md-input-container>
+                            <?php */ ?>
                         </div>
 
                         <div ng-hide="activeTab !== 'text'" class="pagination md-whiteframe-z1" ed-fonts-pagination></div>
@@ -380,8 +406,12 @@
                                 </div>
 
                                 <div class="buttons">
+                                    <a ng-click="cancelAddingTextToCanvas()" class="btn btn-link">Cancel</a>    
+                                    <a ng-click="finishAddingTextToCanvas()" class="btn btn-success">Save</a>
+                                        <?php  /*  ?>
                                     <md-button ng-click="finishAddingTextToCanvas()" class="md-primary md-raised">Save</md-button>
                                     <md-button ng-click="cancelAddingTextToCanvas()" class="md-raised">Cancel</md-button>
+                                        <?php  */  ?>
                                 </div>
                             </section>
                         </div>
@@ -447,8 +477,12 @@
                                 </div>
 
                                 <div class="buttons">
+                                    <a ng-click="cancelAddingDrawingsToCanvas()" class="btn btn-link">Cancel</a>
+                                    <a ng-click="finishAddingDrawingsToCanvas()" class="btn btn-success">Save</a>    
+                                    <?php /*  ?>
                                     <md-button ng-click="finishAddingDrawingsToCanvas()" class="md-primary md-raised">Save</md-button>
                                     <md-button ng-click="cancelAddingDrawingsToCanvas()" class="md-raised">Cancel</md-button>
+                                    <?php */ ?>
                                 </div>
                             </section>
                         </div>
@@ -617,11 +651,16 @@
             <section id="viewport">
 
                 <section id="top-panel" class="md-whiteframe-z1" ng-controller="TopPanelController">
-                    <md-button href="<?php echo $_REQUEST['callback_path']; ?>">Back</md-button>
+                    <a href="<?php echo $_REQUEST['callback_path']; ?>" id="btn-back-mm" class="btn btn-link">Back</a>
+                    <a ng-click="openUploadDialog($event)" ng-if="!getParam('hideOpenButton')" class="btn btn-link">Open</a>
+                    <a ng-class="{ 'inactive': !historyPanelOpen }" ng-click="toggleRightPanel('history', $event)" class="btn btn-link">History</a>
+                    <a ng-class="{ 'inactive': !objectsPanelOpen }" ng-click="toggleRightPanel('objects', $event)" class="btn btn-link">Layers</a>
+                    <a ng-click="openSaveDialog($event)" class="btn btn-success">Save</a>
+                    <!-- <md-button href="<?php echo $_REQUEST['callback_path']; ?>" id="btn-back-mm">Back</md-button>
                     <md-button href="" ng-click="openUploadDialog($event)" ng-if="!getParam('hideOpenButton')">Open</md-button>
                     <md-button href="" ng-class="{ inactive: !historyPanelOpen }" ng-click="toggleRightPanel('history', $event)">History</md-button>
                     <md-button href="" ng-class="{ inactive: !objectsPanelOpen }" ng-click="toggleRightPanel('objects', $event)">Layers</md-button>
-                    <md-button href="" ng-click="openSaveDialog($event)" class="md-primary md-raised">Save</md-button>
+                    <md-button href="" ng-click="openSaveDialog($event)" class="md-primary md-raised">Save</md-button> -->
                 </section>
 
                 <canvas ng-show="started" id="canvas" class="md-whiteframe-z2"></canvas>
@@ -635,7 +674,7 @@
                     </div>
                     <div class="action-icons">
                         <i ng-click="canvas.fitToScreen()" class="mdi mdi-filter-center-focus fit-to-screen"><md-tooltip md-delay="200">Fit to screen</md-tooltip></i>
-                        <i ng-click="canvas.zoom(1)" class="mdi mdi-fullscreen original-size"><md-tooltip md-delay="200">Original size</md-tooltip></i>
+                        <i ng-click="canvas.zoom(1)" class="mdi mdi-fullscreen original-size "><md-tooltip md-delay="200">Original size</md-tooltip></i>
                     </div>
                     <div ed-ie-slider-fix></div>
                 </section>
@@ -696,16 +735,34 @@
                         <div class="slider-label">Quality {{ imageQuality }}</div>
                         <md-slider aria-label="Angle" md-discrete ng-model="imageQuality" step="1" min="1" max="10" ></md-slider>
                     </div>
+                    
+                    <pre>{{ngIMAGE_OBJ | json}}</pre>
                     <?php */ ?>
 
                     <div class="md-dialog-content" style="padding: 9px;">
-                        <h1 class="md-title">This is an Alert</h1> 
-                        <p style="margin: 0.8em 0 1.6em;">Do you want to replace the file or create a new image?</p>
+                        <h1 class="md-title">Save Image</h1> 
+                        <p style="margin: 0.8em 0 1.6em;" ng-show="ngIMAGE_OBJ.id != '000'">Do you want to replace the file or create a new image?</p>
+                        <p style="margin: 0.8em 0 1.6em; min-width: 400px;" ng-show="ngIMAGE_OBJ.id == '000'">Please type a prefered file name.</p>
+                    
+
+                        <md-input-container ng-show="ngIMAGE_OBJ.id == '000'">
+                            <label>File Name</label>
+                            <input type="text" ng-model="ngIMAGE_OBJ.name">
+                        </md-input-container>
+
                     </div>
 
+                    
+
                     <div style="text-align:right;">
+                        <a ng-click="saveImage($event, 'new')" class="btn btn-link" ng-show="ngIMAGE_OBJ.id == '000'">Save</a> 
+                        <a ng-click="saveImage($event, 'new')" class="btn btn-link" ng-show="ngIMAGE_OBJ.id != '000'">Save As New</a> 
+                        <a ng-click="saveImage($event, 'replace')" class="btn btn-warning" ng-show="ngIMAGE_OBJ.id != '000'">Replace</a> 
+                        
+                        <?php  /*  ?>
                         <md-button ng-click="saveImage($event, 'new')" class="md-raised">Create New</md-button>
                         <md-button ng-click="saveImage($event, 'replace')" class="md-raised md-primary">Replace Exisiting</md-button>
+                        <?php  */  ?>
                     </div>    
                     
                     
@@ -716,54 +773,78 @@
             <script type="application/ng-template" id="main-image-upload-dialog-template">
                 <md-dialog class="upload-file-dialog">
                     <div ng-show="openImageMode === 'open'">
+                        <?php /*   ?>
                         <md-input-container>
                             <label>Image URL</label>
                             <input type="text" ng-model="openImageUrl" ng-change="showImagePreview(openImageUrl)" ng-model-options="{ debounce: 500 }">
                         </md-input-container>
 
                         <h2><span>OR</span></h2>
+                        <?php */   ?>
 
-                        <label class="pretty-upload">
-                            <input type="file" ed-file-uploader="showImagePreview"/>
-                            <i class="mdi mdi-cloud-upload"></i>
-                            <span class="upload-button-label">Upload From Computer</span>
-                        </label>
+                        <div class="text-center">
+                            <label class="pretty-upload">
+                                <input type="file" ed-file-uploader="showImagePreview"/>
+                                <i class="mdi mdi-cloud-upload"></i>
+                                <span class="upload-button-label">Upload From Computer</span>
+                            </label>
+                        </div>
+
 
                         <h2><span>OR</span></h2>
 
                         <div class="buttons" ng-show="!canOpenImage">
+                            <a ng-click="openImageMode = 'create'" class="btn btn-primary">Create New</a>    
+                            <a ng-click="openSampleImage()" class="btn btn-link">Sample</a>    
+                            <?php  /*  ?>
                             <md-button ng-click="openImageMode = 'create'" class="md-primary">Create New</md-button>
                             <md-button ng-click="openSampleImage()">Sample</md-button>
+                            <?php  */  ?>
                         </div>
 
                         <div ng-show="canOpenImage">
                             <div class="img-preview"></div>
 
                             <div class="buttons">
+                                <a ng-click="openImage()" class="btn btn-link">Open</a> 
+                                <?php  /*  ?>
+                                <a ng-click="closeUploadDialog()" class="btn btn-link">Close</a> 
                                 <md-button ng-click="openImage()" class="md-primary md-raised">Open</md-button>
                                 <md-button ng-click="closeUploadDialog()" class="md-raised">Close</md-button>
+                                <?php  */  ?>
                             </div>
                         </div>
                     </div>
 
                     <div class="new-canvas" ng-show="openImageMode === 'create'">
-                        <md-input-container>
-                            <label>Width</label>
-                            <input min="1" max="5000" type="number" ng-model="canvasWidth">
-                        </md-input-container>
 
-                        <md-input-container>
-                            <label>Height</label>
-                            <input min="1" max="5000" type="number" ng-model="canvasHeight">
-                        </md-input-container>
+                        <div class="row">
+                            <div class="col-xs-6 text-center">
+                                <md-input-container>
+                                    <label>Width</label>
+                                    <input min="1" max="5000" type="number" ng-model="canvasWidth">
+                                </md-input-container>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                                <md-input-container>
+                                    <label>Height</label>
+                                    <input min="1" max="5000" type="number" ng-model="canvasHeight">
+                                </md-input-container>
+                            </div>
+                        </div>
 
                         <div class="buttons">
+                            <a ng-click="openImageMode = 'open'" class="btn btn-link">Close</a> 
+                            <a ng-click="createNewCanvas(canvasWidth, canvasHeight)" class="btn btn-success">Create</a> 
+                            <?php   /* ?>
                             <md-button ng-click="openImageMode = 'open'" class="md-raised">Cancel</md-button>
                             <md-button ng-click="createNewCanvas(canvasWidth, canvasHeight)" class="md-primary md-raised">Create</md-button>
+                            <?php  */  ?>
                         </div>
                     </div>
                 </md-dialog>
             </script>
+
 
             <script type="text/ng-template" id="modals/polygon.html">
                 <md-dialog class="md-modal">
