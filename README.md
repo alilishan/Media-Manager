@@ -155,13 +155,13 @@ Example:
 ```
 
 ##Screenshots
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-1.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-2.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-3.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-4.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-5.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-6.jpg)
-![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/example_files/screenshot-7.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-1.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-2.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-3.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-4.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-5.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-6.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-7.jpg)
 
 
 ##Good Read
