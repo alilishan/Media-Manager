@@ -7,6 +7,7 @@ angular
 
 function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFactory){
 	var _this = this;
+		_this.version = '2.1.0';
 		_this.APP_CONST = APP_CONST;
 		_this.OPEN_ID = '';
 		_this.OPEN_MODE = '';

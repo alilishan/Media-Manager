@@ -32,13 +32,13 @@ var MediaManager = {
 		this.settings = $.extend({
 			path: 'mm-app/',
 			postmessageParent: '*',
-			fileuploadPath: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
-			getMediaListing: 'http://localhost/MediaManager/example_files/mm-data.json', 
-			postMediaUpdates: 'http://localhost/MediaManager/example_files/ajax_media_edit.php', 
-			postMediaDelete: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
-			postVirtualFile: 'http://localhost/MediaManager/example_files/ajax_image_upload.php',
-			postFolderSave: 'http://localhost/MediaManager/example_files/ajax_folder.php?type=save',
-			postPixieImageCreate: 'http://localhost/MediaManager/mm-app/pixie/save-image.php',
+			fileuploadPath: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
+			getMediaListing: 'http://localhost/MediaManager/demo_files/mm-data.json', 
+			postMediaUpdates: 'http://localhost/MediaManager/demo_files/ajax_media_edit.php', 
+			postMediaDelete: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
+			postVirtualFile: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
+			postFolderSave: 'http://localhost/MediaManager/demo_files/ajax_folder.php?type=save',
+			postPixieImageCreate: 'http://localhost/MediaManager/demo_files/save-image.php',
 			flf_image: true, //First Level Filters
 			flf_video: true,
 			flf_page: true

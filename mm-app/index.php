@@ -38,7 +38,7 @@
 		
 		<div class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
-				<div class="navbar-header"><span class="navbar-brand">Media Manager</span></div>
+				<div class="navbar-header"><span class="navbar-brand">Media Manager v{{masterController.version}}</span></div>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" ng-click="masterController.showInfo()" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
 					<li><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
@@ -72,7 +72,7 @@
 		<footer class="footer">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-xs-2 text-left"><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn btn-link">Cancel</a></div>
+					<div class="col-xs-2 text-left"><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn btn-link">Close</a></div>
 					<div class="col-xs-8 text-center">
 						<div class="select-count btn" ng-show="masterController.selected.items.length"><span class="label label-success">{{masterController.selected.items.length}}</span>{{masterController.selected.text}}</div>
 						<a href="" class="btn btn-link"  ng-show="masterController.selected.items.length" ng-click="masterController.deleteSelection(masterController.OPEN_ID, masterController.selected.items)"><span class="text-danger"><i class="fa fa-trash-o "></i> Delete</span></a>

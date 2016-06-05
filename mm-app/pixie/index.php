@@ -57,7 +57,7 @@
                             type: type,
                             name: name,
                             ext: IMAGE_OBJ.format,
-                           // imgData: data 
+                            imgData: data 
                         },
                     }).success(function(response) {
                         //$('#btn-back-mm').trigger('click');
@@ -803,6 +803,10 @@
                             <md-button ng-click="openSampleImage()">Sample</md-button>
                             <?php  */  ?>
                         </div>
+                        
+                        <h2><span>OR</span></h2>
+
+                        <a href="<?php echo $_REQUEST['callback_path']; ?>" id="btn-back-mm" class="btn btn-link btn-block">Go Back</a>
 
                         <div ng-show="canOpenImage">
                             <div class="img-preview"></div>
