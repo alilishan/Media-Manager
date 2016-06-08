@@ -151,7 +151,7 @@ angular.module('image.text')
 
             //load the given fonts
             head.append(
-                '<link rel="stylesheet" id="dynamic-fonts" href="http://fonts.googleapis.com/css?family='+
+                '<link rel="stylesheet" id="dynamic-fonts" href="https://fonts.googleapis.com/css?family='+
                 names.join('|').replace(/ /g, '+')+'">'
             );
 
@@ -163,9 +163,9 @@ angular.module('image.text')
                 link = $('#'+name);
                 
             if (link[0]) {
-                link.attr('href', 'http://fonts.googleapis.com/css?family='+name);
+                link.attr('href', 'https://fonts.googleapis.com/css?family='+name);
             } else {
-                $('head').append('<link rel="stylesheet" id="'+name+'" href="http://fonts.googleapis.com/css?family='+name+'">');
+                $('head').append('<link rel="stylesheet" id="'+name+'" href="https://fonts.googleapis.com/css?family='+name+'">');
             }
         }
     };

@@ -1,4 +1,4 @@
-/*! media-manager 2016-06-02 */
+/*! media-manager 2016-06-06 */
 /* Open Sans @font-face kit */
 /* BEGIN Light */
 @font-face {
@@ -220,6 +220,7 @@ body.on-drop-hover #mm-filedrop-cover {
   font-weight: 500;
   display: block;
   position: relative;
+  cursor: pointer;
   -webkit-transition: color 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 500ms ease;
           transition: color 200ms ease, box-shadow 200ms ease, opacity 200ms ease, background 500ms ease;
 }

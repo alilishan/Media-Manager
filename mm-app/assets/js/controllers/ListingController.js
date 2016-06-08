@@ -96,7 +96,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			url += '&ext='+item.ext;
 			url += '&image_path='+window.encodeURIComponent(item.path);
 			url += '&save_path='+window.encodeURIComponent($scope.consts.postPixieImageCreate);
-			url += '&callback_path='+window.encodeURIComponent(window.location.href);
+			url += '&callback_path='+window.encodeURIComponent(updateQueryStringParameter(window.location.href, 'selectFolder', $scope.masterController.folders.selected));
 		return url;
 	}
 

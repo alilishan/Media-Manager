@@ -7,7 +7,7 @@ angular
 
 function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFactory){
 	var _this = this;
-		_this.version = '2.1.0';
+		_this.version = APP_CONST.version;
 		_this.APP_CONST = APP_CONST;
 		_this.OPEN_ID = '';
 		_this.OPEN_MODE = '';
@@ -269,7 +269,7 @@ MasterController.prototype.deleteSelection = function(id, items){
 
 }
 
-MasterController.prototype.getPixieLink = function(type){
+MasterController.prototype.getPixieLink = function(type){ 
 	var $this = this;
 	var URL = $this.pixiePath+'?id=000';
 		URL += '&folder='+$this.folders.selected;
@@ -277,7 +277,7 @@ MasterController.prototype.getPixieLink = function(type){
 		URL += '&ext=png';
 		URL += '&image_path=';
 		URL += '&save_path='+window.encodeURIComponent($this.APP_CONST.postPixieImageCreate);
-		URL += '&callback_path='+window.encodeURIComponent(window.location.href);
+		URL += '&callback_path='+window.encodeURIComponent(updateQueryStringParameter(window.location.href, 'selectFolder', $this.folders.selected));
 	return URL;		
 }
 
@@ -364,4 +364,16 @@ MasterController.prototype.mmFolderRemoveItem = function(collection, targetId, c
 
 
 	return null;
+}
+
+//http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
 }

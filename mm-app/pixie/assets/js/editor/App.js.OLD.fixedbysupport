@@ -53,10 +53,10 @@ angular.module('ImageEditor', ['ngMaterial', 'ngAnimate', 'ui.sortable', 'image.
         containment: 'body'
     });
 
-    $rootScope.canvas = canvas;
-    $rootScope.history = history;
+	$rootScope.canvas = canvas;
+	$rootScope.history = history;
     $rootScope.shapes = simpleShapes;
-    $rootScope.loading = false;
+	$rootScope.loading = false;
     $rootScope.animationEndEvent = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
     $rootScope.transitionEndEvent = 'webkitTransitionEnd mozTransitionEnd MSTransitionEnd oatransitionend atransitionend transitionend';
 
@@ -86,30 +86,30 @@ angular.module('ImageEditor', ['ngMaterial', 'ngAnimate', 'ui.sortable', 'image.
         });
     };
 
-    $rootScope.isLoading = function() {
-        $timeout(function() {
-            $rootScope.loading = true;
-        });
-    };
+	$rootScope.isLoading = function() {
+		$timeout(function() {
+			$rootScope.loading = true;
+		});
+	};
 
-    $rootScope.isNotLoading = function() {
-        $timeout(function() {
-            $rootScope.loading = false;
-        });
-    };
+	$rootScope.isNotLoading = function() {
+		$timeout(function() {
+			$rootScope.loading = false;
+		});
+	};
 
-    $rootScope.activePanel = false;
+	$rootScope.activePanel = false;
     $rootScope.activeTab   = false;
 
-    $rootScope.keys = {
-        google_fonts: 'AIzaSyDhc_8NKxXjtv69htFcUPe6A7oGSQ4om2o',
-    };
+	$rootScope.keys = {
+		google_fonts: 'AIzaSyDhc_8NKxXjtv69htFcUPe6A7oGSQ4om2o',
+	};
 
-    $rootScope.$watch('activePanel', function() {
-        setTimeout(function () {
-            $(window).resize();
-        }, 100);
-    });
+	$rootScope.$watch('activePanel', function() {
+		setTimeout(function () {
+			$(window).resize();
+		}, 100);
+	});
 
     //open corresponding tab in left panel when user selects an object
     canvas.fabric.on('object:selected', function(e) {
@@ -133,13 +133,13 @@ angular.module('ImageEditor', ['ngMaterial', 'ngAnimate', 'ui.sortable', 'image.
 
     //Close object panel when object is de-selected
     canvas.fabric.on('selection:cleared', function() {
-        $timeout(angular.noop);
+        $rootScope.$apply();
     });
 
     //deselect all objects when clicking outside canvas
     $('#viewport').on('click', function(e) {
         if (e.target.id === 'viewport') {
-            $timeout(function() {
+            $rootScope.$apply(function() {
                 canvas.fabric.deactivateAll().renderAll();
             });
         }
@@ -150,7 +150,7 @@ angular.module('ImageEditor', ['ngMaterial', 'ngAnimate', 'ui.sortable', 'image.
             template: $('#'+name+'-sheet-template').html(),
             controller: 'BottomSheetController'
         });
-    }; 
+    };
 
     //cleanup. remove color picker containers on scope destroy.
     $scope.$on('$destroy', function() {

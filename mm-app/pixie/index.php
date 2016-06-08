@@ -59,11 +59,20 @@
                             ext: IMAGE_OBJ.format,
                             imgData: data 
                         },
-                    }).success(function(response) {
-                        //$('#btn-back-mm').trigger('click');
-                        TOAST.showSimple('Image Succesfuly Saved.');
-                        IMAGE_OBJ.id = '123';
-                        console.log('RAJ Needs to give me back an ID');
+                    }).success(function(response) { 
+                        console.log(JSON.parse(response));
+                        try{
+                            var jsonObj = JSON.parse(response);
+                            if(jsonObj.status == 'true'){
+                                TOAST.showSimple('Image Succesfuly Saved.');
+                                IMAGE_OBJ.id = jsonObj.data;
+                            } else {
+                                TOAST.showSimple(jsonObj.message);
+                            }
+
+                        } catch(e) {
+                            TOAST.showSimple('Error: JSON response.');
+                        }
                     });
 
 			    }
