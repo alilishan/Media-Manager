@@ -29,8 +29,9 @@ function DataFactory($http, APP_CONST, $q){
 
 		factory.getFolderList = function(){
 			var deferred = $q.defer();
+			var randomizer = Math.floor(50*Math.random())+""+(new Date).getTime()
 
-			$http.get(APP_CONST.getMediaListing).then(function(resp){
+			$http.get(APP_CONST.getMediaListing+'?type=folderList&rand='+randomizer).then(function(resp){
 				if('status' in resp.data){
 					if(resp.data.status == 'true'){
 						deferred.resolve(resp.data.data.folders);
@@ -49,8 +50,9 @@ function DataFactory($http, APP_CONST, $q){
 
 		factory.getMediaListing = function(folder_id){
 			var deferred = $q.defer();
+			var randomizer = Math.floor(50*Math.random())+""+(new Date).getTime()
 
-			$http.get(APP_CONST.getMediaListing+'?folder_id='+folder_id).then(function(resp){
+			$http.get(APP_CONST.getMediaListing+'?type=mediaList&folder_id='+folder_id+'&rand='+randomizer).then(function(resp){
 				if('status' in resp.data){
 					if(resp.data.status == 'true'){
 						deferred.resolve(resp.data.data.media);

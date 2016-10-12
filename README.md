@@ -154,6 +154,16 @@ Example:
 }
 ```
 
+###Error Codes
+*E1001 - Error Uploading File
+*E1002 - Error getting listing 
+*E1003 - Error Getting Folders
+
+*E2001 - Error Adding Folders
+*E2002 - Error Editing Folders
+*E2003 - Error Deleting Folders
+
+
 ##Screenshots
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-1.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-2.jpg)
