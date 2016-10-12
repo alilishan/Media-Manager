@@ -32,6 +32,7 @@
 
 			MediaManager.Initialize({
 				path: 'mm-app/',
+				getMediaListing: 'http://localhost/MediaManager/demo_files/mm-data-orientation.json'
 				// flf_page: false
 				// postmessageParent: 'http://localhostqwe/'
 			});
@@ -91,7 +92,7 @@
 			<div id="btn-single" class="input-group">
 				<input type="text" class="form-control" placeholder="Search for...">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" data-filter-type="image" data-select-mode="single"  data-select-folder="1">Get Image</button>
+					<button class="btn btn-default" type="button" data-filter-type="image" data-select-mode="single"  data-select-folder="0">Get Image</button>
 				</span>
 			</div>
 		</div>

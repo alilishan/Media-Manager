@@ -813,7 +813,7 @@
                             <?php  */  ?>
                         </div>
                         
-                        <h2><span>OR</span></h2>
+                        <h2  ng-show="!canOpenImage"><span>OR</span></h2>
 
                         <a href="<?php echo $_REQUEST['callback_path']; ?>" id="btn-back-mm" class="btn btn-link btn-block">Go Back</a>
 

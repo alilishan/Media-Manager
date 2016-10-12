@@ -22,9 +22,9 @@
 					mm-idrg-model="masterController.selected"
 					data-id="{{item.id}}"
 				>
-					<div class="image"><img ng-src="{{item.url}}" alt=""></div>
+					<div class="image {{item.orientation}}"><img ng-src="{{item.url}}" alt=""></div>
 					<div class="text-muted text-center sub-info">
-						<span class="pull-left">{{item.size}}</span>
+						<span class="pull-left">{{item.size}} </span>
 						<span ng-show="item.width !='' && item.height !=''">{{item.width}} {{item.height}}</span>  
 						<span class="pull-right">{{item.ext}}</span>
 					</div>
