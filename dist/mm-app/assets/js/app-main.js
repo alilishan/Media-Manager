@@ -37,6 +37,7 @@ angular
         'firstLevelFilters': {
             image: window.parent.MediaManager.settings.flf_image,
             video: window.parent.MediaManager.settings.flf_video,
+            audio: window.parent.MediaManager.settings.flf_audio,
             page: window.parent.MediaManager.settings.flf_page
         }
     });

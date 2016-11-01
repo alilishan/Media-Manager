@@ -50,6 +50,18 @@
     },
     "media": [
         {
+            "id": "6",
+            "name": "Audio File",
+            "selected": false,
+            "type": "image",
+            "folder": "21463364091657",
+            "width": "1080px",
+            "height": "1920px",
+            "ext": "mp3",
+            "url": "https://dev2.screenplify.com/c/backend/assets/templates/default_audio_thumbnail_large.jpg",
+            "path": "//archive.org/download/mythium/JLS_ATI.mp3"
+        },
+        {
             "id": "1",
             "name": "Motorbike",
             "selected": false,

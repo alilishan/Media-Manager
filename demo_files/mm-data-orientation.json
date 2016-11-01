@@ -51,6 +51,25 @@
         },
         "media": [
             {
+                "id": "96",
+                "type": "audio",
+                "name": "Handel-Royal-Fireworks---07.mp3",
+                "file": "media_3234696341477969433.mp3",
+                "folder": "0",
+                "path": "https://dev2.screenplify.com/repo/audios/media_3234696341477969433.mp3",
+                "size": "805.51 KB",
+                "dimension": "",
+                "width": "",
+                "height": "",
+                "orientation": null,
+                "ext": "mp3",
+                "url": "https://dev2.screenplify.com/c/backend/assets/templates/default_audio_thumbnail_large.jpg",
+                "thumbnails": {
+                    "small": "https://dev2.screenplify.com/c/backend/assets/templates/default_audio_thumbnail_large.jpg",
+                    "medium": "https://dev2.screenplify.com/c/backend/assets/templates/default_audio_thumbnail_large.jpg",
+                    "large": "https://dev2.screenplify.com/c/backend/assets/templates/default_audio_thumbnail_large.jpg"
+                }
+            },{
                 "id": "86",
                 "type": "video",
                 "name": "media20229094151460003073.mp4",

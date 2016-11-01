@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         watch: {
             development: {
                 files: [
-                    'mm-app/assets/css/less/*.less',
-                    'mm-app/assets/js/*.js'
+                    'dist/mm-app/assets/css/less/*.less',
+                    'dist/mm-app/assets/js/*.js'
                 ],
                 tasks: ['less:development', 'autoprefixer:development'],
                 options: {
@@ -31,15 +31,15 @@ module.exports = function(grunt) {
                     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 files: {
-                    "mm-app/assets/css/app-main.css": "mm-app/assets/css/less/app-main.less"
+                    "dist/mm-app/assets/css/app-main.css": "dist/mm-app/assets/css/less/app-main.less"
                 }
             }
         },
 
         autoprefixer: {
             development: {
-                src: 'mm-app/assets/css/app-main.css',
-                dest: 'mm-app/assets/css/app-main.css'
+                src: 'dist/mm-app/assets/css/app-main.css',
+                dest: 'dist/mm-app/assets/css/app-main.css'
             }
         }
 

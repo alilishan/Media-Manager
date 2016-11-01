@@ -41,6 +41,7 @@ var MediaManager = {
 			postPixieImageCreate: 'http://localhost/MediaManager/demo_files/save-image.php',
 			flf_image: true, //First Level Filters
 			flf_video: true,
+			flf_audio: true,
 			flf_page: true
 		}, options);
 
