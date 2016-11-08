@@ -39,7 +39,7 @@
 		
 		<div class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
-				<div class="navbar-header"><span class="navbar-brand">Media Manager v{{masterController.version}}</span></div>
+				<div class="navbar-header"><span class="navbar-brand">Media Manager {{masterController.version}}</span></div>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" ng-click="masterController.showInfo()" class="btn-close"><i class="glyphicon glyphicon-info-sign"></i></a></li>
 					<li><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn-close"><i class="glyphicon glyphicon-remove"></i></a></li>
@@ -47,7 +47,7 @@
 			</div>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav navbar-right nav-pushed-left">
-					<li><a href="" ng-click="masterController.folders.manager.enabled = !masterController.folders.manager.enabled"><i class="fa fa-folder-o"></i> FOLDERS</a></li>
+					<li><a href="" ng-click="masterController.folders.manager.enabled = !masterController.folders.manager.enabled"><i class="fa fa-folder-o"></i>MANAGE FOLDERS</a></li>
 					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
