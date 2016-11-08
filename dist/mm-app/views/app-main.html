@@ -40,11 +40,12 @@
 	<div class="col-xs-8 fu-progress">
 
 		<div class="header-bar">
-			<div class="pull-right">
-				<!-- <span class="label label-success">{{masterController.fileupload.filesSuccessCount}}</span>
-				<span class="label label-danger">{{masterController.fileupload.filesErrorCount}}</span> -->
-			</div>
-			<span>Uploading {{masterController.fileupload.files.length}} file<g ng-show="masterController.fileupload.files.length > 1">s</g></span>
+			<span ng-show="masterController.fileupload.files.length == masterController.fileupload.filesCompleted" class="pull-right label-wrapper">
+				<span class="label label-success" ng-show="masterController.fileupload.filesSuccessCount > 0">{{masterController.fileupload.filesSuccessCount}}</span>
+				<span class="label label-danger" ng-show="masterController.fileupload.filesErrorCount > 0">{{masterController.fileupload.filesErrorCount}}</span>
+			</span>
+			<span ng-hide="masterController.fileupload.files.length == masterController.fileupload.filesCompleted">Uploading {{masterController.fileupload.files.length}} file<g ng-show="masterController.fileupload.files.length > 1">s</g></span>
+			<span ng-show="masterController.fileupload.files.length == masterController.fileupload.filesCompleted">Uploaded</span>
 		</div>
 		<div class="content-sec custom-scrollbar">
 			
@@ -66,7 +67,10 @@
 			</div>
 			
 		</div>
-		<div class="footer-bar"> <a href="" ng-click="masterController.fileupload.close()"  ng-class="{'disabled': masterController.fileupload.filesCompleted !== masterController.fileupload.files.length}" class="btn btn-link">CLOSE</a> </div>
+		<div class="footer-bar"> 
+			<a href="" ng-click="masterController.fileupload.close()"  ng-hide="masterController.fileupload.filesCompleted == masterController.fileupload.files.length" class="btn btn-link disabled">Uploading <span class="loading dots2"></span></a> 
+			<a href="" ng-click="masterController.fileupload.close()"  ng-show="masterController.fileupload.filesCompleted == masterController.fileupload.files.length" class="btn btn-link">Close</a> 
+		</div>
 	</div>
 </div>	 
 

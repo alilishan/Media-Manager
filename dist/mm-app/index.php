@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="assets/libs/bootstrap-3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
 	<link rel="stylesheet" href="assets/libs/font-awesome-4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/libs/text-spinners-1.0.4/spinners.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
 
 	<script src="assets/libs/jquery-1.12.0.min.js"></script>
