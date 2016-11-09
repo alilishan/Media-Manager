@@ -29,6 +29,7 @@ function RouterConfigurations ($stateProvider, $urlRouterProvider){
                 }
             }
         })
+
 /*
 		.state('app.speakers', {
             url: '/speakers',

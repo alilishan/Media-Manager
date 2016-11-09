@@ -92,6 +92,8 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 				enabled: false,
 				string: ''
 			},
+			orderBy: 'name',
+			sortReverse: false,
 			onclick: function(type){
 				_this.filter.type = (type == _this.filter.type)? '' : type;
 			}

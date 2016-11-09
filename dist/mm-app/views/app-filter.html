@@ -24,9 +24,37 @@
 							</div>
 						</div>
 
+
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#mm-filter-accordion" href="#mm-flt-orderby" aria-expanded="true" aria-controls="mm-flt-orderby">Order By</a>
+								</h4>
+							</div>
+							<div id="mm-flt-orderby" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+
+									<ul class="mm-filter-options mm-f-radio">
+										<li class="mm-f-item" ng-class="{'is-active': masterController.filter.orderBy == 'name'}" > <a href="" ng-click="masterController.filter.orderBy = 'name'" class="mm-f-label">Name</a> </li>
+										<li class="mm-f-item" ng-class="{'is-active': masterController.filter.orderBy == 'type'}" > <a href="" ng-click="masterController.filter.orderBy = 'type'" class="mm-f-label">Type</a> </li>
+										<li class="mm-f-item" ng-class="{'is-active': masterController.filter.orderBy == ''}" > <a href="" ng-click="masterController.filter.orderBy = ''" class="mm-f-label">Date</a> </li>
+									</ul>
+
+									<hr>
+									<ul class="mm-filter-options mm-f-checkbox">
+										<li class="mm-f-item" ng-class="{'is-active': masterController.filter.sortReverse}" >
+											<a href="" ng-click="masterController.filter.sortReverse = !masterController.filter.sortReverse" class="mm-f-label">Reverse Order
+													<span ng-show="!masterController.filter.sortReverse" class="fa fa-caret-down"></span>
+													<span ng-show="masterController.filter.sortReverse" class="fa fa-caret-up"></span>
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</div>
+
 					</div>
-
-
 
 
 
