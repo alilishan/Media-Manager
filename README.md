@@ -19,6 +19,9 @@ Project Independent Media Manager
 * [ng ui-sortable](https://github.com/angular-ui/ui-sortable)
 * [tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)
 * [ngRepeat filter: comparator](http://stackoverflow.com/questions/21519794/angular-function-filter-comparator-example)
+* [Natural Sort](http://jsfiddle.net/wE7H2/3/)
+* [Natural Sort](http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm/)
+* [Natural Sort](http://stackoverflow.com/questions/25766876/angularjs-sorting-ng-repeat-on-string-with-numbers-in-them)
 
 ##Config
 

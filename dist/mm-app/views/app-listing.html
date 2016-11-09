@@ -16,7 +16,7 @@
 				
 				<div 
 					class="col-xs-3 media-item" 
-					ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected} : masterController.folders.filterStrict | orderBy: masterController.filter.orderBy: masterController.filter.sortReverse )" 
+					ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected} : masterController.folders.filterStrict | orderBy: natural(masterController.filter.orderBy): masterController.filter.sortReverse )" 
 					ng-class="{'item-selected': item.selected}"
 					mm-item-draggable="item.selected"
 					mm-idrg-model="masterController.selected"

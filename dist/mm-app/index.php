@@ -21,6 +21,7 @@
 	<script src="assets/libs/underscore-min.js"></script>
 	<script src="assets/libs/ng-ui-sortable/sortable.js"></script>
 	<script src="assets/libs/ng-ui-sortable/tg.dynamic.directive.js"></script>
+	<script src="assets/libs/naturalSort.js"></script>
 
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>

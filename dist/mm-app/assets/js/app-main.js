@@ -5,7 +5,8 @@ angular
         'ui.router',
         'ngAnimate',
         'ui.sortable',
-        'tg.dynamicDirective'
+        'tg.dynamicDirective',
+        'naturalSort'
     ]);
 
 
