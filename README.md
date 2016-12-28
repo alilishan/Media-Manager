@@ -41,8 +41,10 @@ MediaManager.Initialize(({
 	postVirtualFile: '',
 	postFolderSave: '',
 	postPixieImageCreate: '/mm-app/pixie/save-image.php',
+	getTranscodingProgress: 'http://localhost/MediaManager/demo_files/transcoding.php',
 	flf_image: true, // flf_First Level Filters
 	flf_video: true,
+	flf_audio: true,
 	flf_page: true,
 	transcoding: true //File transcoding - If true will run transcode progress checker after upload
 });
