@@ -36,40 +36,62 @@
 
 
 
-<div id="mm-fileupload-cover" class="row center-xs middle-xs" ng-class="{'is-open': masterController.fileupload.enabled }">
-	<div class="col-xs-8 fu-progress">
+<div id="mm-fileupload-cover" class="" ng-class="{'is-open': masterController.fileupload.enabled }">
+	<div class="fu-progress">
 
-		<div class="header-bar">
-			<span ng-show="masterController.fileupload.files.length == masterController.fileupload.filesCompleted" class="pull-right label-wrapper">
-				<span class="label label-success" ng-show="masterController.fileupload.filesSuccessCount > 0">{{masterController.fileupload.filesSuccessCount}}</span>
-				<span class="label label-danger" ng-show="masterController.fileupload.filesErrorCount > 0">{{masterController.fileupload.filesErrorCount}}</span>
-			</span>
-			<span ng-hide="masterController.fileupload.files.length == masterController.fileupload.filesCompleted">Uploading {{masterController.fileupload.files.length}} file<g ng-show="masterController.fileupload.files.length > 1">s</g></span>
-			<span ng-show="masterController.fileupload.files.length == masterController.fileupload.filesCompleted">Uploaded</span>
+		<div class="header-bar text-left">
+			<div class="container-fluid">
+				<div class="hb-text" ng-hide="masterController.fileupload.filesUploading">Upload Files</div>
+				<div class="hb-text" ng-show="masterController.fileupload.filesUploading">Uploading <span class="loading dots2"></span> <small class="text-muted">Please keep this page open until it's done.</small></div>
+				<div class="hb-text" ng-show="masterController.fileupload.doneUploading">Uploaded</div>
+			</div>
+			
+			<div class="container-fluid">
+				<div class="btn-bar">
+					<div class="pull-left" ng-show="masterController.fileupload.doneUploading">	
+						<small class="text-success" ng-show="masterController.fileupload.filesSuccessCount > 0"><ng-pluralize count="masterController.fileupload.filesSuccessCount" when="{'1': '1 file', 'other': '{} files'}"> </ng-pluralize> uploaded Successfuly</small>
+						<small class="text-danger" ng-show="masterController.fileupload.filesErrorCount > 0"><ng-pluralize count="masterController.fileupload.filesErrorCount" when="{'1': '1 file', 'other': '{} files'}"> </ng-pluralize> has errors</small>
+					</div>
+					<a href="" ng-click="masterController.doUpload()" class="btn btn-success" ng-class="{'disabled': !masterController.fileupload.files.length || masterController.fileupload.doneUploading}">
+						<span ng-hide="masterController.fileupload.filesUploading">Start Upload</span>
+						<span ng-show="masterController.fileupload.filesUploading" class="loading bullet"></span>
+					</a>
+					<label for="mm-media-upload-input" ng-class="{'disabled': masterController.fileupload.filesUploading || masterController.fileupload.doneUploading}" class="btn btn-default">Add More</label>
+				</div>
+			</div>
 		</div>
+
 		<div class="content-sec custom-scrollbar">
 			
-			<div class="row center-xs">
-				
-				<div class="upload-item col-xs-3" ng-repeat="item in masterController.fileupload.files">
-					<div mm-thumb class="mm-thumb" ng-model="item"></div>
-					<div class="mm-info">
+			<div class="start-xs">
+
+				<div class="media" ng-repeat="item in masterController.fileupload.files">
+					<div class="media-left">
+						<div mm-thumb class="mm-thumb" ng-model="item"></div>
+					</div>
+					<div class="media-body text-left">
+						<a href="" ng-click="masterController.fileupload.removeItem(item)" class="close">&times;</a>
+						<h4 class="media-heading pull-left">{{item.name | cut:true:30:' ...'}}</h4>
 						<div class="progress">
-							<div class="progress-bar" ng-class="{'progress-bar-success': item.progress > 99 && item.success, 'progress-bar-danger': item.progress > 99 && item.error}" ng-style="{'width': item.progress + '%'}"></div>
+							<div class="progress-bar" ng-class="{'progress-bar-success': item.success, 'progress-bar-danger': item.error, 'progress-bar-info': !item.success, 'progress-bar-striped active': masterController.transcoding }" ng-style="{'width': item.progress + '%'}"></div>
+							<div class="progress-bar progress-bar-primary progress-type" ng-class="{'progress-bar-success': item.success, 'progress-bar-danger': item.error}" ng-style="{'width': item.processing + '%'}"></div>
 						</div>
-						<div class="text">{{item.name}}</div>
 						<div class="text-muted">
-							<span ng-if="item.errorMsg == false">{{item.sizeMB}} - {{item.type}}</span>
-							<span ng-if="item.errorMsg != false" class="text-danger">{{item.errorMsg}}</span>
+							<small class="text-uppercase pull-right">{{item.sizeMB}} - {{item.type}}</small>
+							<small>Uploaded {{item.progress}}%</small>
+							<small ng-show="masterController.transcoding"> | Processed {{item.processing}}%</small>
 						</div>
+						<div ng-if="item.errorMsg != false" class="text-muted text-danger">{{item.errorMsg}}</div>
+
 					</div>
 				</div>
+
 			</div>
 			
 		</div>
-		<div class="footer-bar"> 
-			<a href="" ng-click="masterController.fileupload.close()"  ng-hide="masterController.fileupload.filesCompleted == masterController.fileupload.files.length" class="btn btn-link disabled">Uploading <span class="loading dots2"></span></a> 
-			<a href="" ng-click="masterController.fileupload.close()"  ng-show="masterController.fileupload.filesCompleted == masterController.fileupload.files.length" class="btn btn-link">Close</a> 
+		<div class="footer-bar text-center"> 
+			<a href="" ng-click="masterController.fileupload.close()" ng-class="{'disabled': masterController.fileupload.filesUploading}" ng-show="masterController.fileupload.files.length == masterController.fileupload.filesCompleted" class="btn btn-link">Close</a> 
+			<a href="" ng-click="masterController.fileupload.close()" ng-class="{'disabled': masterController.fileupload.filesUploading}" ng-hide="masterController.fileupload.files.length == masterController.fileupload.filesCompleted" class="btn btn-link">Cancel</a> 
 		</div>
 	</div>
 </div>	 

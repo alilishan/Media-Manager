@@ -5,7 +5,7 @@ angular
 	.controller('ListingController', ListingController);
 
 
-function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactory, $log){
+function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout, DataFactory, $log, growl){
 	$scope.masterController.pageClass = 'page-images';
 	$scope.masterController.OPEN_ID = $stateParams.id;
 
@@ -17,6 +17,9 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 	$scope.mediaList = [];
 	$scope.folderList = [];
 
+setTimeout(function() {
+	
+}, 2000);
 	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
 		$scope.masterController.filter.type = $scope.params.filterType;
@@ -44,7 +47,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			
 			$scope.masterController.selected.items = [];
 		}, function(error){
-			$scope.masterController.showTaost('Error Getting Data [E1002]', 5000);
+			growl.error('Error Getting Data [E1002]');
 			$scope.showLoading = false;
 		});
 	}
@@ -56,7 +59,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 			$scope.masterController.folders.list = resp;
 			$scope.showLoading = false;	
 		}, function(error){
-			$scope.masterController.showTaost('Error Getting Folders [E1003]', 5000);
+			growl.error('Error Getting Folders [E1003]');
 			$scope.showLoading = false;
 		});
 	}
@@ -102,7 +105,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 
 
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
-		$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
+		growl.success('Changes Saved. Reloading Media List.');
 		$scope.getData($scope.params.selectFolder);
 	});
 
@@ -110,7 +113,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		//console.log(data);
 		$scope.showLoading = true;
 		DataFactory.postMediaDelete(data).then(function(){
-			$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
+			growl.success('Changes Saved. Reloading Media List.');
 			$scope.getData($scope.params.selectFolder);
 		});
 	});
@@ -127,7 +130,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 				targetFolder: ($scope.masterController.folders.selected == '' )? '0' : $scope.masterController.folders.selected
 			}).then(function(){
 				$scope.masterController.addItems.virtualFile.name = '';
-				$scope.masterController.showTaost('Changes Saved. Reloading Media List.', 3000);
+				growl.success('Changes Saved. Reloading Media List.');
 				$scope.getData($scope.params.selectFolder);
 			});
 		}
@@ -154,13 +157,13 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 					});
 				}
 
-				$scope.masterController.showTaost('Changes Saved.', 3000);
+				growl.success('Changes Saved.');
 			} else {
-				$scope.masterController.showTaost(resp.message +' [XHR]', 3000);
+				growl.error(resp.message +' [XHR]');
 			}
 
 		}, function(){
-			$scope.masterController.showTaost('Error Adding Folders [E2001]', 5000);
+			growl.error('Error Adding Folders [E2001]');
 		});
 	}
 
@@ -184,6 +187,7 @@ function ListingController($scope, APP_CONST, $stateParams, $timeout, DataFactor
 		}
 
 	});
+
 
 	//Initialize
 	$scope.getFolders();

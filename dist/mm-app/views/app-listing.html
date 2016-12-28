@@ -1,10 +1,4 @@
 
-<!-- <h2>Speakers</h2>
-
-<a ui-sref="app.events({id:'1'})" class="btn btn-danger btn-lg">Events</a> --
-<a href="" ng-click="sendMessage()" class="btn btn-primary btn-lg">Message</a>
-<pre>{{params | json}}</pre>
-<pre>{{consts | json}}</pre> -->
 
 <div class=" col-xs-offset-2 col-xs-10 main mm-maincontent custom-scrollbar" ng-class="{ 'col-xs-8': masterController.filter.show }">
 					
@@ -22,12 +16,16 @@
 					mm-idrg-model="masterController.selected"
 					data-id="{{item.id}}"
 				>
-					<div class="image {{item.orientation}}"><img ng-src="{{item.url}}" alt=""></div>
+					<div class="image {{item.orientation}}">
+						<img ng-src="{{item.url}}" alt="">
+					</div>
+					
 					<div class="text-muted text-center sub-info">
 						<span class="pull-left">{{item.size}} </span>
 						<span ng-show="item.width !='' && item.height !=''">{{item.width}} {{item.height}}</span>  
 						<span class="pull-right">{{item.ext}}</span>
 					</div>
+					
 					<div class="overlay text-left" ng-click="selectItem($event, item)">
 						<div class="checker big">
 							<label  ng-class="{'is-set': item.selected}"></label><!-- ng-click="selectItem(item)" -->

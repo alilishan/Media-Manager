@@ -3,17 +3,19 @@
 angular
 	.module('mediaManager')
 	.directive('mmMaincontent', MainContentDirective)
+	.directive('contentSec', UploadContentList)
 	.directive('mmItemDraggable', ListItemDraggable)
 	.directive('mmSidebarDroppable', SidebarDroppable)
 	.directive('mmBtnMoreTools', BtnShowMoreTools);
 
 
-function MainContentDirective($timeout){
+function MainContentDirective($rootScope, $timeout){
 	return {
 		restrict: 'C',
 		link: function(scope, element, attrs){
 
 			function adjustHeight(){
+				var scrollCount = 0;
 
 				$(document).ready(function($) {
 					$(element).css({
@@ -38,6 +40,73 @@ function MainContentDirective($timeout){
 		}
 	}
 }
+
+function UploadContentList($rootScope, $timeout){
+	return {
+		restrict: 'C',
+		link: function(scope, element, attrs){
+
+			function adjustHeight(){
+				var scrollCount = 0;
+
+				$(document).ready(function($) {
+					$(element).css({
+						//position: 'absolute',
+						'height': ($(window).innerHeight() - 180)+'px', //(100 + 60) is offset heights for header and footerbars
+						overflow: 'auto',
+						//left: '0',
+						//top: '101px' //Headerbar is 100px
+					});
+				});
+
+				$(window).resize(function(){
+					adjustHeight();
+				});
+
+			}
+
+			$timeout(function(){
+				adjustHeight();
+			}, 0);
+			
+		}
+	}
+}
+
+
+function MainContentDirective($rootScope, $timeout){
+	return {
+		restrict: 'C',
+		link: function(scope, element, attrs){
+
+			function adjustHeight(){
+				var scrollCount = 0;
+
+				$(document).ready(function($) {
+					$(element).css({
+						position: 'absolute',
+						height: ($(window).innerHeight() - 160)+'px', //(100 + 60) is offset heights for header and footerbars
+						overflow: 'auto',
+						left: '0',
+						top: '101px' //Headerbar is 100px
+					});
+				});
+
+				$(window).resize(function(){
+					adjustHeight();
+				});
+
+			}
+
+			$timeout(function(){
+				adjustHeight();
+			}, 0);
+			
+		}
+	}
+}
+
+
 
 
 function ListItemDraggable($timeout){

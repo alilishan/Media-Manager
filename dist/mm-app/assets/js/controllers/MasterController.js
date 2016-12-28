@@ -5,12 +5,18 @@ angular
 	.controller('MasterController', MasterController);
 
 
-function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFactory){
+function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFactory, growl, $base64){
 	var _this = this;
 		_this.version = APP_CONST.version;
 		_this.APP_CONST = APP_CONST;
 		_this.OPEN_ID = '';
 		_this.OPEN_MODE = '';
+		_this.ALLOWED_IMAGES = ['JPEG', 'JPG', 'GIF', 'PNG', 'BMP', 'TIFF', 'TIF'];
+		_this.ALLOWED_VIDEOS = ['MP4', 'WEBM', 'AVI', 'MKV', 'WAV', 'WMV', 'OGG', 'OGV', 'FLV', 'MOV', '3GP'];
+		_this.ALLOWED_AUDIOS = ['WAV', 'OGG', 'AAC', 'AC3', 'M4A', 'MP3'];
+		_this.ALLOWED_FILES = ['HTML', 'HTM', 'PHP'];
+		_this.ALLOWED_FILETYPES = _this.ALLOWED_IMAGES.concat(_this.ALLOWED_VIDEOS).concat(_this.ALLOWED_AUDIOS).concat(_this.ALLOWED_FILES);
+		_this.transcoding = APP_CONST.transcoding;
 		_this.$rootScope = $rootScope;
 		_this.$timeout = $timeout;
 		_this.firstLevelFilters = APP_CONST.firstLevelFilters;
@@ -31,7 +37,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 					focus: '0',
 					submit: function(string, rooted){
 						if(angular.isUndefined(string) || string == ''){
-							_this.showTaost('Need a Folder Name');
+							growl.error('Need a Folder Name');
 							return false;
 						}
 						var newID = Math.floor(10*Math.random())+""+(new Date).getTime();
@@ -46,7 +52,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 				},
 				edit: function(id, name){
 					if(angular.isUndefined(name) || name == ''){
-						_this.showTaost('Need a Folder Name');
+						growl.error('Need a Folder Name');
 						return false;
 					}
 					_this.$rootScope.$broadcast('MM-FOLDERS-EDIT', {data: _this.folders.list, type: 'EDIT', id: id, name: name});
@@ -110,9 +116,9 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			}
 		}
 
-		_this.toast = {
+		/*_this.toast = {
 			message: ''
-		}
+		}*/
 
 		_this.deleteConfirmation = {
 			enabled: false,
@@ -140,18 +146,19 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			enabled: false,
 			multiple: false,
 			files: [],
+			filesUploading: false,
 			filesCompleted: 0,
 			filesSuccessCount: 0,
 			filesErrorCount: 0,
 			addFiles: function(files){
 				if(files.length) {
 					//Close Add Menu
-					_this.addItems.enabled = false;
-					_this.fileupload.enabled = true;
 
-					_this.prepUpload(files).then(function(){
-						//Broadcaste new files done
-						$rootScope.$broadcast('FILEUPLOAD-COMPLETED');
+					$timeout(function() {
+						_this.addItems.enabled = false;
+						_this.fileupload.enabled = true;
+						
+						_this.prepUpload(files);
 					});
 				}
 				
@@ -159,16 +166,18 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			}, 
 			close: function(){
 				_this.fileupload.enabled = false;
+				_this.fileupload.files = [];
 				$rootScope.$broadcast('FILEUPLOAD-CLOSED');
+			},
+			removeItem: function(item){
+				var index = _this.fileupload.files.indexOf(item);
+				_this.fileupload.files.splice(index, 1);    
 			}	
 		}
 
 		_this.prepUpload = function(files){
-			var deferred = $q.defer();
 			var filesLength = files.length;
-
-
-			var checkProgress = function(){
+			var _checkUploadProgress = function(){
 				if(_this.fileupload.filesCompleted == filesLength) {
 					deferred.resolve();
 				}
@@ -177,66 +186,172 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			_this.fileupload.filesCompleted = 0;
 			_this.fileupload.filesSuccessCount = 0;
 			_this.fileupload.filesErrorCount = 0;
+			_this.fileupload.filesUploading = false;
+			_this.fileupload.doneUploading = false;
 
 			if(filesLength){
-				_this.fileupload.files = files;
 
 				for (var i = 0; i < filesLength; i++) {
-					var file = _this.fileupload.files[i];
+					var file = files[i];
+						file.id = '00';
 						file.progress = 0;
+						file.processing = 0;
+						file.done = false;
 						file.error = false;
 						file.errorMsg = false;
 						file.success = false;
 						file.sizeMB = (file.size / 1048576).toFixed(1) + ' MB '; // MB = 2^20 = 1,048,576 Bytes
 						file.targetFolder = _this.folders.selected;
 
-						UploadFactory.upload(APP_CONST.fileuploadPath+'?targetFolder='+file.targetFolder, file, i).then(function(resp){
-							//console.log('s', resp)
-							//console.log('s', _this.fileupload.files[resp.id])
+					var _ext = file.name.split('.').pop().toUpperCase();
 
-							if(resp.data.status == 'true'){
-								_this.fileupload.files[resp.id].success = true;
-								_this.fileupload.files[resp.id].error = false;
-								
-								_this.fileupload.filesSuccessCount ++;
-							} else {
-								_this.fileupload.files[resp.id].success = false;
-								_this.fileupload.files[resp.id].error = true;
-								_this.fileupload.files[resp.id].errorMsg = resp.data.message;
+					if(!_.contains(_this.ALLOWED_FILETYPES, _ext)){
+						file.error = true;
+						file.done = true;
+						file.errorMsg = 'This File Type ('+_ext+') Not Allowed';
+						_this.fileupload.filesErrorCount ++;
+					}
 
-								_this.fileupload.filesErrorCount ++;
-							}
-
-							_this.fileupload.filesCompleted ++;
-							checkProgress();
-
-						}, function(id, resp){
-							_this.fileupload.files[resp.id].success = false;
-							_this.fileupload.files[resp.id].error = true;
-							_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]';
-
-							_this.fileupload.filesErrorCount ++;
-							_this.fileupload.filesCompleted ++;
-							checkProgress();
-
-						}, function(resp){
-							_this.fileupload.files[resp.id].progress = resp.complete;
-						})
-
+					_this.fileupload.files.push(file);
 				}
 
-			} else {
-				deferred.reject();
 			}	
+			return false;
+		}
 
-			return deferred.promise;
+
+		_this.doUpload = function(){
+
+			if(!_this.fileupload.files.length){
+				return false;
+			}
+
+			_this.fileupload.filesUploading = true;	
+
+			for (var i = 0; i < _this.fileupload.files.length; i++) {
+				var file = _this.fileupload.files[i];
+					file.id = i;
+
+				if(!file.done){
+
+					UploadFactory.upload(APP_CONST.fileuploadPath+'?targetFolder='+file.targetFolder, file, i).then(function(resp){
+						//console.log('s', resp)
+						//console.log('s', _this.fileupload.files[resp.id])
+
+						if(resp.data.status == 'true'){
+							_this.fileupload.files[resp.id].error = false;
+							_this.fileupload.files[resp.id].errorMsg = '';
+
+							if(_this.transcoding){
+								var _dataString = $base64.encode(JSON.stringify(resp.data.data));
+								new _checkTranscodeProgress(resp.id, resp.data.data.name_new, encodeURIComponent(_dataString));
+							} else {
+								_this.fileupload.files[resp.id].success = true;
+								_this.fileupload.filesSuccessCount ++;
+
+								_this.fileupload.files[resp.id].done = true;
+								_this.fileupload.filesCompleted ++;
+								_checkUploadProgress();
+							}
+							
+						} else {
+							_this.fileupload.files[resp.id].success = false;
+							_this.fileupload.files[resp.id].error = true;
+							_this.fileupload.files[resp.id].errorMsg = resp.data.message;
+
+							_this.fileupload.filesErrorCount ++;
+
+							_this.fileupload.files[resp.id].done = true;
+							_this.fileupload.filesCompleted ++;
+							_checkUploadProgress();
+						}
+
+					}, function(id, resp){
+						_this.fileupload.files[resp.id].success = false;
+						_this.fileupload.files[resp.id].error = true;
+						_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]';
+						_this.fileupload.files[resp.id].done = true;
+
+						_this.fileupload.filesErrorCount ++;
+						_this.fileupload.filesCompleted ++;
+						_checkUploadProgress();
+
+					}, function(resp){
+						_this.fileupload.files[resp.id].progress = resp.complete;
+					});
+				
+				} else {
+					_this.fileupload.filesCompleted ++;
+					_checkUploadProgress();
+				}
+			}
+
+			return false;
 		}	
 
 
 
 		_this.showInfo = function(){
-			_this.showTaost(APP_CONST.restrictionMessage, 10000);
+			growl.info(APP_CONST.restrictionMessage, {ttl: 10000});
 		}
+
+
+	function _checkUploadProgress(){
+		if(_this.fileupload.filesCompleted == _this.fileupload.files.length) {
+			_this.fileupload.filesUploading = false;
+			_this.fileupload.doneUploading = true;
+
+			//Broadcaste new files done
+			$rootScope.$broadcast('FILEUPLOAD-COMPLETED');
+		}
+	}		
+
+	function _checkTranscodeProgress(id, filename, data_node){
+console.log(APP_CONST)
+		UploadFactory.getTranscodeProgress(APP_CONST.getTranscodingProgress, filename, data_node).then(function(resp){
+			console.log('s', resp);
+			//resp.data = (typeof resp.data == 'object')? resp.data : JSON.parse(resp.data);
+
+			if(resp.status == 'true'){
+				//console.log(id, resp.data.data.progress);
+				_this.fileupload.files[id].processing = resp.data.progress;
+
+				if(resp.data.progress == 100){
+					_this.fileupload.files[id].success = true;
+					_this.fileupload.filesSuccessCount ++;
+					//console.log('Transcode Done:', filename);
+	
+					_this.fileupload.files[id].done = true;
+					_this.fileupload.filesCompleted ++;
+					_checkUploadProgress();
+				} else {
+					setTimeout(function() {
+						_checkTranscodeProgress(id, filename, data_node);
+					}, 1000);
+				}
+
+
+			} else {
+				_this.fileupload.files[id].error = true;
+				_this.fileupload.files[id].errorMsg = resp.data.message;
+				_this.fileupload.files[id].processing = 100;
+
+				_this.fileupload.filesErrorCount ++;
+				_this.fileupload.filesCompleted ++;
+				_checkUploadProgress();
+			}
+
+
+		}, function(resp){
+			console.log('e', id, filename, resp);
+			_this.fileupload.files[id].processing = 100;
+			_this.fileupload.files[id].error = true;
+
+			_this.fileupload.filesErrorCount ++;
+			_this.fileupload.filesCompleted ++;
+			_checkUploadProgress();
+		});
+	}
 	
 }
 
@@ -283,7 +398,7 @@ MasterController.prototype.getPixieLink = function(type){
 	return URL;		
 }
 
-MasterController.prototype.showTaost = function(msg, duration){
+/*MasterController.prototype.showTaost = function(msg, duration){
 	var $this = this;
 		$this.toast.message = msg;
 	var duration = angular.isUndefined(duration)? 3000: parseInt(duration);
@@ -291,7 +406,7 @@ MasterController.prototype.showTaost = function(msg, duration){
 	$this.$timeout(function(){
 		$this.toast.message = '';
 	}, duration);	
-}
+}*/
 
 
 MasterController.prototype.mmFolderInsertItem = function(collection, id, targetId, name, callback) {

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
 	<link rel="stylesheet" href="assets/libs/font-awesome-4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/libs/text-spinners-1.0.4/spinners.css">
+	<link rel="stylesheet" href="assets/libs/ng-growl/angular-growl.min.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
 
 	<script src="assets/libs/jquery-1.12.0.min.js"></script>
@@ -22,6 +23,8 @@
 	<script src="assets/libs/ng-ui-sortable/sortable.js"></script>
 	<script src="assets/libs/ng-ui-sortable/tg.dynamic.directive.js"></script>
 	<script src="assets/libs/naturalSort.js"></script>
+	<script src="assets/libs/ng-growl/angular-growl.min.js"></script>
+	<script src="assets/libs/angular-1.5.0/angular-base64.min.js"></script>
 
 	<script src="assets/js/app-main.js"></script>
 	<script src="assets/js/app-router.js"></script>
@@ -87,14 +90,16 @@
 			</div>
 		</footer>
 
-		<div id="mm-toast-cover" class="row center-xs middle-xs">
+		<!-- <div id="mm-toast-cover" class="row center-xs middle-xs">
 			<div class="col-xs-4"><div class="mm-toast-msg" ng-class="{'is-open': masterController.toast.message !== '' }">{{masterController.toast.message}}</div></div>
-		</div>
+		</div> -->
 
 	</div>
 
 
 	<form id="mm-media-upload" action="#" method="POST"><input type="file" id="mm-media-upload-input" mm-on-change ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" name="file[]" ></form>
-
+	
+	<div growl></div>
+	
 </body>
 </html>

@@ -20,8 +20,12 @@ Project Independent Media Manager
 * [tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)
 * [ngRepeat filter: comparator](http://stackoverflow.com/questions/21519794/angular-function-filter-comparator-example)
 * [Natural Sort](http://jsfiddle.net/wE7H2/3/)
-* [Natural Sort](http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm/)
-* [Natural Sort](http://stackoverflow.com/questions/25766876/angularjs-sorting-ng-repeat-on-string-with-numbers-in-them)
+  * [Natural Sort](http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm/)
+  * [Natural Sort](http://stackoverflow.com/questions/25766876/angularjs-sorting-ng-repeat-on-string-with-numbers-in-them)
+* [X-FILE Upload](https://www.sitepoint.com/html5-ajax-file-upload/) 
+* [Ng Growl2](http://janstevens.github.io/angular-growl-2)
+* [Text Spinners](http://tawian.io/text-spinners/)
+* [ng-Base64](https://github.com/ninjatronic/angular-base64)
 
 ##Config
 
@@ -39,7 +43,8 @@ MediaManager.Initialize(({
 	postPixieImageCreate: '/mm-app/pixie/save-image.php',
 	flf_image: true, // flf_First Level Filters
 	flf_video: true,
-	flf_page: true
+	flf_page: true,
+	transcoding: true //File transcoding - If true will run transcode progress checker after upload
 });
 ```
 ###Usage 

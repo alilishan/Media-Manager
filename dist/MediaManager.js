@@ -32,17 +32,19 @@ var MediaManager = {
 		this.settings = $.extend({
 			path: 'mm-app/',
 			postmessageParent: '*',
-			fileuploadPath: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
+			fileuploadPath: 'http://localhost/MediaManager/demo_files/PHP_UPLOAD_XFILE.php',
 			getMediaListing: 'http://localhost/MediaManager/demo_files/mm-data.json', 
 			postMediaUpdates: 'http://localhost/MediaManager/demo_files/ajax_media_edit.php', 
 			postMediaDelete: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
 			postVirtualFile: 'http://localhost/MediaManager/demo_files/ajax_image_upload.php',
 			postFolderSave: 'http://localhost/MediaManager/demo_files/ajax_folder.php?type=save',
 			postPixieImageCreate: 'http://localhost/MediaManager/demo_files/save-image.php',
+			getTranscodingProgress: 'http://localhost/MediaManager/demo_files/transcoding.php',
 			flf_image: true, //First Level Filters
 			flf_video: true,
 			flf_audio: true,
-			flf_page: true
+			flf_page: true,
+			transcoding: true
 		}, options);
 
 		this.initialized = false;
