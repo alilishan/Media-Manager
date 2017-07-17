@@ -27,7 +27,7 @@ angular
 angular
     .module('mediaManager')
     .constant('APP_CONST',{
-        'version': '2.1.0',
+        'version': '2.1.1',
         'restrictionMessage': 'Max file size is 20MB, Max Resolution is 4000px, jpeg, png, mp4, txt, php, html only.',
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
@@ -44,7 +44,8 @@ angular
             video: window.parent.MediaManager.settings.flf_video,
             audio: window.parent.MediaManager.settings.flf_audio,
             page: window.parent.MediaManager.settings.flf_page
-        }
+        },
+        'maxUploadFileSize': window.parent.MediaManager.settings.maxUploadFileSize
     });
 
 

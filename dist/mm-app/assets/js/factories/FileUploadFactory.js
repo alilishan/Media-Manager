@@ -33,9 +33,15 @@ function FileUploadFactory($q, $rootScope, $http){
 				}
 			}
 
-		xhr.open("POST", url, true);
-		xhr.setRequestHeader("X-FILENAME", file.name);
-		xhr.send(file);
+		try	{
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("X-FILENAME", file.name);
+			xhr.send(file);
+		} catch(e) {
+			deferred.reject({id: id, data:{id: id, message: 'XHR Error. Check Console'}});
+			console.log(e);
+		}
+
 
 		return deferred.promise;
 	};

@@ -44,7 +44,8 @@ var MediaManager = {
 			flf_video: true,
 			flf_audio: true,
 			flf_page: true,
-			transcoding: true
+			transcoding: true,
+			maxUploadFileSize: 2000
 		}, options);
 
 		this.initialized = false;

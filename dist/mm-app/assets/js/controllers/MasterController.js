@@ -11,8 +11,8 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 		_this.APP_CONST = APP_CONST;
 		_this.OPEN_ID = '';
 		_this.OPEN_MODE = '';
-		_this.ALLOWED_IMAGES = ['JPEG', 'JPG', 'GIF', 'PNG', 'BMP', 'TIFF', 'TIF'];
-		_this.ALLOWED_VIDEOS = ['MP4', 'WEBM', 'AVI', 'MKV', 'WAV', 'WMV', 'OGG', 'OGV', 'FLV', 'MOV', '3GP'];
+		_this.ALLOWED_IMAGES = ['JPEG', 'JPG', 'GIF', 'PNG', 'BMP', 'TIFF', 'TIF', 'SVG'];
+		_this.ALLOWED_VIDEOS = ['MP4', 'WEBM', 'AVI', 'MKV', 'WAV', 'WMV', 'OGG', 'OGV', 'FLV', 'MOV', '3GP','M4V'];
 		_this.ALLOWED_AUDIOS = ['WAV', 'OGG', 'AAC', 'AC3', 'M4A', 'MP3'];
 		_this.ALLOWED_FILES = ['HTML', 'HTM', 'PHP'];
 		_this.ALLOWED_FILETYPES = _this.ALLOWED_IMAGES.concat(_this.ALLOWED_VIDEOS).concat(_this.ALLOWED_AUDIOS).concat(_this.ALLOWED_FILES);
@@ -21,6 +21,14 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 		_this.$timeout = $timeout;
 		_this.firstLevelFilters = APP_CONST.firstLevelFilters;
 		_this.pixiePath = 'pixie/index.php';
+
+
+		_this.APP_CONST.restrictionMessage = 'Max file size allowed is '+(_this.APP_CONST.maxUploadFileSize / 1048576).toFixed(0)+'MB. ';
+		_this.APP_CONST.restrictionMessage += 'Allowed File Type: ';
+		_.each(_this.ALLOWED_FILETYPES, function(ext, index){
+			var _del = ((index + 1) == _this.ALLOWED_FILETYPES.length)? '' : ', ';	
+			_this.APP_CONST.restrictionMessage += ext+_del;
+		})
 
 		_this.selected = {
 			text: '',
@@ -212,6 +220,13 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 						_this.fileupload.filesErrorCount ++;
 					}
 
+					if(file.size > _this.APP_CONST.maxUploadFileSize){
+						file.error = true;
+						file.done = true;
+						file.errorMsg = 'File too big ('+file.sizeMB+'), Max size '+(_this.APP_CONST.maxUploadFileSize / 1048576).toFixed(0)+'MB';
+						_this.fileupload.filesErrorCount ++;
+					}
+
 					_this.fileupload.files.push(file);
 				}
 
@@ -266,7 +281,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 							_checkUploadProgress();
 						}
 
-					}, function(id, resp){
+					}, function(resp){
 						_this.fileupload.files[resp.id].success = false;
 						_this.fileupload.files[resp.id].error = true;
 						_this.fileupload.files[resp.id].errorMsg = 'File Upload Error [E1001]';
@@ -307,7 +322,7 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 	}		
 
 	function _checkTranscodeProgress(id, filename, data_node){
-console.log(APP_CONST)
+
 		UploadFactory.getTranscodeProgress(APP_CONST.getTranscodingProgress, filename, data_node).then(function(resp){
 			console.log('s', resp);
 			//resp.data = (typeof resp.data == 'object')? resp.data : JSON.parse(resp.data);
@@ -333,7 +348,7 @@ console.log(APP_CONST)
 
 			} else {
 				_this.fileupload.files[id].error = true;
-				_this.fileupload.files[id].errorMsg = resp.data.message;
+				_this.fileupload.files[id].errorMsg = resp.message;
 				_this.fileupload.files[id].processing = 100;
 
 				_this.fileupload.filesErrorCount ++;

@@ -138,8 +138,8 @@ setTimeout(function() {
 
 	$scope.$on('MM-FOLDERS-ADD', sendFolderStructureUpdates);
 	$scope.$on('MM-FOLDERS-EDIT', sendFolderStructureUpdates);
-	$scope.$on('MM-FOLDERS-DELETE', sendFolderStructureUpdates);
 	$scope.$on('MM-FOLDERS-UPDATE', sendFolderStructureUpdates);
+	$scope.$on('MM-FOLDERS-DELETE', sendFolderStructureUpdates);
 
 	function sendFolderStructureUpdates(e, data){ console.log(data)
 		DataFactory.postFolderSave(data).then(function(resp){
@@ -153,7 +153,7 @@ setTimeout(function() {
 
 				if(data.type == 'DELETE'){
 					$scope.masterController.mmFolderRemoveItem($scope.masterController.folders.list.items, data.id, function(){
-						//
+						$scope.masterController.folders.selected = '0';
 					});
 				}
 
