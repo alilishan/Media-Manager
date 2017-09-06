@@ -185,6 +185,8 @@ MediaManager.Initialize(({
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-6.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-7.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-8.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-9.jpg)
+![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-10.jpg)
 
 
 ## Good Read
