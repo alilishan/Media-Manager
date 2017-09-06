@@ -3,12 +3,12 @@
 Project Independent Media Manager
 
 
-###Dependencies
+### Dependencies
 * jQuery
 * Fancybox - http://fancyapps.com/fancybox/
 * $Q - https://github.com/kriskowal/q
 
-###Used
+### Used
 * Pixie - Image Editor - http://codecanyon.net/item/pixie-image-editor/10721475
 * Flexbox Grid - http://flexboxgrid.com/
 * ngThumb - https://github.com/nervgh/angular-file-upload/blob/master/examples/image-preview/directives.js
@@ -29,9 +29,9 @@ Project Independent Media Manager
 * [ng-Context Menu](https://github.com/Templarian/ui.bootstrap.contextMenu)
 * [ng-tree](https://github.com/angular-ui-tree/angular-ui-tree)
 
-##Config
+## Config 
 
-###Global 
+### Global 
 ```javascript
 MediaManager.Initialize(({
 	path: 'path-to/mm-app/',
@@ -51,7 +51,7 @@ MediaManager.Initialize(({
 	transcoding: true //File transcoding - If true will run transcode progress checker after upload
 });
 ```
-###Usage 
+### Usage 
 ```html
 	<!-- Dependencies -->
 	<link rel="stylesheet" href="path-to/mm-dependencies/jq-fancybox/jquery.fancybox.css"> 
@@ -86,7 +86,7 @@ MediaManager.Initialize(({
 
 	});
 ```
-###Required GET data format
+### Required GET data format
 ```javascript
 {
 	"folders": {
@@ -115,7 +115,7 @@ MediaManager.Initialize(({
 	]
 }
 ```
-Example:
+### Example:
 ```javascript
 {
 	"folders": {
@@ -157,7 +157,7 @@ Example:
 }
 ```
 
-###Required Folder Update Responses
+### Required Folder Update Responses
 ```javascript
 {
 	"status": "true", /"false"
@@ -166,7 +166,7 @@ Example:
 }
 ```
 
-###Error Codes
+### Error Codes
 *E1001 - Error Uploading File
 *E1002 - Error getting listing 
 *E1003 - Error Getting Folders
@@ -176,7 +176,7 @@ Example:
 *E2003 - Error Deleting Folders
 
 
-##Screenshots
+## Screenshots
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-1.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-2.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-3.jpg)
@@ -187,11 +187,11 @@ Example:
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-8.jpg)
 
 
-##Good Read
+## Good Read
 * [Recursive data strunctures](http://blog.wax-o.com/2014/01/how-to-find-deep-and-get-parent-in-javascript-nested-objects-with-recursive-functions-and-the-reference-concept-level-beginner/)
 
 
-###PHP Helper Function to Build Tree
+### PHP Helper Function to Build Tree
 http://stackoverflow.com/questions/13877656/php-hierarchical-array-parents-and-childs
 ```php
 function buildTree(array $elements, $parentId = 0) {
