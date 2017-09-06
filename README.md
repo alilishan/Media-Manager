@@ -15,9 +15,9 @@ Project Independent Media Manager
 * Drag Hover jQuery Plugin - 
   * http://stackoverflow.com/questions/10253663/how-to-detect-the-dragleave-event-in-firefox-when-dragging-outside-the-window/10310815#10310815
   * http://stackoverflow.com/questions/14194324/firefox-firing-dragleave-when-dragging-over-text
-* [Recursive ng-repeat template](http://stackoverflow.com/questions/15661289/how-can-i-make-recursive-templates-in-angularjs-when-using-nested-objects)  
-* [ng ui-sortable](https://github.com/angular-ui/ui-sortable)
-* [tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)
+* ~~[Recursive ng-repeat template](http://stackoverflow.com/questions/15661289/how-can-i-make-recursive-templates-in-angularjs-when-using-nested-objects)~~  
+* ~~[ng ui-sortable](https://github.com/angular-ui/ui-sortable)~~
+* ~~[tg-dynamic-directive used with ui-sort](https://github.com/thgreasi/tg-dynamic-directive)~~
 * [ngRepeat filter: comparator](http://stackoverflow.com/questions/21519794/angular-function-filter-comparator-example)
 * [Natural Sort](http://jsfiddle.net/wE7H2/3/)
   * [Natural Sort](http://www.overset.com/2008/09/01/javascript-natural-sort-algorithm/)
@@ -26,6 +26,8 @@ Project Independent Media Manager
 * [Ng Growl2](http://janstevens.github.io/angular-growl-2)
 * [Text Spinners](http://tawian.io/text-spinners/)
 * [ng-Base64](https://github.com/ninjatronic/angular-base64)
+* [ng-Context Menu](https://github.com/Templarian/ui.bootstrap.contextMenu)
+* [ng-tree](https://github.com/angular-ui-tree/angular-ui-tree)
 
 ##Config
 

@@ -2,7 +2,7 @@
 
 angular
     .module('mediaManager')
-    .config(RouterConfigurations);
+    .config(['$stateProvider', '$urlRouterProvider', RouterConfigurations]);
 
 
 function RouterConfigurations ($stateProvider, $urlRouterProvider){
@@ -22,68 +22,14 @@ function RouterConfigurations ($stateProvider, $urlRouterProvider){
                     controller: 'ListingController'
                 },
                 'app-sidebar': {
-                    templateUrl: 'views/app-sidebar.html'
+                    templateUrl: 'views/app-sidebar.html',
+                    controller: 'SidebarController'
                 },
                 'app-filter': {
                     templateUrl: 'views/app-filter.html'  
                 }
             }
         })
-
-/*
-		.state('app.speakers', {
-            url: '/speakers',
-            views: {
-                'app-content': {
-                    templateUrl: 'views/app-speakers.html',
-                    controller: 'SpeakersController'
-                }
-            }
-        })
-
-        .state('app.slider', {
-            url: '/slider/:id?type',
-            views: {
-                'app-content': {
-                    templateUrl: 'views/app-slider.html',
-                    controller: 'SliderController'
-                }
-            }
-        })
-
-        .state('app.demo', {
-            url: '/demo',
-            views: {
-                'app-content': {
-                    templateUrl: 'views/app-demo.html',
-                    controller: 'DemoController'
-                }
-            }
-        })
-
-        .state('app.double', {
-            url: '/double',
-            views: {
-                'app-content': {
-                    templateUrl: 'views/app-double.html',
-                    controller: 'ViewDoubleController'
-                }
-            }
-        })
-
-        .state('app.double.one', {
-            url: '/one?event_id?slider_id',
-            views: {
-                'view-one': {
-                    templateUrl: 'views/app-events.html',
-                    controller: 'EventsController'
-                },
-                'view-two': {
-                    templateUrl: 'views/app-slider.html',
-                    controller: 'SliderController'
-                }
-            }
-        });*/
 
     $urlRouterProvider.otherwise('/app/images');
 }

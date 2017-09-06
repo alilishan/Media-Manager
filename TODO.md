@@ -1,6 +1,9 @@
 
 # Media-Manager To Do
 
+* [Folder upload](https://stackoverflow.com/questions/5826286/how-do-i-use-google-chrome-11s-upload-folder-feature-in-my-own-code?lq=1)
+* [Folder upload](https://jsfiddle.net/api/mdn/)
+
 * ~~Items move to folder option - next to delete~~
 * ~~Manage Mode~~
 * ~~Do up upload dialogue~~

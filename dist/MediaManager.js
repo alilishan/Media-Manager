@@ -10,7 +10,7 @@ var MediaManager = {
 		padding: 0,
 		openEffect : 'none',
 		closeEffect  : 'none',
-		wrapCSS: '',
+		wrapCSS: 'mm-custom-wrapper',
 		width: '98%',
 		height: '98%', 
 		openSpeed: 1000,
@@ -60,7 +60,7 @@ var MediaManager = {
 			try {
 				var data = JSON.parse(args[0].data);
 			} catch(e) {
-				console.log('ALERT MM ERR', e, args);
+				//console.log('ALERT MM ERR', e, args);
 				return false;
 			}	
 			

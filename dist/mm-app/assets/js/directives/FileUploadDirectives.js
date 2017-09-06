@@ -2,9 +2,9 @@
 
 angular
 	.module('mediaManager')
-	.directive('mmOnChange', FileinputChangeDirective)
+	.directive('mmOnChange', ['$timeout', FileinputChangeDirective])
 	.directive('mmDropzone', FileinputDropzoneDirective)
-	.directive('mmThumb', ImagePreviewDirective);
+	.directive('mmThumb', ['$timeout', '$window', ImagePreviewDirective]);
 
 
 function FileinputChangeDirective($timeout){

@@ -1,7 +1,7 @@
 
 angular
 	.module('mediaManager')
-	.factory('DataFactory', DataFactory);
+	.factory('DataFactory', ['$http', 'APP_CONST', '$q', DataFactory]);
 
 
 function DataFactory($http, APP_CONST, $q){

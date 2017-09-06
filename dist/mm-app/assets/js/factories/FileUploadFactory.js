@@ -1,7 +1,7 @@
 
 angular
 	.module('mediaManager')
-	.factory('UploadFactory', FileUploadFactory);
+	.factory('UploadFactory', ['$q', '$rootScope', '$http', FileUploadFactory]);
 
 
 //New X file
@@ -49,25 +49,6 @@ function FileUploadFactory($q, $rootScope, $http){
 	var mock = {}
 	this.getTranscodeProgress = function(url, filename, data_node){
 		var deferred = $q.defer();
-
-			/*setTimeout(function() {
-				if(filename in mock) {
-					mock[filename].data.data.progress = mock[filename].data.data.progress + 10;
-					deferred.resolve(mock[filename]);
-				} else {
-					mock[filename] = {
-						data: {
-							status: 'true',
-							message: 'Tranoding failed',
-							data: {
-								progress: 10
-							}
-						}
-					}
-					
-					deferred.resolve(mock[filename]);
-				}
-			}, 500);*/
 
 			$http({
 				url: url,

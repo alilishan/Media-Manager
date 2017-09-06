@@ -2,7 +2,7 @@
 
 angular
 	.module('mediaManager')
-	.controller('ListingController', ListingController);
+	.controller('ListingController', ['$scope', '$rootScope', 'APP_CONST', '$stateParams', '$timeout', 'DataFactory', '$log', 'growl', ListingController]);
 
 
 function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout, DataFactory, $log, growl){
@@ -10,6 +10,7 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 	$scope.masterController.OPEN_ID = $stateParams.id;
 
 	$scope.showLoading = true;
+	$scope.mediaLoaded = false;
 	$scope.params = $stateParams;
 	$scope.consts = APP_CONST;
 	$scope.filterEnabled = false;
@@ -17,9 +18,7 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 	$scope.mediaList = [];
 	$scope.folderList = [];
 
-setTimeout(function() {
-	
-}, 2000);
+
 	//Set Filters
 	if(!angular.isUndefined($scope.params.filterType)){
 		$scope.masterController.filter.type = $scope.params.filterType;
@@ -41,14 +40,20 @@ setTimeout(function() {
 
 	$scope.getData = function(folder_id){
 		$scope.showLoading = true;
+		$scope.mediaLoaded = false;
 		DataFactory.getMediaListing(folder_id).then(function(resp){
-			$scope.mediaList = resp;	
-			$scope.showLoading = false;
+			$scope.mediaList = resp;
+
+			$timeout(function() {
+				$scope.showLoading = false;
+				$scope.mediaLoaded = true;
+			}, 500);	
 			
 			$scope.masterController.selected.items = [];
 		}, function(error){
 			growl.error('Error Getting Data [E1002]');
 			$scope.showLoading = false;
+			$scope.mediaLoaded = true;
 		});
 	}
 
@@ -192,4 +197,5 @@ setTimeout(function() {
 	//Initialize
 	$scope.getFolders();
 	$scope.getData($scope.params.selectFolder);
+
 }

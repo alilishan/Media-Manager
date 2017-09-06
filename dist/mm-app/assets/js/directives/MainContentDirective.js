@@ -2,11 +2,12 @@
 
 angular
 	.module('mediaManager')
-	.directive('mmMaincontent', MainContentDirective)
-	.directive('contentSec', UploadContentList)
-	.directive('mmItemDraggable', ListItemDraggable)
-	.directive('mmSidebarDroppable', SidebarDroppable)
-	.directive('mmBtnMoreTools', BtnShowMoreTools);
+	.directive('mmMaincontent', ['$rootScope', '$timeout', MainContentDirective])
+	.directive('contentSec', ['$rootScope', '$timeout', UploadContentList])
+	.directive('mmItemDraggable', ['$timeout', ListItemDraggable])
+	.directive('mmSidebarDroppable', ['$rootScope', '$timeout', SidebarDroppable])
+	.directive('myEnter', myEnter);
+	//.directive('mmBtnMoreTools', BtnShowMoreTools);
 
 
 function MainContentDirective($rootScope, $timeout){
@@ -226,7 +227,22 @@ function SidebarDroppable($rootScope, $timeout){
 }
 
 
-function BtnShowMoreTools($timeout){
+
+function myEnter() {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.myEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+}
+
+/*function BtnShowMoreTools($timeout){
 	return {
 		restrict: 'C',
 		link: function(scope, element, attrs){
@@ -268,4 +284,4 @@ function BtnShowMoreTools($timeout){
 			
 		}
 	}
-}
+}*/

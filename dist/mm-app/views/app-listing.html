@@ -4,7 +4,7 @@
 					
 	<div class="media-listing">
 		
-		<div class="media-container" ng-show="mediaList.length && !showLoading">
+		<div class="media-container" ng-show="mediaList.length && mediaLoaded">
 			
 			<div class="row center-xs" mm-selectable-list>
 				
@@ -22,22 +22,23 @@
 					
 					<div class="text-muted text-center sub-info">
 						<span class="pull-left">{{item.size}} </span>
-						<span ng-show="item.width !='' && item.height !=''">{{item.width}} {{item.height}}</span>  
-						<span class="pull-right">{{item.ext}}</span>
+						<span class="pull-right" ng-show="item.width !='' && item.height !='' && masterController.filter.orderBy != 'id'">{{item.width}} {{item.height}}</span>  
+						<span class="pull-right" ng-show="masterController.filter.orderBy == 'id'">{{item.create_date}}</span>
+						<!-- <span class="pull-right">{{item.ext}}</span> -->
 					</div>
 					
-					<div class="overlay text-left" ng-click="selectItem($event, item)">
+					<div class="overlay text-left" ng-click="selectItem($event, item)" ng-class="{'show-more-tools': item.selected}">
 						<div class="checker big">
 							<label  ng-class="{'is-set': item.selected}"></label><!-- ng-click="selectItem(item)" -->
 						</div>
 						
 						<ul class="tools">
-							<li><a ng-href="{{buildEditorLink(item)}}" data-toggle="tooltip" title="Edit" ng-show="item.type == 'image'"  ng-click="$event.stopPropagation()"><i class="fa fa-pencil"></i></a></li>
-							<li><a ng-href="{{item.path}}" download="{{item.name}}" data-toggle="tooltip" title="Download" ng-click="$event.stopPropagation()"><i class="fa fa-download"></i></a></li>
-							<li><a href="" data-toggle="tooltip" title="Delete" ng-click="masterController.deleteSelection(masterController.OPEN_ID, [item])" ng-click="$event.stopPropagation()"><i class="fa fa-trash-o"></i></a></li>
+							<li><a class="hint--top" href="" aria-label="Delete" ng-click="masterController.deleteSelection($event, masterController.OPEN_ID, [item])"><i class="fa fa-trash-o"></i></a></li>
+							<li><a class="hint--top" ng-href="{{buildEditorLink(item)}}" aria-label="Edit" ng-show="item.type == 'image'"  ng-click="$event.stopPropagation()"><i class="fa fa-pencil"></i></a></li>
+							<li><a class="hint--top" href="" aria-label="Info" ng-click="masterController.showItemInfo($event, item)" ng-click="$event.stopPropagation()"><i class="fa fa-info-circle"></i></a></li>
 						</ul>
 
-						<a class="mm-btn-more-tools"><i class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></i></a>
+						<!-- <a class="mm-btn-more-tools"><i class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></i></a> -->
 					</div>
 					<div class="info">
 						<div class="filename row">
@@ -56,23 +57,14 @@
 
 		</div>
 
-		<div class="empty-filters" ng-if="!mediaList.length && !showLoading">
+		<div class="empty-filters" ng-if="!mediaList.length && mediaLoaded">
 			<h1>No Data</h1>
 			<small>Try Adding in a few media items.</small>
 		</div>
 
-		<div class="empty-filters" ng-if="showLoading">
-			<div class="sk-cube-grid">
-				<div class="sk-cube sk-cube1"></div>
-				<div class="sk-cube sk-cube2"></div>
-				<div class="sk-cube sk-cube3"></div>
-				<div class="sk-cube sk-cube4"></div>
-				<div class="sk-cube sk-cube5"></div>
-				<div class="sk-cube sk-cube6"></div>
-				<div class="sk-cube sk-cube7"></div>
-				<div class="sk-cube sk-cube8"></div>
-				<div class="sk-cube sk-cube9"></div>
-			</div>
+
+		<div class="empty-filters" ng-if="showLoading || !mediaLoaded">
+			<div class="bouncy-ball"></div>
 		</div>
 
 	</div>

@@ -4,30 +4,30 @@ angular
     .module('mediaManager', [
         'ui.router',
         'ngAnimate',
-        'ui.sortable',
-        'tg.dynamicDirective',
+        'ui.tree',
         'naturalSort',
         'angular-growl',
-        'base64'
+        'base64',
+        'ui.bootstrap.contextMenu'
     ]);
 
 
 //Platform Ready
 angular
     .module('mediaManager')
-	.run(function($state) {
+	.run(['$state', function($state) {
+    
+        angular.element(document).ready(function () {
 
-	    angular.element(document).ready(function () {
+        });
 
-	    });
-
-	});
+    }]);
 
 //Constants
 angular
     .module('mediaManager')
     .constant('APP_CONST',{
-        'version': '2.1.1',
+        'version': '2.2.1',
         'restrictionMessage': 'Max file size is 20MB, Max Resolution is 4000px, jpeg, png, mp4, txt, php, html only.',
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
