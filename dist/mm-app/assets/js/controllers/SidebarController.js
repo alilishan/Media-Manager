@@ -15,9 +15,9 @@ function SidebarController($scope){
 
 			var contents = ($itemScope.folder.count_folders < 1)? '' : $itemScope.folder.count_folders+' folder';
 				contents = ($itemScope.folder.count_folders > 1)? contents+'s ' : '';
-				contents = ($itemScope.folder.count_files < 1)? '' : contents+$itemScope.folder.count_files+' file';
+				contents = ($itemScope.folder.count_files < 1)? contents : contents+$itemScope.folder.count_files+' file';
 				contents = ($itemScope.folder.count_files > 1)? contents+'s ' : contents+'';
-				contents = (contents == '')? 'Empty' : '';
+				contents = (contents == '')? 'Empty' : contents;
 
 			var _template = '<div>';
 					//_template += '<div class="icon-folder"></div>'
