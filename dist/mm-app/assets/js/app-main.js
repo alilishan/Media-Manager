@@ -8,7 +8,8 @@ angular
         'naturalSort',
         'angular-growl',
         'base64',
-        'ui.bootstrap.contextMenu'
+        'ui.bootstrap.contextMenu',
+        'angularLazyImg'
     ]);
 
 
@@ -27,7 +28,7 @@ angular
 angular
     .module('mediaManager')
     .constant('APP_CONST',{
-        'version': '2.2.1',
+        'version': '2.3.0',
         'restrictionMessage': 'Max file size is 20MB, Max Resolution is 4000px, jpeg, png, mp4, txt, php, html only.',
         'postmessageParent': window.parent.MediaManager.settings.postmessageParent,
         'fileuploadPath': window.parent.MediaManager.settings.fileuploadPath,
@@ -92,3 +93,30 @@ angular
         growlProvider.globalDisableIcons(true);
         growlProvider.globalPosition('top-center');
     }]);
+
+
+
+//Lazy Load
+angular
+    .module('mediaManager')
+    .config(['lazyImgConfigProvider', function(lazyImgConfigProvider){
+        var scrollable = document.querySelector('#listing-wrap');
+        
+        lazyImgConfigProvider.setOptions({
+            offset: 100,
+            errorClass: 'error',
+            successClass: 'success',
+            //onError: function(image){},
+            //onSuccess: function(image){}
+            container: angular.element(scrollable)
+        });
+    }]);
+
+
+//https://stackoverflow.com/questions/7208624/check-if-element-is-before-or-after-another-element-in-jquery
+$.fn.isAfter = function(sel){
+  return this.prevAll(sel).length !== 0;
+}
+$.fn.isBefore= function(sel){
+  return this.nextAll(sel).length !== 0;
+}

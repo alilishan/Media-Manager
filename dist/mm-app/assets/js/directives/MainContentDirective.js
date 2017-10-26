@@ -1,4 +1,4 @@
-
+	
 
 angular
 	.module('mediaManager')

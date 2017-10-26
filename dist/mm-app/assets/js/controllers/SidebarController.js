@@ -11,13 +11,19 @@ function SidebarController($scope){
 
 	$scope.menuOptions = [
 		['<i class="fa fa-info-circle"></i> Info', function ($itemScope) {
-			console.log($itemScope.folder);
+			//console.log($itemScope.folder);
 
-			var contents = ($itemScope.folder.count_folders < 1)? '' : $itemScope.folder.count_folders+' folder';
-				contents = ($itemScope.folder.count_folders > 1)? contents+'s ' : '';
-				contents = ($itemScope.folder.count_files < 1)? contents : contents+$itemScope.folder.count_files+' file';
-				contents = ($itemScope.folder.count_files > 1)? contents+'s ' : contents+'';
-				contents = (contents == '')? 'Empty' : contents;
+			var _folders = ($itemScope.folder.count_folders > 0)? $itemScope.folder.count_folders+' folder' : null;
+				_folders = ($itemScope.folder.count_folders > 1)? _folders+'s ' : _folders;
+			
+			var _files = ($itemScope.folder.count_files > 0)? $itemScope.folder.count_files+' file' : null;
+				_files = ($itemScope.folder.count_files > 1)? _files+'s ' : _files;
+			
+			var contents = (_folders !== null && _files !== null)? _folders+', '+_files : null;
+				contents = (contents === null && _folders !== null)? _folders : contents;
+				contents = (contents === null && _files !== null)? _files : contents;
+
+				contents = (contents === null)? 'Empty' : contents;
 
 			var _template = '<div>';
 					//_template += '<div class="icon-folder"></div>'

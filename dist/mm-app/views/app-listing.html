@@ -1,15 +1,15 @@
 
 
-<div class=" col-xs-offset-2 col-xs-10 main mm-maincontent custom-scrollbar" ng-class="{ 'col-xs-8': masterController.filter.show }">
+<div id="listing-wrap" lazy-img-container class=" col-xs-offset-2 col-xs-10 main mm-maincontent custom-scrollbar" ng-class="{ 'col-xs-8': masterController.filter.show }">
 					
-	<div class="media-listing">
+	<div class="media-listing media-layout-{{masterController.listing.layout}}">
 		
 		<div class="media-container" ng-show="mediaList.length && mediaLoaded">
 			
-			<div class="row center-xs" mm-selectable-list>
+			<div class="mi-wrap" selectable selectable-list="mediaItems"><!-- mm-selectable-list  -->
 				
 				<div 
-					class="col-xs-3 media-item" 
+					class="media-item" 
 					ng-repeat="item in mediaItems = (mediaList | filter:{'type': masterController.filter.type} | filter:{'name': masterController.filter.search.string}  | filter:{'folder': masterController.folders.selected} : masterController.folders.filterStrict | orderBy: natural(masterController.filter.orderBy): masterController.filter.sortReverse )" 
 					ng-class="{'item-selected': item.selected}"
 					mm-item-draggable="item.selected"
@@ -17,7 +17,10 @@
 					data-id="{{item.id}}"
 				>
 					<div class="image {{item.orientation}}">
-						<img ng-src="{{item.url}}" alt="">
+						<img
+							src="assets/css/imgs/loading.gif" 
+							lazy-img="{{item.url}}?id={{item.id}}"
+							alt="" >
 					</div>
 					
 					<div class="text-muted text-center sub-info">
@@ -41,9 +44,11 @@
 						<!-- <a class="mm-btn-more-tools"><i class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></i></a> -->
 					</div>
 					<div class="info">
-						<div class="filename row">
-							<div class="col-xs-2 col-sm-2 info-fn-cols text-center icon icon-{{item.type}}"><i class="fa" ng-class="{ 'fa-image':item.type == 'image', 'fa-film':item.type == 'video', 'fa-file-code-o':item.type == 'page', 'fa-music':item.type == 'audio'}"></i></div>
-							<div class="col-xs-9 col-sm-9 info-fn-cols text-left text">{{item.name}}</div>
+						<div class="filename">
+							<div class="icon icon-{{item.type}}">
+								<i class="fa" ng-class="{ 'fa-image':item.type == 'image', 'fa-film':item.type == 'video', 'fa-file-code-o':item.type == 'page', 'fa-music':item.type == 'audio'}"></i>
+							</div>
+							<div class="text">{{item.name}}</div>
 						</div>
 					</div>
 				</div>
@@ -63,8 +68,8 @@
 		</div>
 
 
-		<div class="empty-filters" ng-if="showLoading || !mediaLoaded">
-			<div class="bouncy-ball"></div>
+		<div class="empty-filters" style="padding: 50px 0;" ng-if="showLoading || !mediaLoaded" >
+			<div class="throbber"></div>
 		</div>
 
 	</div>

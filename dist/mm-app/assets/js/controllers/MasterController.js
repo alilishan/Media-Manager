@@ -28,6 +28,10 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 		_this.APP_CONST.restrictionMessage += ext + _del;
 	})
 
+	_this.listing = {
+		layout: 'grid'
+	}
+
 	_this.selected = {
 		text: '',
 		items: []
@@ -462,6 +466,11 @@ function MasterController($scope, $rootScope, APP_CONST, $timeout, $q, UploadFac
 			_this.fileupload.filesCompleted++;
 			_checkUploadProgress();
 		});
+	}
+
+
+	_this.clearSelected = function(){
+		$rootScope.$broadcast('CLEAR-SELECTION');
 	}
 
 }

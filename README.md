@@ -10,7 +10,7 @@ Project Independent Media Manager
 
 ### Used
 * Pixie - Image Editor - http://codecanyon.net/item/pixie-image-editor/10721475
-* Flexbox Grid - http://flexboxgrid.com/
+* ~~Flexbox Grid - http://flexboxgrid.com/~~
 * ngThumb - https://github.com/nervgh/angular-file-upload/blob/master/examples/image-preview/directives.js
 * Drag Hover jQuery Plugin - 
   * http://stackoverflow.com/questions/10253663/how-to-detect-the-dragleave-event-in-firefox-when-dragging-outside-the-window/10310815#10310815
@@ -28,6 +28,8 @@ Project Independent Media Manager
 * [ng-Base64](https://github.com/ninjatronic/angular-base64)
 * [ng-Context Menu](https://github.com/Templarian/ui.bootstrap.contextMenu)
 * [ng-tree](https://github.com/angular-ui-tree/angular-ui-tree)
+* [ng-lazyLoad](https://github.com/Pentiado/angular-lazy-img)
+
 
 ## Config 
 
@@ -176,6 +178,16 @@ MediaManager.Initialize(({
 *E2003 - Error Deleting Folders
 
 
+## Change Log
+
+### 2.3.0
+* Packed all JS libs and plugins to have just 3 files
+* Packed all CSS plugins to have just 1 file
+* Remove FlexGrid.css
+* Lazy Load Images
+* Layout Toggle - Grid to List
+
+
 ## Screenshots
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-1.jpg)
 ![alt tag](https://raw.githubusercontent.com/alilishan/Media-Manager/master/demo_files/screenshot-2.jpg)
@@ -216,3 +228,4 @@ $tree = buildTree($rows);
 
 print_r( $tree );
 ```
+

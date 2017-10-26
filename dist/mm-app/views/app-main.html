@@ -9,7 +9,7 @@
 <div ui-view="app-filter"></div>
 
 
-<div id="mm-addfiles-cover" mm-dropzone ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" class="row center-xs middle-xs" ng-class="{'is-open': masterController.addItems.enabled}">
+<div id="mm-addfiles-cover" mm-dropzone ng-multiple="masterController.fileupload.multiple" ng-on-change="masterController.fileupload.addFiles" class="row" ng-class="{'is-open': masterController.addItems.enabled}">
 	<div class="col-xs-10">
 		<div class="dropzone-inner">
 			<div class="icon"><div class="fa fa-cloud-upload"></div></div>
@@ -52,7 +52,7 @@
 						<small class="text-success" ng-show="masterController.fileupload.filesSuccessCount > 0"><ng-pluralize count="masterController.fileupload.filesSuccessCount" when="{'1': '1 file', 'other': '{} files'}"> </ng-pluralize> uploaded Successfuly</small>
 						<small class="text-danger" ng-show="masterController.fileupload.filesErrorCount > 0"><ng-pluralize count="masterController.fileupload.filesErrorCount" when="{'1': '1 file', 'other': '{} files'}"> </ng-pluralize> has errors</small>
 					</div>
-					<a href="" ng-click="masterController.doUpload()" class="btn btn-success" ng-class="{'disabled': !masterController.fileupload.files.length || masterController.fileupload.doneUploading}">
+					<a href="" ng-click="masterController.doUpload()" class="btn btn-success" ng-class="{'disabled': !masterController.fileupload.files.length || masterController.fileupload.doneUploading || masterController.fileupload.filesUploading}">
 						<span ng-hide="masterController.fileupload.filesUploading">Start Upload</span>
 						<span ng-show="masterController.fileupload.filesUploading" class="loading bullet"></span>
 					</a>
@@ -70,7 +70,7 @@
 						<div mm-thumb class="mm-thumb" ng-model="item"></div>
 					</div>
 					<div class="media-body text-left">
-						<a href="" ng-click="masterController.fileupload.removeItem(item)" class="close">&times;</a>
+						<a href="" ng-click="masterController.fileupload.removeItem(item)" class="close" ng-hide="masterController.fileupload.filesUploading">&times;</a>
 						<h4 class="media-heading pull-left">{{item.name | cut:true:30:' ...'}}</h4>
 						<div class="progress">
 							<div class="progress-bar" ng-class="{'progress-bar-success': item.success, 'progress-bar-danger': item.error, 'progress-bar-info': !item.success, 'progress-bar-striped active': masterController.transcoding }" ng-style="{'width': item.progress + '%'}"></div>
@@ -98,7 +98,7 @@
 
 
 
-<div id="mm-filedrop-cover" class="row center-xs middle-xs">
+<div id="mm-filedrop-cover" class="row">
 	<div class="col-xs-4">
 		<div class="icon"><div class="fa fa-cloud-upload"></div></div>
 		<p>Drop Your Files to Upload</p>

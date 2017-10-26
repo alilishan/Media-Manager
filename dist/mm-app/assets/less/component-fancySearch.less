@@ -1,0 +1,57 @@
+
+
+//Fancy Search
+
+.fancy-filter {
+	position: relative;
+	width: 286px;
+	border-left: 1px solid #e2e6ec;
+
+	.icon {
+		position: absolute;
+		cursor: pointer;
+		background-position: -158px -25px;
+		background-repeat: no-repeat;
+		overflow: hidden;
+		display: block;
+		width: 20px;
+		height: 20px;
+		background-image: url('@{imgs_path}base-sprite.png?v=@{version}');
+		margin: 10px 0 0;
+		z-index: 0;
+	}
+
+	.ff-input {
+		border: 0;
+		background: 0 0;
+		font-size: 14px;
+		-webkit-font-smoothing: antialiased;
+		border-bottom: 1px solid transparent;
+		border-radius: 0;
+		line-height: 40px;
+		padding: 0 30px 1px;
+		z-index: 1;
+		position: relative;
+		box-shadow: none;
+		cursor: pointer;
+		width: 150px;
+		transition: width .3s ease,border-color .3s ease;
+		height: 40px;
+		color: #333c4e;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		&:hover {
+		    border-color: #b4b8c1;
+		    width: 230px;
+		}
+
+		&:focus {
+		    outline: 0;
+		    box-shadow: none;
+		    cursor: text;
+		    width: 230px;
+		}
+	}
+}

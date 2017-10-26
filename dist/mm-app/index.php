@@ -7,28 +7,14 @@
 	<title>Media Manager</title>
 	
 	<link rel="stylesheet" href="assets/libs/bootstrap-3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/libs/flexboxgrid-6.3.0/flexboxgrid.min.css">
 	<link rel="stylesheet" href="assets/libs/font-awesome-4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="assets/libs/text-spinners-1.0.4/spinners.css">
-	<link rel="stylesheet" href="assets/libs/ng-growl/angular-growl.min.css">
-	<link rel="stylesheet" href="assets/libs/js-swal/sweetalert2.min.css">
-	<link rel="stylesheet" href="assets/libs/css-hint/hint.min.css">
-	<link rel="stylesheet" href="assets/libs/ng-ui-tree/angular-ui-tree.min.css">
+	<link rel="stylesheet" href="assets/css/app-main-plugins.min.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
 
-	<script src="assets/libs/jquery-1.12.0.min.js"></script>
-	<script src="assets/libs/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-	<script src="assets/libs/jquery-ui-1.11.4.custom.min.js"></script>
-	<script src="assets/libs/angular-1.5.0/angular.min.js"></script>
-	<script src="assets/libs/angular-1.5.0/angular-ui-router.min.js"></script>
-	<script src="assets/libs/angular-1.5.0/angular-animate.min.js"></script>
-	<script src="assets/libs/underscore-min.js"></script>
-	<script src="assets/libs/ng-ui-tree/angular-ui-tree.min.js"></script>
-	<script src="assets/libs/naturalSort.js"></script>
-	<script src="assets/libs/ng-growl/angular-growl.min.js"></script>
-	<script src="assets/libs/angular-1.5.0/angular-base64.min.js"></script>
-	<script src="assets/libs/ng-contenxtmenu/contextMenu.js"></script>
-	<script src="assets/libs/js-swal/sweetalert2.min.js"></script>
+	<script src="assets/js/app-main-jquery.min.js"></script>
+	<script src="assets/js/app-main-angular.min.js"></script>
+	<script src="assets/js/app-main-plugins.min.js"></script>
+	<script src="assets/libs/angular-lazy-img.min.js"></script>
 
 	<script src="assets/js/app-main.min.js"></script>
 	<script src="assets/js/app-factories.min.js"></script>
@@ -50,15 +36,42 @@
 				</ul>
 			</div>
 			<div class="container-fluid">
-				<ul class="nav navbar-nav navbar-right nav-pushed-left">
-					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
-				</ul>
+				<div class="row">
+					<div class="col-xs-8 col-xs-offset-2">
+
+						<div class="bulk-action pull-left" ng-class="{'isVisible': masterController.selected.items.length }"><!-- ng-show="masterController.selected.items.length" -->
+							<div class="select-count btn btn-defailt" >{{masterController.selected.items.length}}</div><!-- masterController.selected.text -->
+							<a href="" class="btn btn-link" ng-click="masterController.deleteSelection($event, masterController.OPEN_ID, masterController.selected.items)"><span class="text-danger"><i class="fa fa-trash-o "></i>Delete</span></a>
+							<a href="" class="btn btn-link" ng-click="masterController.clearSelected($event)">Clear Selection</a>
+						</div>
+
+						<div class="fancy-filter pull-left">
+							<i class="icon"></i>
+							<input id="jetsSearch" type="text" class="ff-input" placeholder="Search" ng-model="masterController.filter.search.string">
+						</div>
+
+						<div class="pull-right">
+							<div class="layout-toggle btn-group">
+								<a href="" ng-class="{'isON': masterController.listing.layout == 'grid'}" ng-click="masterController.listing.layout = 'grid'" class="btn btn-link"><i class="fa fa-th-large"></i></a>
+								<a href="" ng-class="{'isON': masterController.listing.layout == 'grid-sm'}" ng-click="masterController.listing.layout = 'grid-sm'" class="btn btn-link"><i class="fa fa-th"></i></a>
+								<a href="" ng-class="{'isON': masterController.listing.layout == 'list'}" ng-click="masterController.listing.layout = 'list'" class="btn btn-link"><i class="fa fa-bars"></i></a>
+								<a href="" ng-class="{'isON': masterController.filter.show}" ng-click="masterController.filter.show = !masterController.filter.show" class="btn btn-link"><i class="fa fa-sliders"></i></a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<?php /* ?>
 				<form class="navbar-form navbar-right">
 					<div class="fancy-filter" ng-class="{'is-wide':masterController.filter.search.string}">
 						<input type="text" class="form-control" ng-model="masterController.filter.search.string" placeholder="SEARCH">
 						<i class="ff-icon fa fa-search"></i>
 					</div>
 				</form>
+				<ul class="nav navbar-nav navbar-right nav-pushed-left">
+					<li><a href="" ng-click="masterController.filter.show = !masterController.filter.show"><i class="fa fa-sliders"></i> FILTERS</a></li>
+				<?php */ ?>
+				</ul>
 			</div>
 		</div>
 
@@ -77,10 +90,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-2 text-left"><a href="" ng-click="masterController.closeMessage(masterController.OPEN_ID)" class="btn btn-link">Close</a></div>
-					<div class="col-xs-8 text-center">
-						<div class="select-count btn" ng-show="masterController.selected.items.length"><span class="label label-success">{{masterController.selected.items.length}}</span>{{masterController.selected.text}}</div>
-						<a href="" class="btn btn-link"  ng-show="masterController.selected.items.length" ng-click="masterController.deleteSelection($event, masterController.OPEN_ID, masterController.selected.items)"><span class="text-danger"><i class="fa fa-trash-o "></i> Delete</span></a>
-					</div>
+					<div class="col-xs-8 text-center"></div>
 					<div class="col-xs-2">
 						<a href="" ng-show="masterController.selected.items.length && masterController.OPEN_MODE != 'MANAGE'" ng-click="masterController.makeSelection(masterController.OPEN_ID, masterController.selected.items)" class="btn btn-success">Select</a>
 					</div>

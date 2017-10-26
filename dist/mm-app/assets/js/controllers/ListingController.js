@@ -81,9 +81,32 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 				item.selected = true;
 				$scope.masterController.selected.items.push(item);
 				$scope.masterController.selected.text = ($scope.masterController.selected.items.length > 1)? 'Items Selected' : 'Item Selected'; 
+
+				if(e != null && e.shiftKey && $scope.masterController.selected.items.length > 1){
+					
+					var _prev = $scope.masterController.selected.items[$scope.masterController.selected.items.length - 2];
+					$scope.doShiftSelect(_prev, item);
+				}
 			} 
 		}	
-		return false;
+		//return false;
+	}
+
+
+	$scope.doShiftSelect = function(startItem, endItem){
+		var _start = '.media-item[data-id="'+startItem.id+'"]',
+			_end = '.media-item[data-id="'+endItem.id+'"]';
+
+		var items = ($(_end).isBefore(_start))? $(_end).nextUntil(_start) : $(_start).nextUntil(_end);
+
+		if(items.length){
+			$.each(items, function(idx, element){ 
+				//console.log($(element).data().id);
+				var _item = _.find($scope.mediaList, function(item){ return item.id == $(element).data().id; });
+
+				$scope.selectItem(null, _item)
+			});
+		}
 	}
 
 
@@ -112,6 +135,7 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 	$scope.$on('FILEUPLOAD-COMPLETED', function(){
 		growl.success('Changes Saved. Reloading Media List.');
 		$scope.getData($scope.params.selectFolder);
+		$scope.getFolders();
 	});
 
 	$scope.$on('MM-ITEMS-DELETED', function(e, data){
@@ -120,6 +144,7 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 		DataFactory.postMediaDelete(data).then(function(){
 			growl.success('Changes Saved. Reloading Media List.');
 			$scope.getData($scope.params.selectFolder);
+			$scope.getFolders();
 		});
 	});
 
@@ -152,7 +177,7 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 			if(resp.status == 'true'){
 				if(data.type == 'ADD'){
 					$scope.masterController.mmFolderInsertItem($scope.masterController.folders.list.items, data.id, data.parent, data.name, function(newItem){
-						//
+						$scope.getFolders();
 					});
 				}
 
@@ -191,6 +216,11 @@ function ListingController($scope, $rootScope, APP_CONST, $stateParams, $timeout
 			console.log('Nothing to Drop');
 		}
 
+	});
+
+
+	$scope.$on('CLEAR-SELECTION', function(){
+		$scope.clearSelected();
 	});
 
 
